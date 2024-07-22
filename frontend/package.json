@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "swiper": "^11.1.5",
+    "universal-router": "^9.2.0"
+  },
+  "devDependencies": {
+    "@types/swiper": "^6.0.0"
+  }
+}
