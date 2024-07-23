@@ -17,7 +17,10 @@
       href="https://unpkg.com/tailwindcss@^2.0/dist/tailwind.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"
+    />
   </head>
   <body class="h-screen">
     <nav class="nav-section h-[10vh] bg-white shadow-md py-4 md:px-10">
@@ -89,278 +92,454 @@
     </nav>
 
     <div class="main-content">
-  <div class="page-content">
-    <!-- start home -->
-    <section class="relative w-full md:pl-14 bg-slate-700">
-      <div class="container mx-auto">
-        <div class="grid items-center grid-cols-12 gap-10">
-          <div class="col-span-12 lg:col-span-7">
-            <div class="mb-3 ltr:mr-14 rtl:ml-14">
-              <h6 class="mb-3 text-sm text-gray-900 uppercase dark:text-gray-50">
-                We have many live services
-              </h6>
-              <h1 class="mb-3 text-5xl font-semibold leading-tight text-gray-900 dark:text-gray-50">
-                Find your dream services <br />
-                with <span class="text-slate-300">Swift-Sewa</span>
-              </h1>
-              <p class="text-lg font-light text-gray-500 whitespace-pre-line dark:text-gray-300">
-                Book Home Service Providers at your fingertips
-              </p>
-            </div>
-            <form action="#">
-              <div class="registration-form">
-                <div class="grid grid-cols-12">
-                  <div class="col-span-12 xl:col-span-4">
-                    <div class="mt-3 rounded-l filter-search-form filter-border mt-md-0">
-                      <i class="uil uil-briefcase-alt"></i>
-                      <input
-                        type="search"
-                        id="job-title"
-                        class="md:w-full filter-input-box placeholder:text-gray-100 placeholder:text-13 dark:text-gray-100"
-                        placeholder="Job, Company name..."
-                      />
+      <div class="page-content">
+        <div class="hero mb-14 flex flex-col lg:flex-row w-full h-96 bg-red-600 items-center">
+          <div class="flex flex-col w-full lg:w-1/2 p-5 justify-start h-full">
+           <div class="container mb-3 mx-auto">
+                  <h6
+                    class="hidden md:block mb-3 text-sm text-gray-900 uppercase dark:text-gray-50"
+                  >
+                    We have many live services
+                  </h6>
+
+                  <h1
+                    class="mb-3  text-2xl md:text-5xl font-semibold leading-tight text-gray-900 dark:text-gray-50"
+                  >
+                    Find your dream services <br />
+                    with <span class="text-orange-500 font-bold ">Swift </span> <span class="-ml-3 text-blue-500 font-bold">Sewa</span>
+                  </h1>
+                  <p
+                    class="text-lg font-light text-gray-500 whitespace-pre-line dark:text-gray-300"
+                  >
+                    Book Home Service Providers at your fingertips
+                  </p>
+
+                  <form action="#">
+                  <div class="registration-form">
+                    <div class="flex ">
+                      <div class="col-span-12 xl:col-span-4">
+                        <div
+                          class="mt-3 rounded-l filter-search-form filter-border mt-md-0"
+                        >
+                          <i class="uil uil-briefcase-alt"></i>
+                          <input
+                            type="search"
+                            id="job-title"
+                            class="md:w-full filter-input-box placeholder:text-gray-100 placeholder:text-13 dark:text-gray-100"
+                            placeholder="Job, Company name..."
+                          />
+                        </div>
+                      </div>
+                      <!--end col-->
+                      <div class="col-span-12 xl:col-span-4">
+                        <div class="mt-3 filter-search-form mt-md-0">
+                          <i class="uil uil-map-marker"></i>
+                          <select
+                            class="form-select"
+                            data-trigger
+                            name="choices-single-location"
+                            id="choices-single-location"
+                            aria-label="Default select example"
+                          >
+                            <option value="AF">Kathmandu</option>
+                            <option value="AX">Lalitpur</option>
+                            <option value="AL">Bhaktapur</option>
+                          </select>
+                        </div>
+                      </div>
                     </div>
+                    <!--end row-->
                   </div>
-                  <!--end col-->
-                  <div class="col-span-12 xl:col-span-4">
-                    <div class="mt-3 filter-search-form mt-md-0">
-                      <i class="uil uil-map-marker"></i>
-                      <select
-                        class="form-select"
-                        data-trigger
-                        name="choices-single-location"
-                        id="choices-single-location"
-                        aria-label="Default select example"
+                </form>
+
+                  
+                </div>
+          </div>
+          <img class="h-80 w-full lg:w-1/2" alt="hero" src="https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg">
+        </div>
+      
+        <!-- categories-section -->
+        <section class="py-20 dark:bg-neutral-800">
+          <div class="category-container mx-auto  bg-gray-200">
+            <div class="grid grid-cols-1 gap-2">
+              <div class="text-center">
+                <h3 class="mb-3 text-3xl text-gray-900 dark:text-gray-50">
+                  Categories
+                </h3>
+              </div>
+            </div>
+            <div class="grid grid-cols-12 gap-5">
+              <div class="col-span-12 md:col-span-6 lg:col-span-3">
+                <div class="mt-4">
+                  <div
+                    class="px-6 py-5 transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2"
+                  >
+                    <div
+                      class="job-categorie h-16 w-16 group-data-[theme-color=violet]:bg-violet-500/20 group-data-[theme-color=sky]:bg-sky-500/20 group-data-[theme-color=red]:bg-red-500/20 group-data-[theme-color=green]:bg-green-500/20 group-data-[theme-color=pink]:bg-pink-500/20 group-data-[theme-color=blue]:bg-blue-500/20 rounded-lg text-center leading-[4.4] mx-auto dark:bg-violet-900"
+                    >
+                      <i class="uim uim-layers-alt"></i>
+                    </div>
+                    <div class="mt-4 text-center">
+                      <figure class="h-[40%] w-[40%] mx-auto">
+                        <img
+                          src="/images/category/homeservice.webp"
+                          class="mb-8 rounded-full"
+                        />
+                      </figure>
+                      <h5 class="text-lg dark:text-gray-50">HomeRepairs</h5>
+                      <p
+                        class="mt-1 font-medium text-gray-500 dark:text-gray-300"
                       >
-                        <option value="AF">Kathmandu</option>
-                        <option value="AX">Lalitpur</option>
-                        <option value="AL">Bhaktapur</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <!--end row-->
-              </div>
-            </form>
-          </div>
-          <div class="col-span-12 lg:col-span-5">
-            <div class="relative mt-5 mt-lg-0 ms-xl-5">
-              <div>
-                <div class="absolute z-20 text-white text-8xl -top-12 -left-12">
-                  <i class="mdi mdi-format-quote-open"></i>
-                </div>
-                <div
-                  class="text-8xl absolute -top-[3.2rem] -left-[3.2rem] z-30 group-data-[theme-color=violet]:text-violet-500 group-data-[theme-color=sky]:text-sky-500 group-data-[theme-color=red]:text-red-500 group-data-[theme-color=green]:text-green-500 group-data-[theme-color=pink]:text-pink-500 group-data-[theme-color=blue]:text-blue-500"
-                >
-                  <i class="mdi mdi-format-quote-open"></i>
-                </div>
-              </div>
-
-              <!-- swiper -->
-              <div class="swiper homeslider">
-                <div class="swiper-wrapper">
-                  <div class="swiper-slide">
-                    <div class="text-center home-slide-box">
-                      <img src="/images/swift1.webp" alt="" class="max-w-full rounded-3" />
-                    </div>
-                  </div>
-                  <!--swiper-slide-->
-                  <div class="swiper-slide">
-                    <div class="text-center home-slide-box">
-                      <img src="/images/swift1.webp" alt="" class="max-w-full rounded-3" />
-                      <div class="bg-overlay"></div>
-                    </div>
-                  </div>
-                  <!--swiper-slide-->
-                  <div class="swiper-slide">
-                    <div class="text-center home-slide-box">
-                      <img src="/images/swift1.webp" alt="" class="max-w-full rounded-3" />
+                        2024 Jobs
+                      </p>
                     </div>
                   </div>
                 </div>
               </div>
-              <!--end swiper-->
+              <div class="col-span-12 md:col-span-6 lg:col-span-3">
+                <div class="mt-4">
+                  <div
+                    class="px-6 py-5 transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2"
+                  >
+                    <div
+                      class="job-categorie h-16 w-16 group-data-[theme-color=violet]:bg-violet-500/20 group-data-[theme-color=sky]:bg-sky-500/20 group-data-[theme-color=red]:bg-red-500/20 group-data-[theme-color=green]:bg-green-500/20 group-data-[theme-color=pink]:bg-pink-500/20 group-data-[theme-color=blue]:bg-blue-500/20 rounded-lg text-center leading-[4.4] mx-auto dark:bg-violet-900"
+                    >
+                      <i class="uim uim-airplay"></i>
+                    </div>
+                    <div class="mt-4 text-center">
+                      <figure class="h-[40%] w-[40%] mx-auto">
+                        <img
+                          src="public/images/category/health.webp"
+                          class="mb-8 rounded-full"
+                        />
+                      </figure>
+                      <h5 class="text-lg dark:text-gray-50">Health</h5>
+                      <p
+                        class="mt-1 font-medium text-gray-500 dark:text-gray-300"
+                      >
+                        1250 Jobs
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-span-12 md:col-span-6 lg:col-span-3">
+                <div class="mt-4">
+                  <div
+                    class="px-6 py-5 transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2"
+                  >
+                    <div
+                      class="job-categorie h-16 w-16 group-data-[theme-color=violet]:bg-violet-500/20 group-data-[theme-color=sky]:bg-sky-500/20 group-data-[theme-color=red]:bg-red-500/20 group-data-[theme-color=green]:bg-green-500/20 group-data-[theme-color=pink]:bg-pink-500/20 group-data-[theme-color=blue]:bg-blue-500/20 rounded-lg text-center leading-[4.4] mx-auto dark:bg-violet-900"
+                    >
+                      <i class="uim uim-bag"></i>
+                    </div>
+                    <div class="mt-4 text-center">
+                      <figure class="h-[40%] w-[40%] mx-auto">
+                        <img
+                          src="/images/category/beauty.webp"
+                          class="mb-8 rounded-full"
+                        />
+                      </figure>
+                      <h5 class="text-lg dark:text-gray-50">Beauty</h5>
+                      <p
+                        class="mt-1 font-medium text-gray-500 dark:text-gray-300"
+                      >
+                        802 Jobs
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-span-12 md:col-span-6 lg:col-span-3">
+                <div class="mt-4">
+                  <div
+                    class="px-6 py-5 transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2"
+                  >
+                    <div
+                      class="job-categorie h-16 w-16 group-data-[theme-color=violet]:bg-violet-500/20 group-data-[theme-color=sky]:bg-sky-500/20 group-data-[theme-color=red]:bg-red-500/20 group-data-[theme-color=green]:bg-green-500/20 group-data-[theme-color=pink]:bg-pink-500/20 group-data-[theme-color=blue]:bg-blue-500/20 rounded-lg text-center leading-[4.2] mx-auto dark:bg-violet-900"
+                    >
+                      <i class="uim uim-user-md"></i>
+                    </div>
+                    <div class="mt-4 text-center">
+                      <figure class="h-[40%] w-[40%] mx-auto">
+                        <img
+                          src="/images/category/automobile.webp"
+                          class="mb-8 rounded-full"
+                        />
+                      </figure>
+                      <h5 class="text-lg dark:text-gray-50">Automobile</h5>
+                      <p
+                        class="mt-1 font-medium text-gray-500 dark:text-gray-300"
+                      >
+                        577 Jobs
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-span-12 md:col-span-6 lg:col-span-3">
+                <div class="mt-4">
+                  <div
+                    class="px-6 py-5 transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2"
+                  >
+                    <div
+                      class="job-categorie h-16 w-16 group-data-[theme-color=violet]:bg-violet-500/20 group-data-[theme-color=sky]:bg-sky-500/20 group-data-[theme-color=red]:bg-red-500/20 group-data-[theme-color=green]:bg-green-500/20 group-data-[theme-color=pink]:bg-pink-500/20 group-data-[theme-color=blue]:bg-blue-500/20 rounded-lg text-center leading-[4.4] mx-auto dark:bg-violet-900"
+                    >
+                      <i class="uim uim-hospital"></i>
+                    </div>
+                    <div class="mt-4 text-center">
+                      <img src="/vite.svg" class="mx-auto mb-8" />
+                      <h5 class="text-lg dark:text-gray-50">
+                        Construction / Facilities
+                      </h5>
+                      <p
+                        class="mt-1 font-medium text-gray-500 dark:text-gray-300"
+                      >
+                        285 Jobs
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-span-12 md:col-span-6 lg:col-span-3">
+                <div class="mt-4">
+                  <div
+                    class="px-6 py-5 transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2"
+                  >
+                    <div
+                      class="job-categorie h-16 w-16 group-data-[theme-color=violet]:bg-violet-500/20 group-data-[theme-color=sky]:bg-sky-500/20 group-data-[theme-color=red]:bg-red-500/20 group-data-[theme-color=green]:bg-green-500/20 group-data-[theme-color=pink]:bg-pink-500/20 group-data-[theme-color=blue]:bg-blue-500/20 rounded-lg text-center leading-[4.4] mx-auto dark:bg-violet-900"
+                    >
+                      <i class="uim uim-telegram-alt"></i>
+                    </div>
+                    <div class="mt-4 text-center">
+                      <img src="/vite.svg" class="mx-auto mb-8" />
+                      <h5 class="text-lg dark:text-gray-50">
+                        Tele-communications
+                      </h5>
+                      <p
+                        class="mt-1 font-medium text-gray-500 dark:text-gray-300"
+                      >
+                        495 Jobs
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-span-12 md:col-span-6 lg:col-span-3">
+                <div class="mt-4">
+                  <div
+                    class="px-6 py-5 transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2"
+                  >
+                    <div
+                      class="job-categorie h-16 w-16 group-data-[theme-color=violet]:bg-violet-500/20 group-data-[theme-color=sky]:bg-sky-500/20 group-data-[theme-color=red]:bg-red-500/20 group-data-[theme-color=green]:bg-green-500/20 group-data-[theme-color=pink]:bg-pink-500/20 group-data-[theme-color=blue]:bg-blue-500/20 rounded-lg text-center leading-[4.4] mx-auto dark:bg-violet-900"
+                    >
+                      <i class="uim uim-scenery"></i>
+                    </div>
+                    <div class="mt-4 text-center">
+                      <img src="/vite.svg" class="mx-auto mb-8" />
+                      <h5 class="text-lg dark:text-gray-50">
+                        Design & Multimedia
+                      </h5>
+                      <p
+                        class="mt-1 font-medium text-gray-500 dark:text-gray-300"
+                      >
+                        1045 Jobs
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-span-12 md:col-span-6 lg:col-span-3">
+                <div class="mt-4">
+                  <div
+                    class="px-6 py-5 transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2"
+                  >
+                    <div
+                      class="job-categorie h-16 w-16 group-data-[theme-color=violet]:bg-violet-500/20 group-data-[theme-color=sky]:bg-sky-500/20 group-data-[theme-color=red]:bg-red-500/20 group-data-[theme-color=green]:bg-green-500/20 group-data-[theme-color=pink]:bg-pink-500/20 group-data-[theme-color=blue]:bg-blue-500/20 rounded-lg text-center leading-[4.2] mx-auto dark:bg-violet-900"
+                    >
+                      <i class="uim uim-android-alt"></i>
+                    </div>
+                    <div class="mt-4 text-center">
+                      <img src="/vite.svg" class="mx-auto mb-8" />
+                      <h5 class="text-lg dark:text-gray-50">Human Resource</h5>
+                      <p
+                        class="mt-1 font-medium text-gray-500 dark:text-gray-300"
+                      >
+                        1516 Jobs
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
+        </section>
+
+        <div class="flex flex-row h-96">
+
+          <div class="w-1/2 h-1/2">1
         </div>
-      </div>
-    </section>
 
-    <!-- categories-section -->
-    <section class="py-20 dark:bg-neutral-800">
-      <div class="container mx-auto">
-        <div class="grid grid-cols-1 gap-5">
-          <div class="text-center">
-            <h3 class="mb-3 text-3xl text-gray-900 dark:text-gray-50">Categories</h3>
+        <!-- services-section -->
+        <section class="py-20 dark:bg-neutral-800">
+          <div class="serivce-container mx-auto bg-gray-200">
+            <div class="grid grid-cols-1 gap-5">
+              <div class="text-center">
+                <h3 class="mb-3 text-3xl text-gray-900 dark:text-gray-50">
+                  Services
+                </h3>
+              </div>
+            </div>
+            <div class="grid grid-cols-12 gap-3">
+              <div class="col-span-12 md:col-span-6 lg:col-span-3">
+                <section class="card mt-4">
+                  <div
+                    class="px-6 py-5 transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2"
+                  > 
+                  <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                          <a href="#">
+                              <img class="rounded-t-lg" src="/images/category/health.webp" alt="" />
+                          </a>
+                          <div class="p-5">
+                              <a href="#">
+                                  <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology acquisitions 2021</h5>
+                              </a>
+                              <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+                              <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                  Read more
+                                  <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                                  </svg>
+                              </a>
+                          </div>
+                  </div>
+
+                  </div>
+                </section>
+              </div>
+              <div class="col-span-12 md:col-span-6 lg:col-span-3">
+                 <section class="card mt-4">
+                  <div
+                    class="px-6 py-5 transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2"
+                  > 
+                  <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                          <a href="#">
+                              <img class="rounded-t-lg" src="/images/category/health.webp" alt="" />
+                          </a>
+                          <div class="p-5">
+                              <a href="#">
+                                  <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology acquisitions 2021</h5>
+                              </a>
+                              <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+                              <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                  Read more
+                                  <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                                  </svg>
+                              </a>
+                          </div>
+                  </div>
+
+                  </div>
+                </section>
+              </div>
+
+              <div class="col-span-12 md:col-span-6 lg:col-span-3">
+                <section class="card mt-4">
+                  <div
+                    class="px-6 py-5 transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2"
+                  > 
+                  <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                          <a href="#">
+                              <img class="rounded-t-lg" src="/images/category/health.webp" alt="" />
+                          </a>
+                          <div class="p-5">
+                              <a href="#">
+                                  <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology acquisitions 2021</h5>
+                              </a>
+                              <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+                              <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                  Read more
+                                  <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                                  </svg>
+                              </a>
+                          </div>
+                  </div>
+
+                  </div>
+                </section>
+              </div>
+
+              <div class="col-span-12 md:col-span-6 lg:col-span-3">
+               <section class="card mt-4">
+                  <div
+                    class="px-6 py-5 transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2"
+                  > 
+                  <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                          <a href="#">
+                              <img class="rounded-t-lg" src="/images/category/health.webp" alt="" />
+                          </a>
+                          <div class="p-5">
+                              <a href="#">
+                                  <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology acquisitions 2021</h5>
+                              </a>
+                              <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+                              <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                  Read more
+                                  <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                                  </svg>
+                              </a>
+                          </div>
+                  </div>
+
+                  </div>
+                </section>
+              </div>
+
+            </div>
           </div>
+        </section>
+        <!-- footer -->
+        <section>
+            <footer class="bg-slate-700 text-white py-4">
+            <div class="container mx-auto flex justify-between items-center">
+            <div class="flex flex-col items-start">
+                <img src="path_to_your_logo" alt="SwiftSewa  Logo" class="h-8 mb-2">
+                <p class="text-sm">&copy; 2024 All Rights Reserved</p>
+                <p class="text-sm">Contact us: 993213131</p>
+            </div>
+            <div class="flex space-x-4">
+                <a href="#" class="text-sm hover:underline">Become an Expert</a>
+                <a href="#" class="text-sm hover:underline">Blogs</a>
+                <a href="#" class="text-sm hover:underline">AMCs</a>
+                <a href="#" class="text-sm hover:underline">Terms & Conditions</a>
+                <a href="#" class="text-sm hover:underline">Privacy Policy</a>
+            </div>
         </div>
-        <div class="grid grid-cols-12 gap-5">
-          <div class="col-span-12 md:col-span-6 lg:col-span-3">
-            <div class="mt-4">
-              <div class="px-6 py-5 transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2">
-                <div
-                  class="job-categorie h-16 w-16 group-data-[theme-color=violet]:bg-violet-500/20 group-data-[theme-color=sky]:bg-sky-500/20 group-data-[theme-color=red]:bg-red-500/20 group-data-[theme-color=green]:bg-green-500/20 group-data-[theme-color=pink]:bg-pink-500/20 group-data-[theme-color=blue]:bg-blue-500/20 rounded-lg text-center leading-[4.4] mx-auto dark:bg-violet-900"
-                >
-                  <i class="uim uim-layers-alt"></i>
-                </div>
-                <div class="mt-4 text-center">
-                  <figure class="h-[40%] w-[40%] mx-auto">
-                    <img src="/images/category/homeservice.webp" class="mb-8 rounded-full" />
-                  </figure>
-                  <h5 class="text-lg dark:text-gray-50">HomeRepairs</h5>
-                  <p class="mt-1 font-medium text-gray-500 dark:text-gray-300">2024 Jobs</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-span-12 md:col-span-6 lg:col-span-3">
-            <div class="mt-4">
-              <div class="px-6 py-5 transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2">
-                <div
-                  class="job-categorie h-16 w-16 group-data-[theme-color=violet]:bg-violet-500/20 group-data-[theme-color=sky]:bg-sky-500/20 group-data-[theme-color=red]:bg-red-500/20 group-data-[theme-color=green]:bg-green-500/20 group-data-[theme-color=pink]:bg-pink-500/20 group-data-[theme-color=blue]:bg-blue-500/20 rounded-lg text-center leading-[4.4] mx-auto dark:bg-violet-900"
-                >
-                  <i class="uim uim-airplay"></i>
-                </div>
-                <div class="mt-4 text-center">
-                  <figure class="h-[40%] w-[40%] mx-auto">
-                    <img src="public/images/category/health.webp" class="mb-8 rounded-full" />
-                  </figure>
-                  <h5 class="text-lg dark:text-gray-50">Health</h5>
-                  <p class="mt-1 font-medium text-gray-500 dark:text-gray-300">1250 Jobs</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-span-12 md:col-span-6 lg:col-span-3">
-            <div class="mt-4">
-              <div class="px-6 py-5 transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2">
-                <div
-                  class="job-categorie h-16 w-16 group-data-[theme-color=violet]:bg-violet-500/20 group-data-[theme-color=sky]:bg-sky-500/20 group-data-[theme-color=red]:bg-red-500/20 group-data-[theme-color=green]:bg-green-500/20 group-data-[theme-color=pink]:bg-pink-500/20 group-data-[theme-color=blue]:bg-blue-500/20 rounded-lg text-center leading-[4.4] mx-auto dark:bg-violet-900"
-                >
-                  <i class="uim uim-bag"></i>
-                </div>
-                <div class="mt-4 text-center">
-                  <figure class="h-[40%] w-[40%] mx-auto">
-                    <img src="/images/category/beauty.webp" class="mb-8 rounded-full" />
-                  </figure>
-                  <h5 class="text-lg dark:text-gray-50">Beauty</h5>
-                  <p class="mt-1 font-medium text-gray-500 dark:text-gray-300">802 Jobs</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-span-12 md:col-span-6 lg:col-span-3">
-            <div class="mt-4">
-              <div class="px-6 py-5 transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2">
-                <div
-                  class="job-categorie h-16 w-16 group-data-[theme-color=violet]:bg-violet-500/20 group-data-[theme-color=sky]:bg-sky-500/20 group-data-[theme-color=red]:bg-red-500/20 group-data-[theme-color=green]:bg-green-500/20 group-data-[theme-color=pink]:bg-pink-500/20 group-data-[theme-color=blue]:bg-blue-500/20 rounded-lg text-center leading-[4.2] mx-auto dark:bg-violet-900"
-                >
-                  <i class="uim uim-user-md"></i>
-                </div>
-                <div class="mt-4 text-center">
-                  <figure class="h-[40%] w-[40%] mx-auto">
-                    <img src="/images/category/automobile.webp" class="mb-8 rounded-full" />
-                  </figure>
-                  <h5 class="text-lg dark:text-gray-50">Automobile</h5>
-                  <p class="mt-1 font-medium text-gray-500 dark:text-gray-300">577 Jobs</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-span-12 md:col-span-6 lg:col-span-3">
-            <div class="mt-4">
-              <div class="px-6 py-5 transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2">
-                <div
-                  class="job-categorie h-16 w-16 group-data-[theme-color=violet]:bg-violet-500/20 group-data-[theme-color=sky]:bg-sky-500/20 group-data-[theme-color=red]:bg-red-500/20 group-data-[theme-color=green]:bg-green-500/20 group-data-[theme-color=pink]:bg-pink-500/20 group-data-[theme-color=blue]:bg-blue-500/20 rounded-lg text-center leading-[4.4] mx-auto dark:bg-violet-900"
-                >
-                  <i class="uim uim-hospital"></i>
-                </div>
-                <div class="mt-4 text-center">
-                  <img src="/vite.svg" class="mx-auto mb-8" />
-                  <h5 class="text-lg dark:text-gray-50">Construction / Facilities</h5>
-                  <p class="mt-1 font-medium text-gray-500 dark:text-gray-300">285 Jobs</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-span-12 md:col-span-6 lg:col-span-3">
-            <div class="mt-4">
-              <div class="px-6 py-5 transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2">
-                <div
-                  class="job-categorie h-16 w-16 group-data-[theme-color=violet]:bg-violet-500/20 group-data-[theme-color=sky]:bg-sky-500/20 group-data-[theme-color=red]:bg-red-500/20 group-data-[theme-color=green]:bg-green-500/20 group-data-[theme-color=pink]:bg-pink-500/20 group-data-[theme-color=blue]:bg-blue-500/20 rounded-lg text-center leading-[4.4] mx-auto dark:bg-violet-900"
-                >
-                  <i class="uim uim-telegram-alt"></i>
-                </div>
-                <div class="mt-4 text-center">
-                  <img src="/vite.svg" class="mx-auto mb-8" />
-                  <h5 class="text-lg dark:text-gray-50">Tele-communications</h5>
-                  <p class="mt-1 font-medium text-gray-500 dark:text-gray-300">495 Jobs</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-span-12 md:col-span-6 lg:col-span-3">
-            <div class="mt-4">
-              <div class="px-6 py-5 transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2">
-                <div
-                  class="job-categorie h-16 w-16 group-data-[theme-color=violet]:bg-violet-500/20 group-data-[theme-color=sky]:bg-sky-500/20 group-data-[theme-color=red]:bg-red-500/20 group-data-[theme-color=green]:bg-green-500/20 group-data-[theme-color=pink]:bg-pink-500/20 group-data-[theme-color=blue]:bg-blue-500/20 rounded-lg text-center leading-[4.4] mx-auto dark:bg-violet-900"
-                >
-                  <i class="uim uim-scenery"></i>
-                </div>
-                <div class="mt-4 text-center">
-                  <img src="/vite.svg" class="mx-auto mb-8" />
-                  <h5 class="text-lg dark:text-gray-50">Design & Multimedia</h5>
-                  <p class="mt-1 font-medium text-gray-500 dark:text-gray-300">1045 Jobs</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-span-12 md:col-span-6 lg:col-span-3">
-            <div class="mt-4">
-              <div class="px-6 py-5 transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2">
-                <div
-                  class="job-categorie h-16 w-16 group-data-[theme-color=violet]:bg-violet-500/20 group-data-[theme-color=sky]:bg-sky-500/20 group-data-[theme-color=red]:bg-red-500/20 group-data-[theme-color=green]:bg-green-500/20 group-data-[theme-color=pink]:bg-pink-500/20 group-data-[theme-color=blue]:bg-blue-500/20 rounded-lg text-center leading-[4.2] mx-auto dark:bg-violet-900"
-                >
-                  <i class="uim uim-android-alt"></i>
-                </div>
-                <div class="mt-4 text-center">
-                  <img src="/vite.svg" class="mx-auto mb-8" />
-                  <h5 class="text-lg dark:text-gray-50">Human Resource</h5>
-                  <p class="mt-1 font-medium text-gray-500 dark:text-gray-300">1516 Jobs</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </div>
-</div>
-
-
-   
+    </footer>
+        </section>
     </div>
-
-  
-      <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-      <script type="module" src="src/assets/scripts/main.ts"></script>
-      <script>
-        document.addEventListener('DOMContentLoaded', function () {
-        let  swiper = new Swiper('.homeslider', {
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script type="module" src="src/assets/scripts/main.ts"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        let swiper = new Swiper(".homeslider", {
           loop: true,
           autoplay: {
-          delay: 3000,
-        },
-        pagination: {
-          el: '.swiper-pagination',
-          clickable: true,
-        },
-        navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
-        },
+            delay: 3000,
+          },
+          pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+          },
+          navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+          },
+        });
       });
-    });
-  </script>
-    </body>
+    </script>
+  </body>
 </html>
