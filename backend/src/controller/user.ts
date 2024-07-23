@@ -13,21 +13,23 @@ export const createUser = async (
   next: NextFunction
 ) => {
   let { email, password, role, name, address, phoneNumber } = req.body;
+  console.log("backend route is hit");
+  console.log("body", req.body);
 
-  const data = await userService.createUser(
-    email,
-    password,
-    role,
-    name,
-    address,
-    phoneNumber
-  );
-
-  if (!data) {
-    next(new ConflictError("signup failed"));
-    return;
+  try {
+    const data = await userService.createUser(
+      email,
+      password,
+      role,
+      name,
+      address,
+      phoneNumber
+    );
+    console.log("data", data);
+    res.status(httpStatusCodes.CREATED).json({ message: "signup success" });
+  } catch (err) {
+    next(err);
   }
-  res.status(httpStatusCodes.CREATED).json({ message: "signup success" });
 };
 
 export const getUser = async (

@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export class LoginActions {
-  static login: () => void = () => {
+export class SignupActions {
+  static signUp: () => void = () => {
     let isFormValid: boolean = false;
     let errorMessage: string = "";
 
@@ -12,8 +12,15 @@ export class LoginActions {
       "passwordInput"
     ) as HTMLInputElement;
 
-    console.log("emainInpit", emailInput);
-    console.log("pwInpit", passwordInput);
+    const usernameInput = document.getElementById(
+      "usernameInput"
+    ) as HTMLInputElement;
+    const addressInput = document.getElementById(
+      "addressInput"
+    ) as HTMLInputElement;
+    const phoneNumberInput = document.getElementById(
+      "phoneNumberInput"
+    ) as HTMLInputElement;
 
     const emailErrorMessageElement = document.getElementById(
       "email-error"
@@ -30,6 +37,7 @@ export class LoginActions {
     emailInput.oninput = (e: Event) => {
       const target = e.target as HTMLInputElement;
       const value = target.value;
+      console.log("value", value);
       if (value.length <= 0) {
         emailInput.classList.add("error-border");
         emailErrorMessageElement.innerHTML = "Email is empty.";
@@ -49,6 +57,7 @@ export class LoginActions {
         passwordErrorMessageElement.innerHTML = "Password is empty";
         isFormValid = false;
       } else if (value.length < 8) {
+        console.log("password must be of 8 characters");
         passwordErrorMessageElement.innerHTML =
           "Password must be at least 8 characters.";
         passwordInput.classList.add("error-border");
@@ -60,27 +69,15 @@ export class LoginActions {
 
     const login: () => void = () => {
       console.log("Login successful.");
-      const email = emailInput.value;
-      const password = passwordInput.value;
-      axios
-        .post("http://localhost:8000/auth/login", {
-          email,
-          password,
-        })
-        .then((response) => {
-          console.log("response", response.data);
-          if (response.status === 200) {
-            console.log("login");
-            window.location.href = "/#/dashboard";
-          } else {
-            window.alert("signup failed");
-          }
-        });
     };
 
     const validateForm: () => boolean = () => {
       const email = emailInput.value.trim();
       const password = passwordInput.value.trim();
+      const address = addressInput.value.trim();
+      console.log(phoneNumberInput);
+      const phoneNumber = phoneNumberInput.value.trim();
+      const username = usernameInput.value.trim();
 
       emailInput.classList.remove("border-red-500");
       passwordInput.classList.remove("border-red-500");
@@ -130,18 +127,35 @@ export class LoginActions {
       }
 
       if (isFormValid) {
-        login();
+        console.log("is valid", username, address, phoneNumber);
+        axios
+          .post("http://localhost:8000/users/", {
+            email,
+            password,
+            address,
+            name: username,
+            phoneNumber,
+            role: "user",
+          })
+          .then((response) => {
+            console.log("response", response.data);
+            if (response.status === 201) {
+              login();
+            } else {
+              window.alert("signup failed");
+            }
+          });
       }
       return true;
     };
 
-    const loginButton = document.getElementById(
-      "loginBtn"
-    ) as HTMLButtonElement;
+    const signupForm = document.getElementById("signupform") as HTMLFormElement;
 
-    loginButton.onclick = (e: MouseEvent) => {
+    signupForm.onsubmit = (e: Event) => {
       e.preventDefault();
       validateForm();
+
+      return false;
     };
   };
 }

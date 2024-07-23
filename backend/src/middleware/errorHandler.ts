@@ -3,12 +3,12 @@ import { NextFunction, Response } from "express";
 import { Request } from "express";
 import { UnauthenticatedError } from "../error/UnauthenticatedError";
 import { BadRequestError } from "../error/BadRequestError";
-// import loggerWithNameSpace from "../utils/logger";
+import loggerWithNameSpace from "../utils/logger";
 import { ForbiddenError } from "../error/ForbiddenError";
 import { ConflictError } from "../error/ConflictError";
 import { NotFoundError } from "../error/NotFoundError";
 
-// const logger = loggerWithNameSpace("Errorhandler");
+const logger = loggerWithNameSpace("Errorhandler");
 
 export function genericErrorHandler(
   error: Error,
@@ -17,7 +17,7 @@ export function genericErrorHandler(
   next: NextFunction
 ) {
   if (error.stack) {
-    // logger.error(error.stack);
+    logger.error(error.stack);
   }
 
   if (error instanceof UnauthenticatedError) {

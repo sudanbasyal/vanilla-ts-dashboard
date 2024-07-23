@@ -11,31 +11,35 @@ import router from "./route";
 
 const app = express();
 
-const limiter = rateLimiter({
-  windowMs: 60 * 1000,
-  limit: 10,
-  message: "Too many request",
-});
-
+// const limiter = rateLimiter({
+//   windowMs: 60 * 1000,
+//   limit: 10,
+//   message: "Too many request",
+// });
 
 app.use(helmet());
 
-app.use(limiter);
+// app.use(limiter);
 
-const allowedOrigins = ["http://localhost:3000/"];
+// const allowedOrigins = ["http://localhost:5174/"];
+
+// app.use(
+//   cors({
+//     origin: (origin, callback) => {
+//       if (!origin || allowedOrigins.includes(origin)) {
+//         callback(null, origin);
+//       } else {
+//         callback(new Error("Not allowed"));
+//       }
+//     },
+//   })
+// );
 
 app.use(
   cors({
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, origin);
-      } else {
-        callback(new Error("Not allowed"));
-      }
-    },
+    allowedHeaders: "*",
   })
 );
-
 
 app.use(express.json());
 

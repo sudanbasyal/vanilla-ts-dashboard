@@ -17,9 +17,9 @@ import { updateUser, createUser } from "../controller/user";
 const userRouter = Router();
 userRouter.post(
   "/",
-  authenticate,
-  authorize("users.post"),
-  validateReqBody(createUserBodySchema),
+  // authenticate,
+  // authorize("users.post"),
+  // validateReqBody(createUserBodySchema),
   createUser
 );
 
