@@ -1,4 +1,5 @@
 import axios from "axios";
+import { displayResponseErrors } from "../../utils/error";
 
 export class LoginActions {
   static login: () => void = () => {
@@ -59,7 +60,6 @@ export class LoginActions {
     };
 
     const login: () => void = () => {
-      console.log("Login successful.");
       const email = emailInput.value;
       const password = passwordInput.value;
       axios
@@ -70,11 +70,13 @@ export class LoginActions {
         .then((response) => {
           console.log("response", response.data);
           if (response.status === 200) {
-            console.log("login");
             window.location.href = "/#/dashboard";
-          } else {
-            window.alert("signup failed");
           }
+        })
+        .catch((err) => {
+          displayResponseErrors(`${err.response.data.message}`);
+          emailInput.value = "";
+          passwordInput.value = "";
         });
     };
 

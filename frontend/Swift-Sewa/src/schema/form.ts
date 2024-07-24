@@ -55,3 +55,37 @@ export const signupSchema = Joi.object({
 }).options({
   stripUnknown: true,
 });
+
+export const loginSchema = Joi.object({
+  email: Joi.string()
+    .email({ tlds: { allow: false } })
+    .required()
+    .messages({
+      "any.required": "Email is required",
+      "string.email": "Email must be a valid format",
+    }),
+
+  password: Joi.string()
+    .required()
+    .min(8)
+    .messages({
+      "any.required": "Password is required",
+    })
+    .custom((value, helpers) => {
+      if (!/[A-Z]/.test(value)) {
+        return helpers.error("password.uppercase");
+      }
+
+      if (!/[a-z]/.test(value)) {
+        return helpers.error("password.lowercase");
+      }
+
+      if (!/[!@#$%]/.test(value)) {
+        return helpers.error("password.special");
+      }
+
+      return value;
+    }),
+}).options({
+  stripUnknown: true,
+});

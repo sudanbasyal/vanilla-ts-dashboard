@@ -1,11 +1,10 @@
 import axios from "axios";
 import { formValidator } from "../../utils/validator";
-import { displayErrors } from "../../utils/error";
+import { displayResponseErrors, displaySchemaErrors } from "../../utils/error";
 
 export class SignupActions {
   static signUp: () => void = () => {
     let isFormValid: boolean = false;
-    let errorMessage: string = "";
 
     const emailInput = document.getElementById(
       "emailInput"
@@ -70,7 +69,8 @@ export class SignupActions {
     };
 
     const login: () => void = () => {
-      console.log("Login successful.");
+      console.log("this login part is called");
+      window.location.href = "/#/login";
     };
 
     const validateForm: () => boolean = () => {
@@ -93,22 +93,16 @@ export class SignupActions {
         role: "user",
       };
 
-      console.log("formData", formData);
-
       const errors = formValidator(formData);
-      console.log("password", password);
 
       if (errors) {
-        displayErrors(errors);
+        displaySchemaErrors(errors);
         emailInput.value = "";
         passwordInput.value = "";
         addressInput.value = "";
         phoneNumberInput.value = "";
         usernameInput.value = "";
-      }
-
-      if (isFormValid) {
-        console.log("is valid", username, address, phoneNumber);
+      } else {
         axios
           .post("http://localhost:8000/users/", {
             email,
@@ -119,12 +113,18 @@ export class SignupActions {
             role: "user",
           })
           .then((response) => {
-            console.log("response", response.data);
+            console.log("response", response);
             if (response.status === 201) {
               login();
-            } else {
-              window.alert("signup failed");
             }
+          })
+          .catch((err) => {
+            displayResponseErrors(`${err.response.data.message}`);
+            emailInput.value = "";
+            passwordInput.value = "";
+            addressInput.value = "";
+            phoneNumberInput.value = "";
+            usernameInput.value = "";
           });
       }
       return true;

@@ -1,9 +1,9 @@
 import Joi from "joi";
-export function displayErrors(errors: Joi.ValidationErrorItem[]) {
+export function displaySchemaErrors(errors: Joi.ValidationErrorItem[]) {
   const errorContainer = document.getElementById(
     "error-container"
   ) as HTMLDivElement;
-  // errorContainer.innerHTML = "";
+
   console.log("error container", errorContainer);
 
   errors.forEach((error) => {
@@ -11,4 +11,18 @@ export function displayErrors(errors: Joi.ValidationErrorItem[]) {
     errorElement.textContent = error.message;
     errorContainer.appendChild(errorElement);
   });
+}
+
+export function displayResponseErrors(error: any) {
+  console.log("err in response ", error);
+  const errorContainer = document.getElementById(
+    "error-container"
+  ) as HTMLDivElement;
+  errorContainer.innerHTML = "";
+  console.log("error container", errorContainer);
+
+  const errorElement = document.createElement("p");
+  errorElement.textContent = error;
+  errorElement.style.textAlign = "center";
+  errorContainer.appendChild(errorElement);
 }

@@ -1,8 +1,5 @@
 export class UserDashboardActions {
   static userDashboard: () => void = async () => {
-    console.log("this is user dashboard");
-    // Initialize Swiper modules
-
     const dropMenu = document.getElementById("userDropDown");
     console.log("dropMenu", dropMenu);
 
