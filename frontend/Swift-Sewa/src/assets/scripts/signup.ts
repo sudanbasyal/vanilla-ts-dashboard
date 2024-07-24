@@ -1,4 +1,6 @@
 import axios from "axios";
+import { formValidator } from "../../utils/validator";
+import { displayErrors } from "../../utils/error";
 
 export class SignupActions {
   static signUp: () => void = () => {
@@ -82,48 +84,27 @@ export class SignupActions {
       emailInput.classList.remove("border-red-500");
       passwordInput.classList.remove("border-red-500");
 
-      if (email.length <= 0 && password.length === 0) {
-        emailInput.classList.add("error-border");
-        passwordInput.classList.add("error-border");
-        emailErrorMessageElement.innerHTML = "Email is empty.";
-        passwordErrorMessageElement.innerHTML = "Password is empty.";
-        isFormValid = false;
-        errorMessage = "Please fill in the fields to continue.";
-      } else if (email.length <= 0) {
-        emailInput.classList.add("error-border");
-        emailErrorMessageElement.innerHTML = "Email is empty.";
-        isFormValid = false;
-        errorMessage = "Please fill in the email address.";
-      } else if (password.length <= 0) {
-        passwordInput.classList.add("error-border");
-        passwordErrorMessageElement.innerHTML = "Password is empty.";
-        isFormValid = false;
-        errorMessage = "Please fill in the password.";
-      } else if (password.length < 8) {
-        passwordInput.classList.add("error-border");
-        passwordErrorMessageElement.innerHTML =
-          "Password must be at least 8 characters.";
-        isFormValid = false;
-        errorMessage = "Password must be at least 8 characters long.";
-      } else {
-        isFormValid = true;
-        removeErrorMessages();
-      }
+      const formData = {
+        name: username,
+        email,
+        password,
+        phoneNumber,
+        address,
+        role: "user",
+      };
 
-      if (!isFormValid) {
-        const app = document.getElementById("app") as HTMLDivElement;
+      console.log("formData", formData);
 
-        const messageElement = document.createElement("div");
-        messageElement.classList.add("toast");
-        messageElement.innerHTML = errorMessage;
+      const errors = formValidator(formData);
+      console.log("password", password);
 
-        app.appendChild(messageElement);
-
-        setTimeout(() => {
-          if (messageElement.parentElement) {
-            messageElement.parentElement.removeChild(messageElement);
-          }
-        }, 3000);
+      if (errors) {
+        displayErrors(errors);
+        emailInput.value = "";
+        passwordInput.value = "";
+        addressInput.value = "";
+        phoneNumberInput.value = "";
+        usernameInput.value = "";
       }
 
       if (isFormValid) {
