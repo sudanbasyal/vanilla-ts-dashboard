@@ -10,7 +10,11 @@ export class UserDashboardActions {
       document.querySelector(".navbar-burger")!;
     console.log("navebarMenu", navbarMenu);
 
-    navbarMenu.onclick = () => {
+    const userProfile: HTMLButtonElement = document.getElementById(
+      "user-button"
+    ) as HTMLButtonElement;
+
+    userProfile.onclick = () => {
       let dropdowns = document.querySelector(".dropdown-menu") as any;
 
       if (dropdowns.classList.contains("hidden")) {

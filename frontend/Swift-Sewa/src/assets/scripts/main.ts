@@ -1,4 +1,4 @@
-// Initialize Swiper modules
+
 
 const navbarMenu: HTMLButtonElement = document.querySelector(".navbar-burger")!;
 console.log("navebarMenu", navbarMenu);
