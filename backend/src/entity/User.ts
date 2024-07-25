@@ -9,10 +9,14 @@ import {
   DeleteDateColumn,
   ManyToMany,
   JoinTable,
+  OneToMany,
 } from "typeorm";
 
 import { UserProfile } from "./UserProfile";
 import { Role } from "./Role";
+import { Company } from "./Company";
+// import COn
+// import { Company } from "./Company";
 
 @Entity({ name: "users" })
 export class User {
@@ -37,6 +41,9 @@ export class User {
   @OneToOne(() => UserProfile, { cascade: true })
   @JoinColumn()
   profile: UserProfile;
+
+  @OneToMany(() => Company, (company) => company.user)
+  company: Company[];
 
   @ManyToMany(() => Role, (role) => role.users, { cascade: true })
   @JoinTable({ name: "user_roles" })

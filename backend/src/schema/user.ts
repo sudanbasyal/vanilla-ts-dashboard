@@ -75,6 +75,7 @@ export const createUserBodySchema = Joi.object({
 }).options({
   stripUnknown: true,
 });
+
 export const updateUserBodySchema = Joi.object({
   name: Joi.string().optional().messages({
     "any.required": "Name is required",

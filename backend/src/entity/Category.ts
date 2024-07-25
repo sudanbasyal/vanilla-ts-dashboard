@@ -7,6 +7,7 @@ import {
 } from "typeorm";
 import { Expose } from "class-transformer";
 import { Service } from "./Service";
+import { Company } from "./Company";
 @Entity({ name: "categories" })
 export class Category {
   @PrimaryGeneratedColumn()
@@ -23,4 +24,7 @@ export class Category {
 
   @OneToMany(() => Service, (service) => service.category)
   services: Service[];
+
+  @OneToMany(() => Company, (company) => company.category)
+  company: Company[];
 }
