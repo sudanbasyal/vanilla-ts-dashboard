@@ -1,4 +1,4 @@
-import { UserProfileActions } from "../../assets/scripts/user/profile";
+import { UserProfileActions } from "../../scripts/user/profile";
 
 export class ProfilePage {
   static load: () => Promise<string> = async () => {

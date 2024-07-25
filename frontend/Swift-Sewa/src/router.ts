@@ -4,6 +4,7 @@ import { HomePage } from "./loader/homepage";
 import { SignUpPage } from "./loader/signUp";
 import { DashboardPage } from "./loader/user/dashboard";
 import { ProfilePage } from "./loader/user/profile";
+import { CompanyRegistrationPage } from "./loader/supplier/companyRegistration";
 
 const routes: { [key: string]: { component: any } } = {
   "#/": {
@@ -21,6 +22,10 @@ const routes: { [key: string]: { component: any } } = {
 
   "#/profile": {
     component: ProfilePage,
+  },
+
+  "#/supplier/registration": {
+    component: CompanyRegistrationPage,
   },
 
   "#/about-us": { component: AboutusPage },

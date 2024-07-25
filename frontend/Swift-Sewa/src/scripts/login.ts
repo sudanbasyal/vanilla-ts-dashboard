@@ -1,7 +1,7 @@
 import axios from "axios";
-import { displayResponseErrors } from "../../utils/errorHandler";
-import { userApi } from "../../api/user";
-import { UserDecode } from "../../utils/auth";
+import { displayResponseErrors } from "../utils/errorHandler";
+import { userApi } from "../api/user";
+import { UserDecode } from "../utils/auth";
 import Cookies from "js-cookie";
 
 export class LoginActions {

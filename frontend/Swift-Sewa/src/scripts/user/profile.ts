@@ -1,9 +1,9 @@
-import { userApi } from "../../../api/user";
+import { userApi } from "../../api/user";
 import Cookies from "js-cookie";
 
 import axios from "axios";
-import { displayResponseErrors } from "../../../utils/errorHandler";
-import { userProfile } from "../../../interface/userProfile";
+import { displayResponseErrors } from "../../utils/errorHandler";
+import { userProfile } from "../../interface/userProfile";
 
 export class UserProfileActions {
   static userProfile: () => void = async () => {

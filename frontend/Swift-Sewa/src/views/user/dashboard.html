@@ -1,6 +1,6 @@
 <body class="h-screen">
  
-    <nav class="nav-section h-[10vh] bg-white shadow-md py-2 md:py-4 md:px-10">
+    <nav class="nav-section h-[10vh] bg-white shadow-md py-2 md:py-4 md:px-10 z-10">
       <div
         class="nav-container h-full mx-auto sm:px-10 lg:px-1  flex flex-row justify-between items-center"
       >
@@ -65,14 +65,14 @@
       <div class="flex h-full pl-10 pr-10 bg-orange-100 justify-between">
       <div>
         <div class="flex flex-col justify-center h-full gap-5">
-          <h1 class="text-4xl md:text-6xl mb-7 text-primary">
+          <h1 class="text-4xl md:text-6xl mb-7 text-primary text-amber-700">
             Book Home Service
             <br />
             Providers
             <br />
-            at your fingertips
+            at your fingertips.
           </h1>
-          <p class="text-lg md:text-xl mb-4">
+          <p class="text-lg md:text-xl mb-4 text-blue-500">
             Search, compare and match with Service Providers of your choice in
             60 Seconds
           </p>
@@ -87,9 +87,9 @@
             </button>
           </div>
           <div class="flex space-x-2">
-            <button class="p-2 bg-gray-200 rounded-lg">Electrician</button>
-            <button class="p-2 bg-gray-200 rounded-lg">Plumber</button>
-            <button class="p-2 bg-gray-200 rounded-lg">AC Installation</button>
+            <button class="p-2 bg-orange-500 rounded-lg  text-white">Electrician</button>
+            <button class="p-2 bg-orange-500 rounded-lg  text-white">Plumber</button>
+            <button class="p-2 bg-orange-500 rounded-lg  text-white">AC Installation</button>
           </div>
         </div>
       </div>
@@ -108,7 +108,7 @@
       </section>
   <!-- category-section -->
         <section class ="category-section bg-gray-100 w-full">
-          <h1 class=" text-2xl text-center pt-10 md:text-4xl">Popular Services</h1>
+          <h1 class=" text-2xl text-center pt-10 md:text-4xl text-blue-500">Popular Services</h1>
           <div class="category grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:pt-10 ">
            <div class="w-full ">
              <div
@@ -164,8 +164,8 @@
           
         </section>
     <!-- categories-section -->
-        <section class ="service -section bg-orange-50 w-full">
-          <h1 class=" text-2xl text-center pt-10 md:text-4xl">Popular Categories</h1>
+        <section class ="service -section bg-orange-100 w-full">
+          <h1 class=" text-2xl text-center pt-10 md:text-4xl text-amber-700">Popular Categories</h1>
           <div class="category grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:pt-10 ">
            <div class="w-full flex flex-col items-center">      
             <div class="px-6  transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2">
@@ -277,27 +277,14 @@
           <footer class="container mx-auto rounded-lg shadow">
             <div class="w-full  p-4 md:py-8 ">
                 <div class="sm:flex sm:items-center sm:justify-between">
-                    <a href="https://flowbite.com/" class="flex items-center mb-4 sm:mb-0 space-x-3">
+                    <span class="flex items-center mb-4 sm:mb-0 space-x-3">
 
                         <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"><Span class="text-orange-500">Swift</Span><span class="text-blue-500">Sewa</span></span>
-                    </a>
-                    <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
-                        <li>
-                            <a href="/#/login" class="hover:underline me-4 md:me-6">SignIn</a>
-                        </li>
-                        <li>
-                            <a href="#" class="hover:underline me-4 md:me-6">Privacy Policy</a>
-                        </li>
-                        <li>
-                            <a href="#" class="hover:underline me-4 md:me-6">Licensing</a>
-                        </li>
-                        <li>
-                            <a href="#" class="hover:underline">Contact</a>
-                        </li>
-                    </ul>
+                    </span>
+                <p  class="text-gray-500" >Connecting you with reliable service providers for all your needs</p>
                 </div>
                 <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
-                <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2024 <a href="#" class="hover:underline">SwiftSewa</a>. All Rights Reserved.</span>
+                <span class="block text-sm text-gray-500 sm:text-center">© <span id="year"></span> <a href="#" class="hover:underline">SwiftSewa</a>. All Rights Reserved.</span>
             </div>
           </footer>
         </section>

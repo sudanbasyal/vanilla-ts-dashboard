@@ -1,4 +1,4 @@
-import { LoginActions } from "../assets/scripts/login";
+import { LoginActions } from "../scripts/login";
 
 export class loginPage {
   static load: () => Promise<string> = async () => {

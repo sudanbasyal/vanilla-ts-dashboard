@@ -13,7 +13,12 @@ export const getCategory = async (id: number) => {
     logger.error("category not found");
     return null;
   }
-  
+
   logger.info("category found");
   return category;
+};
+
+export const getAllCategories = async () => {
+  const categories = await categoryRepository.find();
+  return categories;
 };
