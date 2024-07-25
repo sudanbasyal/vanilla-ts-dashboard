@@ -4,5 +4,5 @@ export interface userForm {
   password: string;
   phoneNumber: string;
   address: string;
-  role: string;
+  role?: string;
 }

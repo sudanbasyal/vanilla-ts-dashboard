@@ -1,5 +1,6 @@
 import axios from "axios";
-import { displayResponseErrors } from "../../utils/error";
+import { displayResponseErrors } from "../../utils/errorHandler";
+import { userApi } from "../../api/user";
 
 export class LoginActions {
   static login: () => void = () => {
@@ -13,8 +14,7 @@ export class LoginActions {
       "passwordInput"
     ) as HTMLInputElement;
 
-    console.log("emainInpit", emailInput);
-    console.log("pwInpit", passwordInput);
+
 
     const emailErrorMessageElement = document.getElementById(
       "email-error"
@@ -59,25 +59,42 @@ export class LoginActions {
       }
     };
 
-    const login: () => void = () => {
-      const email = emailInput.value;
-      const password = passwordInput.value;
-      axios
-        .post("http://localhost:8000/auth/login", {
-          email,
-          password,
-        })
-        .then((response) => {
-          console.log("response", response.data);
-          if (response.status === 200) {
-            window.location.href = "/#/dashboard";
+    const login: () => void = async () => {
+      try {
+        const email = emailInput.value;
+        const password = passwordInput.value;
+        const loginData = { email, password };
+        const checkLogin = await userApi.login(loginData);
+
+        // get the response data
+        const {
+          message: {
+            accessToken,
+            refreshToken,
+            user: { id, roles },
+          },
+        } = checkLogin;
+
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("refreshToken", refreshToken);
+        localStorage.setItem("userId", id);
+        localStorage.setItem("password", password);
+        localStorage.setItem("role", roles[0].name);
+        window.location.href = "/#/dashboard";
+      } catch (err) {
+        {
+          if (axios.isAxiosError(err)) {
+            const errorMessage = err.response?.data?.message || err.message;
+            displayResponseErrors(errorMessage);
+          } else if (err instanceof Error) {
+            displayResponseErrors(err.message);
+          } else {
+            displayResponseErrors("An unknown error occurred.");
           }
-        })
-        .catch((err) => {
-          displayResponseErrors(`${err.response.data.message}`);
           emailInput.value = "";
           passwordInput.value = "";
-        });
+        }
+      }
     };
 
     const validateForm: () => boolean = () => {

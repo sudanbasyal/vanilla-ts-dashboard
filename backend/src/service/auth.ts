@@ -6,6 +6,7 @@ import { comparePassword } from "../utils/encrypter";
 import { permission } from "process";
 import config from "../config";
 import { sign } from "jsonwebtoken";
+import { BadRequestError } from "../error/BadRequestError";
 // import { BadRequestError } from "../error/BadRequestError";
 
 interface CustomJwtPayload {
@@ -19,11 +20,15 @@ export const login = async (body: Pick<User, "email" | "password">) => {
   if (!existingUser) {
     return null;
   }
-  const userPassword = comparePassword(body.password, existingUser.password);
-  if (!userPassword) return null;
+  const userPassword = await comparePassword(
+    body.password,
+    existingUser.password
+  );
+  console.log("userPassword", userPassword);
+  if (!userPassword) throw new BadRequestError("Password doesnt match");
 
   const user = await userService.getUser(existingUser.id);
-  if (!user) return null;
+  if (!user) throw new BadRequestError("Account doesnt match");
 
   const roleName = user.roles.map((role) => role.name);
   const permissions = user.roles.flatMap((role) =>
@@ -37,12 +42,12 @@ export const login = async (body: Pick<User, "email" | "password">) => {
     permissions: permissions,
   };
 
-  const s = config.jwt.secret!;
-  const accessToken = sign(payload, s, {
+  const secretKey = config.jwt.secret!;
+  const accessToken = sign(payload, secretKey, {
     expiresIn: config.jwt.accessExpiration,
   });
 
-  const refreshToken = sign(payload, s, {
+  const refreshToken = sign(payload, secretKey, {
     expiresIn: config.jwt.refreshTokenExpiration,
   });
   return { user, accessToken, refreshToken };

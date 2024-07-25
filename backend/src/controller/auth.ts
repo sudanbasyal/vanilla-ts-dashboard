@@ -11,13 +11,15 @@ export const login = async (
   next: NextFunction
 ) => {
   const { body } = req;
-  console.log("body", body);
+  try {
+    const data = await authService.login(body);
 
-  const data = await authService.login(body);
-
-  if (!data) {
-    next(new NotFoundError("login failed"));
-    return;
+    if (!data) {
+      next(new NotFoundError("login failed"));
+      return;
+    }
+    res.status(httpStatusCodes.OK).json({ message: data });
+  } catch (err) {
+    next(err);
   }
-  res.status(httpStatusCodes.OK).json({ message: data });
 };

@@ -55,13 +55,13 @@ export const updateUser = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { id } = req.params;
-  console.log("id", id);
+  const id = req.user!?.id;
+
   const { email, password, name, address, phoneNumber } = req.body;
 
   try {
     const updatedProfile = await userService.updateUserProfile(
-      parseInt(id),
+      id,
       email,
       password,
       name,

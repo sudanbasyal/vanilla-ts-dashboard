@@ -1,6 +1,9 @@
 import axios from "axios";
 import { formValidator } from "../../utils/validator";
-import { displayResponseErrors, displaySchemaErrors } from "../../utils/error";
+import {
+  displayResponseErrors,
+  displaySchemaErrors,
+} from "../../utils/errorHandler";
 
 export class SignupActions {
   static signUp: () => void = () => {

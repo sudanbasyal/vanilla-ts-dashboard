@@ -33,10 +33,9 @@ userRouter.get("/", authenticate, authorize("users.get"), getUser);
 // );
 
 userRouter.put(
-  "/:id",
+  "/",
   authenticate,
   authorize("users.put"),
-  validateReqParams(userIdSchema),
   validateReqBody(updateUserBodySchema),
   updateUser
 );

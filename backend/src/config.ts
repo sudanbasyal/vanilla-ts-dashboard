@@ -11,7 +11,7 @@ const config: IConfig = {
 
   jwt: {
     secret: process.env.JWT_SECRET,
-    accessExpiration: 2000,
+    accessExpiration: 5000,
     refreshTokenExpiration: 8000,
   },
 
@@ -24,7 +24,7 @@ const config: IConfig = {
     password: "12345",
     database: "Swift-Sewa",
     synchronize: false,
-    logging: true,
+    logging: false,
     entities: ["src/entity/**/*.ts"],
     migrations: ["src/migration/**/*.ts"],
     subscribers: ["src/subscriber/**/*.ts"],

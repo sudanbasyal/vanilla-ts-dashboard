@@ -3,6 +3,7 @@ import { AboutusPage } from "./loader/about-us";
 import { HomePage } from "./loader/homepage";
 import { SignUpPage } from "./loader/signUp";
 import { DashboardPage } from "./loader/user/dashboard";
+import { ProfilePage } from "./loader/user/profile";
 
 const routes: { [key: string]: { component: any } } = {
   "#/": {
@@ -17,6 +18,11 @@ const routes: { [key: string]: { component: any } } = {
   "#/dashboard": {
     component: DashboardPage,
   },
+
+  "#/profile": {
+    component: ProfilePage,
+  },
+
   "#/about-us": { component: AboutusPage },
 };
 
