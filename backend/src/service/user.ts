@@ -49,14 +49,12 @@ export const update = async (
   userId: number,
   profileId: number,
   newEmail: string,
-  newPassword: string,
   newName: string,
   newAddress: string,
   newPhoneNumber: string
 ) => {
   await userRepository.update(userId, {
     email: newEmail,
-    password: newPassword,
   });
 
   await userProfileRepository.update(profileId, {
@@ -137,7 +135,6 @@ export const createUser = async (
 export const updateUserProfile = async (
   id: number,
   email: string,
-  password: string | null,
   name: string,
   address: string,
   phoneNumber: string
@@ -159,25 +156,12 @@ export const updateUserProfile = async (
   const newAddress = address;
   const newPhoneNumber = phoneNumber;
 
-  if (password) {
-    const isPasswordDifferent = !(await comparePassword(
-      password,
-      user.password
-    ));
-    if (isPasswordDifferent) {
-      newPassword = await hashPassword(password);
-    }
-  }
-
-  // Update profile fields
-  newPassword = user.password;
   const profileId = user.profile.id;
 
   const updatedUser = await update(
     id,
     profileId,
     newEmail,
-    newPassword,
     newName,
     newAddress,
     newPhoneNumber

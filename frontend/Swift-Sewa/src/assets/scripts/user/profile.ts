@@ -1,11 +1,13 @@
 import { userApi } from "../../../api/user";
-import { userForm } from "../../../interface/form";
+import Cookies from "js-cookie";
+
 import axios from "axios";
 import { displayResponseErrors } from "../../../utils/errorHandler";
+import { userProfile } from "../../../interface/userProfile";
 
 export class UserProfileActions {
   static userProfile: () => void = async () => {
-    let originalData: userForm;
+    let originalData: userProfile;
     fetchUser();
 
     const updateButton = document.getElementById(
@@ -25,9 +27,7 @@ export class UserProfileActions {
 
     async function fetchUser() {
       try {
-        const role = localStorage.getItem("role")!;
-        const password = localStorage.getItem("password")!;
-        console.log("password", password);
+        const role = Cookies.get("role")!;
         const data = await userApi.get();
         const { email } = data.data;
         const { name, address, phoneNumber } = data.data.profile;
@@ -36,7 +36,6 @@ export class UserProfileActions {
           email,
           address,
           phoneNumber,
-          password,
           role,
         };
 
@@ -45,9 +44,6 @@ export class UserProfileActions {
         ) as NodeListOf<HTMLInputElement>;
         console.log("nameInputs", nameInputs);
         const emailInput = document.getElementById("email") as HTMLInputElement;
-        const passwordInput = document.getElementById(
-          "password"
-        ) as HTMLInputElement;
         const addressInput = document.getElementById(
           "address"
         ) as HTMLInputElement;
@@ -63,7 +59,6 @@ export class UserProfileActions {
         emailInput.innerText = email;
         addressInput.innerText = address;
         phoneNumberInput.innerText = phoneNumber;
-        passwordInput.innerText = password;
         roleInput.innerText = role;
       } catch (err) {
         console.log("err", err);
@@ -120,30 +115,22 @@ export class UserProfileActions {
           ) {
             originalData.phoneNumber = input.value;
             hasChanges = true;
-          } else if (
-            field.id === "password" &&
-            input.value !== originalData.password
-          ) {
-            originalData.password = input.value;
-            hasChanges = true;
           }
         }
-    });
-    
+      });
 
-        delete originalData.role;
-        try {
-          const updateUser = await userApi.update(originalData);
-          console.log("updatedUser", updateUser);
-          fetchUser();
-        } catch (err) {
-          if (axios.isAxiosError(err)) {
-              const errorMessage = err.response?.data?.message || err.message;
-              displayResponseErrors(errorMessage);
+      delete originalData.role;
+      try {
+        const updateUser = await userApi.update(originalData);
+        console.log("updatedUser", updateUser);
+        fetchUser();
+      } catch (err) {
+        if (axios.isAxiosError(err)) {
+          const errorMessage = err.response?.data?.message || err.message;
+          displayResponseErrors(errorMessage);
           console.log("err", err);
         }
       }
- 
 
       (
         document.getElementById("update-button") as HTMLButtonElement

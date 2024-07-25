@@ -1,6 +1,8 @@
 import axios from "axios";
 import { displayResponseErrors } from "../../utils/errorHandler";
 import { userApi } from "../../api/user";
+import { UserDecode } from "../../utils/auth";
+import Cookies from "js-cookie";
 
 export class LoginActions {
   static login: () => void = () => {
@@ -13,8 +15,6 @@ export class LoginActions {
     const passwordInput = document.getElementById(
       "passwordInput"
     ) as HTMLInputElement;
-
-
 
     const emailErrorMessageElement = document.getElementById(
       "email-error"
@@ -68,18 +68,17 @@ export class LoginActions {
 
         // get the response data
         const {
-          message: {
-            accessToken,
-            refreshToken,
-            user: { id, roles },
-          },
+          message: { accessToken, refreshToken },
         } = checkLogin;
 
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken);
-        localStorage.setItem("userId", id);
-        localStorage.setItem("password", password);
-        localStorage.setItem("role", roles[0].name);
+        const UserInformation = UserDecode(accessToken)!;
+        const role = UserInformation?.role;
+        const userId = UserInformation.id;
+        Cookies.set("role", role[0]);
+        Cookies.set("id", userId.toString());
+
         window.location.href = "/#/dashboard";
       } catch (err) {
         {

@@ -13,7 +13,6 @@ export const createUser = async (
   next: NextFunction
 ) => {
   let { email, password, role, name, address, phoneNumber } = req.body;
-  console.log("backend route is hit");
   console.log("body", req.body);
 
   try {
@@ -57,13 +56,12 @@ export const updateUser = async (
 ) => {
   const id = req.user!?.id;
 
-  const { email, password, name, address, phoneNumber } = req.body;
+  const { email, name, address, phoneNumber } = req.body;
 
   try {
     const updatedProfile = await userService.updateUserProfile(
       id,
       email,
-      password,
       name,
       address,
       phoneNumber

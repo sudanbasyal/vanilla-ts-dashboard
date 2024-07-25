@@ -1,4 +1,5 @@
 import { userForm } from "../interface/form";
+import { userProfile } from "../interface/userProfile";
 import { instance } from "./base";
 
 export const userApi = {
@@ -21,7 +22,7 @@ export const userApi = {
     }
   },
 
-  update: async (data: userForm) => {
+  update: async (data: userProfile) => {
     try {
       const response = await instance.put("/users", data);
       return response.data;

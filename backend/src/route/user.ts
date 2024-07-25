@@ -25,13 +25,6 @@ userRouter.post(
 
 userRouter.get("/", authenticate, authorize("users.get"), getUser);
 
-// userRouter.get(
-//   "/:id",
-//   authenticate,
-//   validateReqParams(userIdSchema),
-//   getUserById
-// );
-
 userRouter.put(
   "/",
   authenticate,
