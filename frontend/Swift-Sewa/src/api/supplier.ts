@@ -1,9 +1,9 @@
 import { instance } from "./base";
 
-export const categoryApi = {
+export const supplierApi = {
   get: async () => {
     try {
-      const response = await instance.get(`/categories/`);
+      const response = await instance.get(`/suppliers`);
       return response.data;
     } catch (error) {
       console.error("Error fetching profile:", error);
@@ -13,7 +13,7 @@ export const categoryApi = {
 
   post: async (data: any) => {
     try {
-      const response = await instance.post(`/categories/`);
+      const response = await instance.post(`/suppliers`, data);
       return response.data;
     } catch (error) {
       console.error("Error fetching profile:", error);

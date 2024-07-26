@@ -77,12 +77,10 @@ export class LoginActions {
         const role = UserInformation?.role;
         const userId = UserInformation.id;
         Cookies.set("role", role[0]);
-        Cookies.set("id", userId.toString());
-
+        Cookies.set("userId", userId.toString());
         window.location.href = "/#/dashboard";
       } catch (err) {
         {
-          console.log("err", err);
           if (axios.isAxiosError(err)) {
             const errorMessage = err.response?.data?.message || err.message;
             displayResponseErrors(errorMessage);
