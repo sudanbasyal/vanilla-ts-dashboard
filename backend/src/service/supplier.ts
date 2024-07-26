@@ -1,6 +1,4 @@
-import { company } from "./../controller/supplier";
 import { AppDataSource } from "../dataSource";
-
 import { companyData } from "../interface/company";
 import * as services from "./services";
 import { BadRequestError } from "../error/BadRequestError";
@@ -15,8 +13,24 @@ import { Service } from "../entity/Service";
 const companyRepository = AppDataSource.getRepository(Company);
 const companyServiceRepository = AppDataSource.getRepository(ServiceToCompany);
 
-export const findCompany = async (name: string) => {
+export const findByName = async (name: string) => {
   return await companyRepository.findOne({ where: { name } });
+};
+
+export const findByCompanyId = async (id: number, userId: number) => {
+  console.log(id, userId);
+
+  return await companyRepository.findOne({
+    where: {
+      id,
+      user: { id: userId },
+    },
+    relations: ["ServiceToCompany"],
+  });
+};
+
+export const findAll = async (id: number) => {
+  return await companyRepository.find({ where: { user: { id } } });
 };
 
 export const createCompany = async (
@@ -38,84 +52,24 @@ export const createCompany = async (
   newCompany.panPhoto = imageurl.panImageUrl;
   newCompany.openingTime = data.openingTime;
   newCompany.closingTime = data.closingTime;
-  newCompany.availableDays = data.aviliableDays;
 
   await companyRepository.save(newCompany);
 
-const promises = services.map(async (item, index) => {
-  const comapnyService = new ServiceToCompany();
-  comapnyService.description = item.description;
-  comapnyService.price = data.price[index];
-  comapnyService.company = newCompany;
-  comapnyService.service = item;
-  await companyServiceRepository.save(comapnyService);
-});
+  const promises = services.map(async (item, index) => {
+    const comapnyService = new ServiceToCompany();
+    comapnyService.description = item.description;
+    comapnyService.price = data.price[index];
+    comapnyService.company = newCompany;
+    comapnyService.service = item;
+    await companyServiceRepository.save(comapnyService);
+  });
 
-await Promise.all(promises);
-
-  // const promise = data.serviceIds.forEach((id: string, index) => {
-  //   const companyServices = new ServiceToCompany();
-  //   companyServices.price = data.price[index];
-  // });
-  // const companyServices = new ServiceToCompany();
-  // companyServices.description = data.description;
-
-  // newCompany.category = await getCategory(data.categoryId);
-  // newCompany.price = data.price;
-  // newCompany.aviliableDays = data.aviliableDays;
-  // newCompany.openingTime = data.openingTime;
-  // newCompany.closingTime = data.closingTime;
-  // newCompany.description = data.description;
-  // newCompany.companyPhoto = imageurl["company"];
-  // newCompany.panPhoto = imageurl["pan"];
-  // newCompany.services = await services.findByIds(data.serviceIds);
-  // return await companyRepository.save(newCompany);
+  return await Promise.all(promises);
 };
-// export const uploadImage = async (imageFiles: {
-//   [key: string]: Express.Multer.File[];
-// }) => {
-//   const firstKey = Object.keys(imageFiles)[0];
-//   const companyPhoto = imageFiles[firstKey][0];
-//   const secondKey = Object.keys(imageFiles)[1];
-//   const panPhoto = imageFiles[secondKey][0];
 
-//   console.log("companyPhoto", companyPhoto);
-
-//   // const comapnyImageStorageRef = ref(
-//   //   storage,
-//   //   `company-images/1/${companyPhoto.originalname}`
-//   // );
-
-//   // const panImageStorageRef = ref(
-//   //   storage,
-//   //   `pan-images/1/${panPhoto.originalname}`
-//   // );
-
-//   // const comapnyImageMetaData = {
-//   //   contentType: companyPhoto.mimetype,
-//   // };
-
-//   // const panImageMetaData = {
-//   //   contentType: panPhoto.mimetype,
-//   // };
-
-//   // const companyImageSnapshot = await uploadBytesResumable(
-//   //   comapnyImageStorageRef,
-//   //   companyPhoto.buffer,
-//   //   comapnyImageMetaData
-//   // );
-
-//   // const panImageSnapshot = await uploadBytesResumable(
-//   //   panImageStorageRef,
-//   //   panPhoto.buffer,
-//   //   panImageMetaData
-//   // );
-
-//   // const companyImageUrl = await getDownloadURL(companyImageSnapshot.ref);
-//   // const panImageUrl = await getDownloadURL(panImageSnapshot.ref);
-
-//   // return { companyImageUrl, panImageUrl };
-// };
+export const remove = async (company: Company) => {
+  return await companyRepository.softRemove(company);
+};
 
 export const uploadImage = async (imageFiles: {
   [key: string]: Express.Multer.File[];
@@ -125,9 +79,6 @@ export const uploadImage = async (imageFiles: {
   const secondKey = Object.keys(imageFiles)[1];
   const panPhoto = imageFiles[secondKey][0];
 
-  console.log("companyPhoto", companyPhoto);
-
-  // // Upload company photo to Cloudinary using buffer
   const companyImageResult = await uploadStream(
     companyPhoto.buffer,
     "company-images",
@@ -154,7 +105,6 @@ export const registerCompany = async (
   }
 ) => {
   const uploadFormImages = await uploadImage(imageFiles);
-  // console.log("upload mages", uploadFormImages);
 
   const category = await getCategory(Number(data.categoryId));
   if (!category) throw new BadRequestError("category not found");
@@ -162,7 +112,7 @@ export const registerCompany = async (
   const companyServices = await services.getServicesByIds(data.serviceIds);
   if (!companyServices) throw new BadRequestError("services not found");
 
-  const companyexisits = await findCompany(data.name);
+  const companyexisits = await findByName(data.name);
   if (companyexisits) throw new BadRequestError("company already exists ");
 
   const newCompany = await createCompany(
@@ -170,5 +120,31 @@ export const registerCompany = async (
     uploadFormImages,
     companyServices
   );
-  console.log(newCompany);
+
+  if (!newCompany) throw new BadRequestError("company not created");
+
+  return newCompany;
+};
+
+export const getCompanies = async (id: number) => {
+  if (!id) throw new BadRequestError("user not found");
+  const companies = await findAll(id);
+  if (companies.length === 0) throw new BadRequestError("companies dont exist");
+  return companies;
+};
+
+export const deleteCompany = async (id: number, userId: number) => {
+  if (!userId) throw new BadRequestError("user not found");
+
+  const companyExists = await findByCompanyId(id, userId);
+
+  if (!companyExists) throw new BadRequestError("company doesnt exist");
+
+  const deletedCompany = await remove(companyExists);
+  return deletedCompany;
+
+  // const deltedCompany = await delete (userId, id);
+  // const companies = await delete (userId, id);
+  // if (companies.length === 0) throw new BadRequestError("companies dont exist");
+  // return companies;
 };

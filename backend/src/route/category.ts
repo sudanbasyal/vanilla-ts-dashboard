@@ -1,12 +1,13 @@
 import { Router } from "express";
-import { getAllCategories } from "../service/category";
+import { getAllCategories } from "../controller/category";
 
-const authRouter = Router();
+const categoryRouter = Router();
+
 
 // authRouter.post("/login", login);
 
-authRouter.post("/categories", getAllCategories);
+categoryRouter.get("/", getAllCategories);
 // authRouter.post("/signup", signup);
 // authRouter.post("/refresh-token", refreshToken);
 
-export default authRouter;
+export default categoryRouter;

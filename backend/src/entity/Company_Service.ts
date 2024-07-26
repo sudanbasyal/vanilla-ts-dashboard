@@ -30,4 +30,7 @@ export class ServiceToCompany extends BaseEntity {
 
   @ManyToOne(() => Company, (company) => company.ServiceToCompany)
   company: Company;
+
+  @DeleteDateColumn({ name: "deletedAt", nullable: true })
+  deletedAt: Date;
 }

@@ -1,50 +1,60 @@
-import { Response } from "express";
+import httpStatusCodes from "http-status-codes";
+
+import { NextFunction, Response } from "express";
 import * as supplierService from "../service/supplier";
 import { Request } from "../interface/request";
+import loggerWithNameSpace from "../utils/logger";
 
-export const RegisterCompany = async (req: Request, res: Response) => {
-  try {
-    console.log("route reached here");
-    if (!req.files) {
-      res.json("err uploading file");
-    }
+const logger = loggerWithNameSpace("SupplierController");
 
-    console.log("reqfiles", req.files);
-
-    const imageFiles = req.files as { [key: string]: Express.Multer.File[] };
-    await supplierService.uploadImage(imageFiles);
-  } catch (e) {
-    console.log(e);
-  }
-};
-
-export const company = async (req: Request, res: Response) => {
+export const registerCompany = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const id = req.user?.id!;
-  try {
-    let {
-      name,
-      phoneNumber,
-      address,
-      location,
-      userId,
-      categoryId,
-      price,
-      availableDays,
-      openingTime,
-      closingTime,
-      description,
-      serviceIds,
-    } = req.body;
 
+  try {
     const imageFiles = req.files as { [key: string]: Express.Multer.File[] };
-    console.log(req.body);
 
     const newCompany = await supplierService.registerCompany(
       req.body,
       imageFiles
     );
-    res.json(newCompany);
-  } catch (e) {
-    console.log(e);
+    logger.info("created succesfully");
+    res.status(httpStatusCodes.OK).json({ message: "created" });
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const getCompanies = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const id = req.user?.id!;
+    const companies = await supplierService.getCompanies(id);
+    res.status(httpStatusCodes.OK).json({ companies });
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const deleteCompanies = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { id } = req.params;
+    const userId = req.user?.id!;
+
+    console.log(id, userId);
+    const companies = await supplierService.deleteCompany(id, userId);
+    res.status(httpStatusCodes.OK).json({ message: "deleted successfully" });
+  } catch (err) {
+    next(err);
   }
 };

@@ -47,9 +47,7 @@ export const companyBodySchema = Joi.object({
     "any.required": "Price is required",
     "array.base": "Price must be an array of strings",
   }),
-  aviliableDays: Joi.string().required().messages({
-    "any.required": "Available days are required",
-  }),
+
   openingTime: Joi.string().required().messages({
     "any.required": "Opening time is required",
   }),

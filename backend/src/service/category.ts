@@ -19,6 +19,11 @@ export const getCategory = async (id: number) => {
 };
 
 export const getAllCategories = async () => {
-  const categories = await categoryRepository.find();
+  const categories = await categoryRepository.find({ relations: ["services"] });
+  if (!categories) throw newBadRequestError("categories not found");
+
   return categories;
 };
+function newBadRequestError(arg0: string) {
+  throw new Error("Function not implemented.");
+}

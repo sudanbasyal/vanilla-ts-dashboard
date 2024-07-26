@@ -42,7 +42,6 @@ export const authenticate = (
 export const authorize = (permission: string | string) => {
   return (req: Request, res: Response, next: NextFunction) => {
     const user = req.user!;
-    console.log("user", user);
     if (!user) {
       return;
     }

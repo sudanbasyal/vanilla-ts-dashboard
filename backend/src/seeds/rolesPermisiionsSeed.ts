@@ -62,6 +62,7 @@ export async function rolesPermissionseed() {
     userPostPermission,
     userGetPermission,
     userPutPermission,
+    companyGetPermission,
     companyPostPermission,
     companyPutPermission,
     companyDeletePermission,
