@@ -1,3 +1,4 @@
+import { Service } from "./../entity/Service";
 import { AppDataSource } from "../dataSource";
 import { companyData } from "../interface/company";
 import * as services from "./services";
@@ -8,18 +9,32 @@ import { User } from "../entity/User";
 import { Category } from "../entity/Category";
 import { uploadStream } from "../cloudinary";
 import { ServiceToCompany } from "../entity/Company_Service";
-import { Service } from "../entity/Service";
+import loggerWithNameSpace from "../utils/logger";
+import { uploadSingleImage } from "../utils/fileUploader";
+
+const logger = loggerWithNameSpace("SupplierService");
 
 const companyRepository = AppDataSource.getRepository(Company);
 const companyServiceRepository = AppDataSource.getRepository(ServiceToCompany);
 
 export const findByName = async (name: string) => {
-  return await companyRepository.findOne({ where: { name } });
+  logger.info(" finding company by name");
+  return await companyRepository.findOne({ where: { name, isPending: false } });
+};
+
+export const findSelectedPendingCompany = async (id: number) => {
+  logger.info(" finding company by Id");
+  return await companyRepository.findOne({
+    where: {
+      id,
+      isPending: true,
+    },
+    relations: ["ServiceToCompany"],
+  });
 };
 
 export const findByCompanyId = async (id: number, userId: number) => {
-  console.log(id, userId);
-
+  logger.info(" finding company by Id");
   return await companyRepository.findOne({
     where: {
       id,
@@ -31,6 +46,44 @@ export const findByCompanyId = async (id: number, userId: number) => {
 
 export const findAll = async (id: number) => {
   return await companyRepository.find({ where: { user: { id } } });
+};
+
+export const pendingCompanies = async () => {
+  return await companyRepository.find({ where: { isPending: true } });
+};
+
+const update = async (
+  company: Company,
+  data: Partial<companyData>,
+  newImage: { imageUrl: string }
+): Promise<Partial<Company>> => {
+  const companyUpdateData: Partial<Company> = {
+    ...(data.name && { name: data.name }),
+    ...(data.address && { address: data.address }),
+    ...(data.location && { location: data.location }),
+    ...(data.phoneNumber && { phoneNumber: data.phoneNumber }),
+    ...(data.openingTime && { openingTime: data.openingTime }),
+    ...(data.closingTime && { closingTime: data.closingTime }),
+    ...(data.isActive !== undefined && { isActive: data.isActive }),
+    ...((newImage !== undefined || !newImage) && { photo: newImage.imageUrl }),
+  };
+
+  await companyRepository.update(company.id, companyUpdateData);
+
+  await companyServiceRepository.delete({ company });
+
+  const promises = data.serviceIds!.map(async (item, index) => {
+    const companyService = new ServiceToCompany();
+    companyService.description = data.description![index];
+    companyService.price = data.price![index];
+    companyService.company = company;
+    companyService.service = item as unknown as Service;
+    await companyServiceRepository.save(companyService);
+  });
+
+  await Promise.all(promises);
+
+  return companyUpdateData;
 };
 
 export const createCompany = async (
@@ -63,7 +116,7 @@ export const createCompany = async (
     comapnyService.service = item;
     await companyServiceRepository.save(comapnyService);
   });
-
+  logger.info(" new company created");
   return await Promise.all(promises);
 };
 
@@ -71,7 +124,7 @@ export const remove = async (company: Company) => {
   return await companyRepository.softRemove(company);
 };
 
-export const uploadImage = async (imageFiles: {
+export const uploadCompanyImages = async (imageFiles: {
   [key: string]: Express.Multer.File[];
 }) => {
   const firstKey = Object.keys(imageFiles)[0];
@@ -93,8 +146,7 @@ export const uploadImage = async (imageFiles: {
   );
   const panImageUrl = panImageResult.secure_url;
 
-  console.log("panimage", panImageUrl);
-
+  logger.info("uploaded image to cloudinary");
   return { companyImageUrl, panImageUrl };
 };
 
@@ -102,9 +154,11 @@ export const registerCompany = async (
   data: companyData,
   imageFiles: {
     [key: string]: Express.Multer.File[];
-  }
+  },
+  id: string
 ) => {
-  const uploadFormImages = await uploadImage(imageFiles);
+  // const uploadFormImages = await uploadImage(imageFiles);
+  const uploadFormImages = await uploadCompanyImages(imageFiles);
 
   const category = await getCategory(Number(data.categoryId));
   if (!category) throw new BadRequestError("category not found");
@@ -114,6 +168,7 @@ export const registerCompany = async (
 
   const companyexisits = await findByName(data.name);
   if (companyexisits) throw new BadRequestError("company already exists ");
+  data.userId = id;
 
   const newCompany = await createCompany(
     data,
@@ -127,10 +182,53 @@ export const registerCompany = async (
 };
 
 export const getCompanies = async (id: number) => {
+  const activeCompanies: Company[] = [];
   if (!id) throw new BadRequestError("user not found");
   const companies = await findAll(id);
   if (companies.length === 0) throw new BadRequestError("companies dont exist");
+  companies.forEach((company) => {
+    if (company.isPending === false) {
+      activeCompanies.push(company);
+    }
+
+    if (activeCompanies.length === 0 || !activeCompanies) {
+      throw new BadRequestError(
+        "the company has not been verified by admin please try again later"
+      );
+    }
+    return activeCompanies;
+  });
+
   return companies;
+};
+
+export const updateCompany = async (
+  id: number,
+  data: Partial<companyData>, // Using Partial to make fields optional
+  imageFiles: { [key: string]: Express.Multer.File[] },
+  userId: string
+) => {
+  try {
+    const company = await findByCompanyId(id, Number(userId));
+    if (!company) throw new BadRequestError("company to update not found");
+
+    const newImage =
+      imageFiles !== undefined
+        ? await uploadSingleImage(imageFiles)
+        : { imageUrl: company.photo };
+
+    const companyServices = await services.getServicesByIds(data.serviceIds!);
+    if (!companyServices) throw new BadRequestError("services not found");
+
+    if (data.name && data.name !== company.name) {
+      const existingCompany = await findByName(data.name);
+      if (existingCompany) throw new BadRequestError("Company already exists");
+    }
+
+    const updatedCompany = await update(company, data, newImage);
+  } catch (err) {
+    console.log("err", err);
+  }
 };
 
 export const deleteCompany = async (id: number, userId: number) => {
@@ -142,9 +240,4 @@ export const deleteCompany = async (id: number, userId: number) => {
 
   const deletedCompany = await remove(companyExists);
   return deletedCompany;
-
-  // const deltedCompany = await delete (userId, id);
-  // const companies = await delete (userId, id);
-  // if (companies.length === 0) throw new BadRequestError("companies dont exist");
-  // return companies;
 };

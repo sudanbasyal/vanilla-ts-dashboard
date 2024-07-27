@@ -1,9 +1,11 @@
+import { update } from "./../service/user";
 import httpStatusCodes from "http-status-codes";
 
 import { NextFunction, Response } from "express";
 import * as supplierService from "../service/supplier";
 import { Request } from "../interface/request";
 import loggerWithNameSpace from "../utils/logger";
+import { json } from "stream/consumers";
 
 const logger = loggerWithNameSpace("SupplierController");
 
@@ -19,16 +21,21 @@ export const registerCompany = async (
 
     const newCompany = await supplierService.registerCompany(
       req.body,
-      imageFiles
+      imageFiles,
+      String(id)
     );
     logger.info("created succesfully");
-    res.status(httpStatusCodes.OK).json({ message: "created" });
+    res.status(httpStatusCodes.OK).json({
+      message:
+        "Successful.Your company has been forwarded to the admin for verification",
+    });
   } catch (err) {
+    console.log("err", err);
     next(err);
   }
 };
 
-export const getCompanies = async (
+export const getSuppliersCompanies = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -36,8 +43,34 @@ export const getCompanies = async (
   try {
     const id = req.user?.id!;
     const companies = await supplierService.getCompanies(id);
+    logger.info("fetched companies successfully");
     res.status(httpStatusCodes.OK).json({ companies });
   } catch (err) {
+    next(err);
+  }
+};
+
+export const updateCompany = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const userId = req.user?.id!;
+  const { id } = req.params;
+  const data = req.body;
+  const imageFiles = req.files as { [key: string]: Express.Multer.File[] };
+
+  try {
+    const update = await supplierService.updateCompany(
+      id,
+      data,
+      imageFiles,
+      String(userId)
+    );
+    logger.info("updated succesfully");
+    res.status(httpStatusCodes.OK).json({ message: "updated successfully" });
+  } catch (err) {
+    logger.error("error occured", err);
     next(err);
   }
 };
@@ -51,8 +84,8 @@ export const deleteCompanies = async (
     const { id } = req.params;
     const userId = req.user?.id!;
 
-    console.log(id, userId);
     const companies = await supplierService.deleteCompany(id, userId);
+    logger.info("delted succesfully");
     res.status(httpStatusCodes.OK).json({ message: "deleted successfully" });
   } catch (err) {
     next(err);

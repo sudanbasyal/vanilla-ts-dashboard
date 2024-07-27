@@ -13,5 +13,5 @@ export interface companyData {
   closingTime: string;
   description: string;
   serviceIds: string[];
-
+  isActive: boolean;
 }

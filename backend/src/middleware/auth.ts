@@ -35,7 +35,7 @@ export const authenticate = (
     logger.info("user authenticated");
     next();
   } catch (error) {
-    throw new UnauthenticatedError("error");
+    throw new UnauthenticatedError("please login again");
   }
 };
 

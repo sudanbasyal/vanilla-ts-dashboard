@@ -3,23 +3,15 @@ import { deleteUser, getUser } from "../controller/user";
 import { authenticate, authorize } from "../middleware/auth";
 import { validateReqBody, validateReqParams } from "../middleware/validator";
 import {
-  createUserBodySchema,
-  getUserQuerySchema,
   updateUserBodySchema,
   userIdSchema,
 } from "../schema/user";
 import { updateUser, createUser } from "../controller/user";
-// import { authenticate, authorize } from "../middleware/auth";
-// import { createUser } from "../controller/user";
-
-// import { validateReqBody, validateReqParams } from "../middleware/validator";
 
 const userRouter = Router();
 userRouter.post(
   "/",
-  // authenticate,
-  // authorize("users.post"),
-  // validateReqBody(createUserBodySchema),
+
   createUser
 );
 
