@@ -29,8 +29,12 @@ export const findSelectedPendingCompany = async (id: number) => {
       id,
       isPending: true,
     },
-    relations: ["ServiceToCompany"],
+    relations: ["ServiceToCompany", "user"],
   });
+};
+
+export const updatePendingStatus = async (id: number, status: boolean) => {
+  return await companyRepository.update(id, { isPending: !status });
 };
 
 export const findByCompanyId = async (id: number, userId: number) => {
@@ -208,27 +212,23 @@ export const updateCompany = async (
   imageFiles: { [key: string]: Express.Multer.File[] },
   userId: string
 ) => {
-  try {
-    const company = await findByCompanyId(id, Number(userId));
-    if (!company) throw new BadRequestError("company to update not found");
+  const company = await findByCompanyId(id, Number(userId));
+  if (!company) throw new BadRequestError("company to update not found");
 
-    const newImage =
-      imageFiles !== undefined
-        ? await uploadSingleImage(imageFiles)
-        : { imageUrl: company.photo };
+  const newImage =
+    imageFiles !== undefined
+      ? await uploadSingleImage(imageFiles)
+      : { imageUrl: company.photo };
 
-    const companyServices = await services.getServicesByIds(data.serviceIds!);
-    if (!companyServices) throw new BadRequestError("services not found");
+  const companyServices = await services.getServicesByIds(data.serviceIds!);
+  if (!companyServices) throw new BadRequestError("services not found");
 
-    if (data.name && data.name !== company.name) {
-      const existingCompany = await findByName(data.name);
-      if (existingCompany) throw new BadRequestError("Company already exists");
-    }
-
-    const updatedCompany = await update(company, data, newImage);
-  } catch (err) {
-    console.log("err", err);
+  if (data.name && data.name !== company.name) {
+    const existingCompany = await findByName(data.name);
+    if (existingCompany) throw new BadRequestError("Company already exists");
   }
+
+  const updatedCompany = await update(company, data, newImage);
 };
 
 export const deleteCompany = async (id: number, userId: number) => {

@@ -13,7 +13,7 @@ export const createUser = async (
   next: NextFunction
 ) => {
   let { email, password, role, name, address, phoneNumber } = req.body;
-  console.log("body", req.body);
+
 
   try {
     const data = await userService.createUser(
@@ -24,7 +24,7 @@ export const createUser = async (
       address,
       phoneNumber
     );
-    console.log("data", data);
+    
     res.status(httpStatusCodes.CREATED).json({ message: "signup success" });
   } catch (err) {
     next(err);
@@ -74,7 +74,7 @@ export const updateUser = async (
 
     res.status(httpStatusCodes.OK).json({ message: "successfully updated" });
   } catch (error) {
-    console.log(error);
+   
     next(error);
   }
 };
@@ -94,7 +94,7 @@ export const deleteUser = async (
     }
     res.status(httpStatusCodes.OK).json({ message: "deleted successully" });
   } catch (error) {
-    console.log(error);
+  
     next(error);
   }
 };

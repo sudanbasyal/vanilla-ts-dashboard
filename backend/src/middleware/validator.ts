@@ -25,11 +25,10 @@ export function validateReqBody(schema: Schema) {
   return (req: Request, res: Response, next: NextFunction) => {
     logger.info("Validating request body");
 
-    console.log(req.body);
 
     const { error, value } = schema.validate(req.body);
 
-    console.log(error, value);
+
 
     if (error) {
       logger.error("Error validating request body", { error });

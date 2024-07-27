@@ -8,7 +8,6 @@ export const getAllCategories = async (
   next: NextFunction
 ) => {
   try {
-    console.log("this is a category route");
     const categories = await categoryService.getAllCategories();
     res.json(categories);
   } catch (err) {

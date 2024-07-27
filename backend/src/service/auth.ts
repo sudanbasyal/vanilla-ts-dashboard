@@ -24,7 +24,7 @@ export const login = async (body: Pick<User, "email" | "password">) => {
     body.password,
     existingUser.password
   );
-  console.log("userPassword", userPassword);
+
   if (!userPassword) throw new BadRequestError("Password doesnt match");
 
   const user = await userService.getUser(existingUser.id);

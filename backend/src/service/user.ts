@@ -114,7 +114,6 @@ export const createUser = async (
 ) => {
   const existingUser = await findByEmail(email);
   if (existingUser) {
-    console.log("email reached");
     throw new BadRequestError("Email already in use");
   }
   const newPassword = await hashPassword(password);
@@ -177,6 +176,3 @@ export const deleteUser = async (id: number) => {
   const deletedUser = await deleteById(id);
   return deletedUser;
 };
-
-
-

@@ -47,7 +47,7 @@ export const authorize = (permission: string | string) => {
     }
 
     const hasPermission = user.permissions.includes(permission);
-    console.log("permission", hasPermission);
+    logger.info("checking user permission", hasPermission);
 
     if (!hasPermission) {
       next(new UnauthenticatedError("Forbidden"));

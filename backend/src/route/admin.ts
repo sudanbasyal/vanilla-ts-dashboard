@@ -1,7 +1,7 @@
 import { authenticate, authorize } from "./../middleware/auth";
 import { Router } from "express";
 
-import { getAllPendingCompanies } from "../controller/admin";
+import { getAllPendingCompanies, verifyCompany } from "../controller/admin";
 
 const adminRouter = Router();
 
@@ -12,5 +12,11 @@ adminRouter.post(
   getAllPendingCompanies
 );
 
+adminRouter.put(
+  "/verify-company/:id",
+  authenticate,
+  authorize("company.verify"),
+  verifyCompany
+);
 
 export default adminRouter;

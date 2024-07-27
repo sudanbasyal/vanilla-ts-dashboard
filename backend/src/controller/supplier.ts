@@ -1,11 +1,9 @@
-import { update } from "./../service/user";
 import httpStatusCodes from "http-status-codes";
-
 import { NextFunction, Response } from "express";
 import * as supplierService from "../service/supplier";
 import { Request } from "../interface/request";
 import loggerWithNameSpace from "../utils/logger";
-import { json } from "stream/consumers";
+
 
 const logger = loggerWithNameSpace("SupplierController");
 
@@ -30,7 +28,7 @@ export const registerCompany = async (
         "Successful.Your company has been forwarded to the admin for verification",
     });
   } catch (err) {
-    console.log("err", err);
+
     next(err);
   }
 };
