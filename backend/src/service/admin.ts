@@ -1,7 +1,7 @@
 import * as supplierService from "./supplier";
 import loggerWithNameSpace from "../utils/logger";
 import { BadRequestError } from "../error/BadRequestError";
-import { log } from "console";
+import * as userService from "./user";
 
 const logger = loggerWithNameSpace("AdminService");
 
@@ -44,4 +44,21 @@ export const verifyCompany = async (companyId: number, isAllowed: boolean) => {
     await supplierService.updatePendingStatus(companyId, isAllowed);
     return { message: "the company has been approved" };
   }
+};
+
+export const getUsers = async () => {
+  const users = await userService.findAll();
+  if (!users || users.length === 0) throw new BadRequestError("no users found");
+  return users;
+};
+
+export const getSelectedUser = async (userId: number) => {
+  const selectedUser = await userService.getUserProfile(userId);
+  if (!selectedUser) throw new BadRequestError("user not found");
+  return selectedUser;
+};
+
+export const deleteUser = async (userId: number) => {
+  const deletedUser = await userService.deleteUser(userId);
+  return deletedUser;
 };

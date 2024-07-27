@@ -52,3 +52,52 @@ export const verifyCompany = async (
     next(err);
   }
 };
+
+export const getAllUsers = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const users = await adminService.getUsers();
+    logger.info("fetched all Users");
+    res.json(httpStatusCodes.OK).json(users);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const getSelectedUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { id } = req.params;
+
+    const user = await adminService.getSelectedUser(id);
+    logger.info("fetched selected user");
+    res.json(httpStatusCodes.OK).json(user);
+  } catch (err) {
+    next(err);
+  }
+};
+
+// TODO 204 status is retuning the body as null check later
+export const deleteSelectedUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { id } = req.params;
+    const user = await adminService.deleteUser(id);
+    logger.info("deleted selected user");
+
+    res
+      .status(httpStatusCodes.NO_CONTENT)
+      .json({ message: "deleted successfully" });
+  } catch (err) {
+    next(err);
+  }
+};

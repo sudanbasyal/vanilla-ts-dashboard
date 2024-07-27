@@ -84,7 +84,7 @@ export const deleteCompanies = async (
 
     const companies = await supplierService.deleteCompany(id, userId);
     logger.info("delted succesfully");
-    res.status(httpStatusCodes.OK).json({ message: "deleted successfully" });
+    res.status(httpStatusCodes.NO_CONTENT).json({ message: "deleted successfully" });
   } catch (err) {
     next(err);
   }

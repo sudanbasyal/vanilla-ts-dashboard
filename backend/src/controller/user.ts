@@ -92,9 +92,8 @@ export const deleteUser = async (
       next(new NotFoundError("User not found"));
       return;
     }
-    res.status(httpStatusCodes.OK).json({ message: "deleted successully" });
+    res.status(httpStatusCodes.NO_CONTENT).json({ message: "deleted successully" });
   } catch (error) {
-  
     next(error);
   }
 };

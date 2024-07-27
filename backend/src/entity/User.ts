@@ -42,7 +42,7 @@ export class User {
   @JoinColumn()
   profile: UserProfile;
 
-  @OneToMany(() => Company, (company) => company.user)
+  @OneToMany(() => Company, (company) => company.user, { cascade: true })
   company: Company[];
 
   @ManyToMany(() => Role, (role) => role.users, { cascade: true })

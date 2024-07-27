@@ -2,7 +2,6 @@ import httpStatusCodes from "http-status-codes";
 import { NextFunction } from "express";
 import * as authService from "../service/auth";
 import { Request, Response } from "express";
-import { BadRequestError } from "../error/BadRequestError";
 import { NotFoundError } from "../error/NotFoundError";
 
 export const login = async (
