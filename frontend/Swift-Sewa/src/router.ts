@@ -5,6 +5,8 @@ import { SignUpPage } from "./loader/signUp";
 import { DashboardPage } from "./loader/user/dashboard";
 import { ProfilePage } from "./loader/user/profile";
 import { CompanyRegistrationPage } from "./loader/supplier/companyRegistration";
+import { CompaniesPage } from "./loader/supplier/companies";
+import { SelectedCompanyPage } from "./loader/supplier/selectedCompany";
 
 const routes: { [key: string]: { component: any } } = {
   "#/": {
@@ -26,6 +28,14 @@ const routes: { [key: string]: { component: any } } = {
 
   "#/supplier/registration": {
     component: CompanyRegistrationPage,
+  },
+
+  "#/supplier/companies": {
+    component: CompaniesPage,
+  },
+
+  "#/supplier/companies/selected": {
+    component: SelectedCompanyPage,
   },
 
   "#/about-us": { component: AboutusPage },

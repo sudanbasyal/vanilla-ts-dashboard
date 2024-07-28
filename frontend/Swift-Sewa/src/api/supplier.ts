@@ -1,15 +1,25 @@
 import { instance } from "./base";
 
 export const supplierApi = {
-  get: async () => {
+  getAll: async () => {
     try {
-      const response = await instance.get(`/suppliers`);
+      const response = await instance.get(`/suppliers/companies`);
       return response.data;
     } catch (error) {
       console.error("Error fetching profile:", error);
       throw error;
     }
   },
+
+   getOne:async(id:number)=>{
+    try {
+      const response = await instance.get(`/suppliers/companies/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching profile:", error);
+      throw error;
+    }
+   },
 
   post: async (data: any) => {
     try {

@@ -4,6 +4,7 @@ import { supplierApi } from "../../api/supplier";
 import { displayResponseErrors } from "../../utils/errorHandler";
 import axios from "axios";
 
+
 export class CompanyRegistrationAction {
   static registration: () => void = async () => {
     const submitButton = document.getElementById("submit") as HTMLButtonElement;
@@ -15,7 +16,7 @@ export class CompanyRegistrationAction {
       try {
         categoriesArray = [];
         const data = await categoryApi.get();
-        console.log("data", data);
+
         const categorySelect = document.getElementById(
           "categoryId"
         ) as HTMLSelectElement;
@@ -36,7 +37,6 @@ export class CompanyRegistrationAction {
           }
         );
       } catch (error) {
-        console.error("Error fetching profile:", error);
         throw error;
       }
     }
@@ -142,15 +142,26 @@ export class CompanyRegistrationAction {
 
     submitButton.onclick = async (e) => {
       e.preventDefault();
-      console.log("i am clicked ");
 
+      // const formData: CustomFormData = {
+      //   serviceIds: [],
+      //   servicePrices: [],
+      //   photo: null,
+      //   panPhoto: null,
+      //   name: "",
+      //   phoneNumber: "",
+      //   address: "",
+      //   location: "",
+      //   openingTime: "",
+      //   closingTime: "",
+      //   categoryId: "",
+      // };
       // Gather form data
       const formData: { [key: string]: any } = {};
 
       formData.serviceIds = [];
       formData.servicePrices = [];
 
-      // Basic information
       formData.photo = document.getElementById("photo") as HTMLInputElement;
       formData.photo = formData.photo.files[0];
 
@@ -159,21 +170,22 @@ export class CompanyRegistrationAction {
       ) as HTMLInputElement;
 
       formData.panPhoto = formData.panPhoto.files[0];
-
       formData.name = (
         document.getElementById("name") as HTMLInputElement
       ).value;
-      console.log("formdata name", formData.name);
 
       formData.phoneNumber = (
         document.getElementById("phoneNumber") as HTMLInputElement
       ).value;
+
       formData.address = (
         document.getElementById("address") as HTMLInputElement
       ).value;
+
       formData.location = (
         document.getElementById("location") as HTMLSelectElement
       ).value;
+
       let openingTime = document.getElementById(
         "openingTime"
       ) as HTMLInputElement;
@@ -207,6 +219,8 @@ export class CompanyRegistrationAction {
         formData.servicePrices.push(`${priceInput.value}`);
       });
 
+      console.log("formData", formData);
+
       const registrationData = new FormData();
 
       // Append basic information
@@ -233,13 +247,12 @@ export class CompanyRegistrationAction {
         registrationData.append(`price`, price);
       });
 
+      // getting id of user from cookie
       const userId = Cookies.get("userId")!;
-
       registrationData.append("userId", userId);
 
       try {
         const data = await supplierApi.post(registrationData);
-        console.log("data", data);
       } catch (err) {
         if (axios.isAxiosError(err)) {
           const errorMessage = err.response?.data?.message || err.message;
