@@ -1,23 +1,311 @@
-import { supplierApi } from "../../api/supplier";
+import { Service } from "./../../interface/service";
 import { serviceApi } from "../../api/services";
+import { categoryApi } from "../../api/categories";
+import { supplierApi } from "../../api/supplier";
 
 export class SelectedCompanyActions {
-  static selected: () => void = () => {
+  static selected: () => void = async () => {
     const updateButton = document.getElementById(
       "update-button"
     ) as HTMLButtonElement;
     const saveButton = document.getElementById(
       "save-button"
     ) as HTMLButtonElement;
+    const deleteButton = document.getElementById(
+      "delete-button"
+    ) as HTMLButtonElement;
+    const addServiceButton = document.getElementById(
+      "add-service-button"
+    ) as HTMLButtonElement;
 
-    updateButton.addEventListener("click", () => {
+    const servicesOfCategory: Service[] = [];
+
+    const fetchServices = async () => {
+      try {
+        const categoryId = localStorage.getItem("categoryId");
+        const category = await categoryApi.getOne(Number(categoryId));
+        servicesOfCategory.push(...category.services);
+      } catch (err) {
+        console.log("err", err);
+      }
+    };
+
+    deleteButton?.addEventListener("click", () => {
+      updateButton.disabled = true;
+      saveButton.classList.add("hidden");
+      updateButton.classList.add("block");
+      deleteServices();
+    });
+
+    addServiceButton.addEventListener("click", () => {
+      deleteButton.disabled = true;
+      // saveButton.classList.remove("hidden");
+      addNewService();
+    });
+
+    updateButton?.addEventListener("click", () => {
+      addServiceButton.disabled = true;
       toggleEditMode(true);
     });
 
-    saveButton.addEventListener("click", () => {
+    saveButton?.addEventListener("click", () => {
       saveChanges();
       toggleEditMode(false);
     });
+
+    function deleteServices() {
+      const servicesList = document.querySelector(
+        ".services-list"
+      ) as HTMLUListElement;
+      if (servicesList) {
+        const services = servicesList.querySelectorAll("li");
+        services.forEach((service) => {
+          const binIcon = document.createElement("span");
+          binIcon.classList.add("bin-icon", "cursor-pointer");
+          binIcon.innerHTML = "&#128465;";
+
+          binIcon.addEventListener("click", async () => {
+            const serviceId = service.getAttribute("data-id");
+            const companyId = localStorage.getItem("companyId");
+
+            try {
+              const deletedService = await supplierApi.deleteCompanyService({
+                companyId,
+                serviceId,
+              });
+              updateButton.disabled = false;
+              saveButton.classList.add("hidden");
+              updateButton.classList.add("block");
+              window.location.reload();
+            } catch (err) {
+              console.log("err", err);
+            }
+          });
+
+          service.appendChild(binIcon);
+        });
+      } else {
+        console.error("Services list not found");
+      }
+    }
+
+    function displayServices(services: Service[]) {
+      const servicesList = document.querySelector(
+        ".services-list"
+      ) as HTMLUListElement;
+      servicesList.innerHTML = "";
+
+      services.forEach((service: any, index: number) => {
+        const listItem = document.createElement("li");
+        listItem.classList.add(
+          "service-item",
+          "text-white",
+          "text-lg",
+          "p-6",
+          "border-b",
+          "border-gray-600"
+        );
+        listItem.setAttribute("data-id", service.service.id);
+
+        const serviceHeader = document.createElement("div");
+        serviceHeader.classList.add(
+          "service-header",
+          "flex",
+          "justify-between",
+          "items-center"
+        );
+
+        const serviceName = document.createElement("h3");
+        serviceName.classList.add("service-name", "font-bold");
+        serviceName.textContent = service.service.name;
+
+        const servicePrice = document.createElement("span");
+        servicePrice.classList.add("service-price", "text-sm");
+        servicePrice.textContent = service.price;
+
+        serviceHeader.appendChild(serviceName);
+        serviceHeader.appendChild(servicePrice);
+
+        const serviceDescription = document.createElement("span");
+        serviceDescription.classList.add("service-description", "text-sm");
+        serviceDescription.textContent = service.description;
+
+        const contentContainer = document.createElement("div");
+        contentContainer.classList.add(
+          "content-container",
+          "flex",
+          "flex-col",
+          "gap-4"
+        );
+
+        contentContainer.appendChild(serviceHeader);
+        contentContainer.appendChild(serviceDescription);
+
+        listItem.appendChild(contentContainer);
+        servicesList.appendChild(listItem);
+      });
+    }
+
+    function canAddMoreServices(): boolean {
+      const currentServiceCount =
+        document.querySelectorAll(".service-item").length;
+      return servicesOfCategory.length > currentServiceCount;
+    }
+
+    // function addNewService() {
+    //   if (!canAddMoreServices()) {
+    //     alert("You've reached the maximum number of services allowed.");
+    //     return;
+    //   }
+    //   const servicesList = document.querySelector(
+    //     ".services-list"
+    //   ) as HTMLUListElement;
+    //   const existingServices = Array.from(
+    //     servicesList.querySelectorAll(".service-name")
+    //   ).map((nameElement) => (nameElement as HTMLElement).textContent);
+
+    //   let newServiceData = servicesOfCategory.find(
+    //     (service) => !existingServices.includes(service.name)
+    //   );
+
+    //   if (!newServiceData) {
+    //     alert("All available services have been added.");
+    //     return;
+    //   }
+
+    //   const listItem = document.createElement("li");
+    //   listItem.classList.add(
+    //     "service-item",
+    //     "text-white",
+    //     "text-lg",
+    //     "p-6",
+    //     "border-b",
+    //     "border-gray-600"
+    //   );
+
+    //   const serviceHeader = document.createElement("div");
+    //   serviceHeader.classList.add(
+    //     "service-header",
+    //     "flex",
+    //     "justify-between",
+    //     "items-center"
+    //   );
+
+    //   const serviceName = document.createElement("span");
+    //   serviceName.classList.add("service-name", "font-bold");
+    //   serviceName.textContent = newServiceData.name;
+
+    //   const servicePrice = document.createElement("input") as HTMLInputElement;
+    //   servicePrice.classList.add(
+    //     "service-price",
+    //     "text-sm",
+    //     "text-black",
+    //     "w-full"
+    //   );
+    //   servicePrice.placeholder = "Service Price";
+    //   servicePrice.type = "number";
+    //   servicePrice.min = "0";
+    //   servicePrice.step = "100";
+
+    //   const serviceDescription = document.createElement("p");
+    //   serviceDescription.classList.add("service-description", "text-sm");
+    //   serviceDescription.textContent = newServiceData.description || "";
+
+    //   serviceHeader.appendChild(serviceName);
+    //   serviceHeader.appendChild(servicePrice);
+
+    //   const contentContainer = document.createElement("div");
+    //   contentContainer.classList.add(
+    //     "content-container",
+    //     "flex",
+    //     "flex-col",
+    //     "gap-4"
+    //   );
+
+    //   contentContainer.appendChild(serviceHeader);
+    //   contentContainer.appendChild(serviceDescription);
+
+    //   listItem.appendChild(contentContainer);
+    //   servicesList.appendChild(listItem);
+    // }
+
+    function addNewService() {
+      if (!canAddMoreServices()) {
+        alert("You've reached the maximum number of services allowed.");
+        return;
+      }
+      const servicesList = document.querySelector(
+        ".services-list"
+      ) as HTMLUListElement;
+      const existingServices = Array.from(
+        servicesList.querySelectorAll(".service-name")
+      ).map((nameElement) => (nameElement as HTMLElement).textContent);
+
+      let newServiceData = servicesOfCategory.find(
+        (service) => !existingServices.includes(service.name)
+      );
+
+      if (!newServiceData) {
+        alert("All available services have been added.");
+        return;
+      }
+
+      const listItem = document.createElement("li");
+      listItem.classList.add(
+        "service-item",
+        "text-white",
+        "text-lg",
+        "p-6",
+        "border-b",
+        "border-gray-600"
+      );
+      listItem.setAttribute("data-id", newServiceData.id);
+
+      const serviceHeader = document.createElement("div");
+      serviceHeader.classList.add(
+        "service-header",
+        "flex",
+        "justify-between",
+        "items-center"
+      );
+
+      const serviceName = document.createElement("span");
+      serviceName.classList.add("service-name", "font-bold");
+      serviceName.textContent = newServiceData.name;
+
+      const servicePrice = document.createElement("input") as HTMLInputElement;
+      servicePrice.classList.add(
+        "service-price",
+        "text-sm",
+        "text-black",
+        "w-full"
+      );
+      servicePrice.placeholder = "Service Price";
+      servicePrice.type = "number";
+      servicePrice.min = "0";
+      servicePrice.step = "100";
+
+      const serviceDescription = document.createElement("p");
+      serviceDescription.classList.add("service-description", "text-sm");
+      serviceDescription.textContent = newServiceData.description || "";
+
+      serviceHeader.appendChild(serviceName);
+      serviceHeader.appendChild(servicePrice);
+
+      const contentContainer = document.createElement("div");
+      contentContainer.classList.add(
+        "content-container",
+        "flex",
+        "flex-col",
+        "gap-4"
+      );
+
+      contentContainer.appendChild(serviceHeader);
+      contentContainer.appendChild(serviceDescription);
+
+      listItem.appendChild(contentContainer);
+      servicesList.appendChild(listItem);
+    }
 
     function toggleEditMode(editMode: boolean) {
       const fields: string[] = [
@@ -27,6 +315,7 @@ export class SelectedCompanyActions {
         "openingTime",
         "closingTime",
         "status",
+        "location",
       ];
 
       fields.forEach((field) => {
@@ -42,16 +331,50 @@ export class SelectedCompanyActions {
             inputElement.type = "time";
             inputElement.value =
               spanElement.textContent || spanElement.dataset.oldValue || "";
+          } else if (field === "location") {
+            inputElement = document.createElement(
+              "select"
+            ) as HTMLSelectElement;
+            const kathmanduOption = document.createElement(
+              "option"
+            ) as HTMLOptionElement;
+            kathmanduOption.value = "kathmandu";
+            kathmanduOption.text = "kathmandu";
+
+            const bhaktapurOption = document.createElement(
+              "option"
+            ) as HTMLOptionElement;
+            bhaktapurOption.value = "bhaktapur";
+            bhaktapurOption.text = "bhaktapur";
+
+            inputElement.add(kathmanduOption);
+            inputElement.add(bhaktapurOption);
+
+            const defaultValue =
+              spanElement.textContent ||
+              spanElement.dataset.oldValue ||
+              "kathmandu";
+            inputElement.value = defaultValue;
+
+            inputElement.addEventListener("change", (event) => {
+              const selectedValue = (event.target as HTMLSelectElement).value;
+            });
           } else if (field === "status") {
             inputElement = document.createElement(
               "select"
             ) as HTMLSelectElement;
-            const activeOption = document.createElement("option");
+            const activeOption = document.createElement(
+              "option"
+            ) as HTMLOptionElement;
             activeOption.value = "active";
             activeOption.text = "Active";
-            const inactiveOption = document.createElement("option");
+
+            const inactiveOption = document.createElement(
+              "option"
+            ) as HTMLOptionElement;
             inactiveOption.value = "inactive";
             inactiveOption.text = "Inactive";
+
             inputElement.add(activeOption);
             inputElement.add(inactiveOption);
             inputElement.value =
@@ -64,6 +387,7 @@ export class SelectedCompanyActions {
             inputElement.value =
               spanElement.textContent || spanElement.dataset.oldValue || "";
           }
+
           inputElement.classList.add(`input-${field}`, "text-black", "w-full");
           spanElement.replaceWith(inputElement);
         } else {
@@ -72,6 +396,7 @@ export class SelectedCompanyActions {
             | HTMLSelectElement;
           const newSpanElement = document.createElement("span");
           newSpanElement.classList.add(field);
+
           if (
             inputElement instanceof HTMLInputElement ||
             inputElement instanceof HTMLSelectElement
@@ -83,191 +408,247 @@ export class SelectedCompanyActions {
         }
       });
 
-      // Handle services section (only price and description)
+      // Update service price and description
       const serviceItems = document.querySelectorAll(".service-item");
-      serviceItems.forEach((serviceItem, index) => {
-        const descriptionElement = serviceItem.querySelector(
-          ".service-description"
-        ) as HTMLSpanElement;
+      serviceItems.forEach((serviceItem) => {
         const priceElement = serviceItem.querySelector(
           ".service-price"
-        ) as HTMLSpanElement;
+        ) as HTMLElement;
+        const descriptionElement = serviceItem.querySelector(
+          ".service-description"
+        ) as HTMLElement;
 
         if (editMode) {
-          // Description input
-          const descriptionInput = document.createElement("input");
+          const priceInput = document.createElement(
+            "input"
+          ) as HTMLInputElement;
+          priceInput.type = "number";
+          priceInput.value = priceElement.textContent || "";
+          priceInput.classList.add(
+            "input-service-price",
+            "text-black",
+            "w-full"
+          );
+
+          const descriptionInput = document.createElement(
+            "input"
+          ) as HTMLInputElement;
           descriptionInput.type = "text";
           descriptionInput.value = descriptionElement.textContent || "";
           descriptionInput.classList.add(
-            `input-description-${index}`,
+            "input-service-description",
             "text-black",
             "w-full"
           );
-          descriptionElement.replaceWith(descriptionInput);
 
-          // Price input
-          const priceInput = document.createElement("input");
-          priceInput.type = "text";
-          priceInput.value = priceElement.textContent || "";
-          priceInput.classList.add(
-            `input-price-${index}`,
-            "text-black",
-            "w-full"
-          );
           priceElement.replaceWith(priceInput);
+          descriptionElement.replaceWith(descriptionInput);
         } else {
-          // Description span
-          const descriptionInput = document.querySelector(
-            `.input-description-${index}`
+          const priceInput = serviceItem.querySelector(
+            ".input-service-price"
           ) as HTMLInputElement;
-          const newDescriptionElement = document.createElement("span");
-          newDescriptionElement.classList.add("service-description");
-          newDescriptionElement.textContent = descriptionInput.value;
-          descriptionInput.replaceWith(newDescriptionElement);
+          const descriptionInput = serviceItem.querySelector(
+            ".input-service-description"
+          ) as HTMLInputElement;
 
-          // Price span
-          const priceInput = document.querySelector(
-            `.input-price-${index}`
-          ) as HTMLInputElement;
           const newPriceElement = document.createElement("span");
-          newPriceElement.classList.add("service-price");
+          newPriceElement.classList.add("service-price", "text-sm");
           newPriceElement.textContent = priceInput.value;
+
+          const newDescriptionElement = document.createElement("span");
+          newDescriptionElement.classList.add("service-description", "text-sm");
+          newDescriptionElement.textContent = descriptionInput.value;
+
           priceInput.replaceWith(newPriceElement);
+          descriptionInput.replaceWith(newDescriptionElement);
         }
       });
 
       updateButton.classList.toggle("hidden", editMode);
       saveButton.classList.toggle("hidden", !editMode);
+      addServiceButton.classList.toggle("hidden", !editMode);
     }
 
-    function saveChanges() {
+    // async function saveChanges() {
+    //   const fields: string[] = [
+    //     "name",
+    //     "address",
+    //     "phone",
+    //     "openingTime",
+    //     "closingTime",
+    //     "location",
+    //     "status",
+    //   ];
+
+    //   const updatedData = {
+    //     name: "",
+    //     phoneNumber: "",
+    //     address: "",
+    //     location: "",
+    //     serviceIds: [] as string[],
+    //     price: [] as string[],
+    //     openingTime: "",
+    //     closingTime: "",
+    //     description: [] as string[],
+    //     isActive: "" as string | boolean,
+    //   };
+
+    //   fields.forEach((field) => {
+    //     const inputElement = document.querySelector(
+    //       `.input-${field}`
+    //     ) as HTMLInputElement;
+    //     switch (field) {
+    //       case "name":
+    //         updatedData.name = inputElement.value;
+    //         break;
+    //       case "phone":
+    //         updatedData.phoneNumber = inputElement.value;
+    //         break;
+    //       case "address":
+    //         updatedData.address = inputElement.value;
+    //         break;
+    //       case "openingTime":
+    //         updatedData.openingTime = inputElement.value;
+    //         break;
+    //       case "location":
+    //         updatedData.location = inputElement.value;
+    //         break;
+    //       case "closingTime":
+    //         updatedData.closingTime = inputElement.value;
+    //         break;
+
+    //       case "status":
+    //         updatedData.isActive = inputElement.value;
+    //         updatedData.isActive === "active"
+    //           ? (updatedData.isActive = true)
+    //           : (updatedData.isActive = false);
+    //         break;
+    //     }
+    //   });
+
+    //   const serviceItems = document.querySelectorAll(".service-item");
+    //   serviceItems.forEach((serviceItem) => {
+    //     const serviceId = serviceItem.getAttribute("data-id");
+    //     const priceInput = serviceItem.querySelector(
+    //       ".input-service-price"
+    //     ) as HTMLInputElement;
+    //     const descriptionInput = serviceItem.querySelector(
+    //       ".input-service-description"
+    //     ) as HTMLInputElement;
+
+    //     if (serviceId) {
+    //       updatedData.serviceIds.push(serviceId);
+    //       updatedData.price.push(priceInput.value);
+    //       updatedData.description.push(descriptionInput.value);
+    //     }
+    //   });
+
+    //   try {
+    //     console.log("updatedData", updatedData);
+    //     const updatedProfile = await supplierApi.put(updatedData);
+    //     console.log("updatedProfile", updatedProfile);
+    //   } catch (err) {
+    //     console.log("err", err);
+    //   }
+    // }
+
+    async function saveChanges() {
       const fields: string[] = [
         "name",
         "address",
         "phone",
         "openingTime",
         "closingTime",
+        "location",
         "status",
       ];
 
       const updatedData = {
-        profile: {} as { [key: string]: string },
-        services: [] as { description: string; price: string }[],
+        name: "",
+        phoneNumber: "",
+        address: "",
+        location: "",
+        serviceIds: [] as string[],
+        price: [] as string[],
+        openingTime: "",
+        closingTime: "",
+        description: [] as string[],
+        isActive: false,
       };
 
       fields.forEach((field) => {
         const inputElement = document.querySelector(
           `.input-${field}`
         ) as HTMLInputElement;
-        updatedData.profile[field] = inputElement.value;
+        if (inputElement) {
+          switch (field) {
+            case "name":
+              updatedData.name = inputElement.value;
+              break;
+            case "phone":
+              updatedData.phoneNumber = inputElement.value;
+              break;
+            case "address":
+              updatedData.address = inputElement.value;
+              break;
+            case "openingTime":
+              updatedData.openingTime = inputElement.value;
+              break;
+            case "location":
+              updatedData.location = inputElement.value;
+              break;
+            case "closingTime":
+              updatedData.closingTime = inputElement.value;
+              break;
+            case "status":
+              updatedData.isActive = inputElement.value === "active";
+              break;
+          }
+        }
       });
 
-      // Handle services section (only price and description)
       const serviceItems = document.querySelectorAll(".service-item");
-      serviceItems.forEach((serviceItem, index) => {
-        const descriptionInput = document.querySelector(
-          `.input-description-${index}`
+      serviceItems.forEach((serviceItem) => {
+        const serviceId = serviceItem.getAttribute("data-id");
+        const priceInput = serviceItem.querySelector(
+          ".input-service-price"
         ) as HTMLInputElement;
-        const priceInput = document.querySelector(
-          `.input-price-${index}`
+        const descriptionInput = serviceItem.querySelector(
+          ".input-service-description"
         ) as HTMLInputElement;
 
-        updatedData.services.push({
-          description: descriptionInput.value,
-          price: priceInput.value,
-        });
+        if (serviceId && priceInput && descriptionInput) {
+          updatedData.serviceIds.push(serviceId);
+          updatedData.price.push(priceInput.value);
+          updatedData.description.push(descriptionInput.value);
+        }
       });
 
-      console.log("Updated Data:", updatedData);
-
-    }
-
-    function renderServices(services: any) {
-      const servicesList = document.querySelector(
-        ".services-list"
-      ) as HTMLUListElement;
-
-      servicesList.innerHTML = "";
-
-      services.forEach((service: any, index: number) => {
-        // Create list item
-        const listItem = document.createElement("li");
-        listItem.classList.add(
-          "service-item",
-          "text-white",
-          "text-lg",
-          "p-6",
-          "border-b",
-          "border-gray-600"
-        );
-
-        // Create a container for service name and price
-        const serviceHeader = document.createElement("div");
-        serviceHeader.classList.add(
-          "service-header",
-          "flex",
-          "justify-between",
-          "items-center"
-        );
-
-        // Create service name element
-        const serviceName = document.createElement("h3");
-        serviceName.classList.add("service-name", "font-bold");
-        serviceName.textContent = service.service.name;
-
-        // Create service price element
-        const servicePrice = document.createElement("span");
-        servicePrice.classList.add("service-price", "text-sm");
-        servicePrice.textContent = service.price;
-
-        // Append name and price to service header
-        serviceHeader.appendChild(serviceName);
-        serviceHeader.appendChild(servicePrice);
-
-        // Create service description element
-        const serviceDescription = document.createElement("span");
-        serviceDescription.classList.add("service-description", "text-sm");
-        serviceDescription.textContent = service.description;
-
-        // Create a container to ensure price is in the middle
-        const contentContainer = document.createElement("div");
-        contentContainer.classList.add(
-          "content-container",
-          "flex",
-          "flex-col",
-          "gap-4"
-        );
-
-        // Append header and description to content container
-        contentContainer.appendChild(serviceHeader);
-        contentContainer.appendChild(serviceDescription);
-
-        // Append content container to list item
-        listItem.appendChild(contentContainer);
-
-        // Append list item to services list
-        servicesList.appendChild(listItem);
-      });
+      try {
+        console.log("updatedData", updatedData);
+        const updatedProfile = await supplierApi.put(updatedData);
+        console.log("updatedProfile", updatedProfile);
+      } catch (err) {
+        console.log("err", err);
+      }
     }
 
     async function fetchData() {
       try {
         const id = Number(localStorage.getItem("companyId"));
+
         const response = await supplierApi.getOne(id);
-        console.log("response", response);
+
+        localStorage.setItem("categoryId", response.companies.category.id);
 
         const services = response.companies.ServiceToCompany;
-        console.log("services", services);
 
         const serviceIds = services.map((service: any) => service.service.id);
-        console.log("serviceIds", serviceIds);
-
         const serviceResponses = await serviceApi.get();
 
         const matchingServices = serviceResponses.services.filter(
           (response: any) => serviceIds.includes(response.id)
         );
-        console.log("matching responses", matchingServices);
 
         await renderContent(response);
       } catch (err) {
@@ -295,20 +676,23 @@ export class SelectedCompanyActions {
       ) as HTMLSpanElement;
       closingTime.textContent = data.companies.closingTime;
 
-      const status = document.querySelector(".status") as HTMLSpanElement;
-      status.textContent = data.companies.isActive ? "active" : "inactive";
+      const isActive = document.querySelector(".status") as HTMLSpanElement;
+      isActive.textContent = data.companies.isActive ? "active" : "inactive";
 
-      renderServices(data.companies.ServiceToCompany);
+      const location = document.querySelector(".location") as HTMLSpanElement;
+      location.textContent = data.companies.location;
+
+      displayServices(data.companies.ServiceToCompany);
 
       const categoryDescriptionElement = document.getElementsByClassName(
         "category-description"
       )[0];
       if (categoryDescriptionElement) {
         const categoryDescription = categoryDescriptionElement.innerHTML;
-        console.log("categoryDescription", categoryDescription);
       }
     }
 
     fetchData();
+    fetchServices();
   };
 }

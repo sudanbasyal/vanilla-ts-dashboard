@@ -10,6 +10,14 @@ export const categoryApi = {
       throw error;
     }
   },
+  getOne: async (id: number) => {
+    try {
+      const response = await instance.get(`/categories/${id}`);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  },
 
   post: async (data: any) => {
     try {
