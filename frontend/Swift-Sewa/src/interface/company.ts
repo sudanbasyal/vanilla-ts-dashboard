@@ -4,6 +4,7 @@ export interface Company {
   phoneNumber: string;
   address: string;
   location: string;
+  description: string;
   isActive: boolean;
   photo: string;
   openingTime: string;

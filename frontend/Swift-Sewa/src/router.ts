@@ -7,6 +7,7 @@ import { ProfilePage } from "./loader/user/profile";
 import { CompanyRegistrationPage } from "./loader/supplier/companyRegistration";
 import { CompaniesPage } from "./loader/supplier/companies";
 import { SelectedCompanyPage } from "./loader/supplier/selectedCompany";
+import { UserSearchPage } from "./loader/user/search";
 
 const routes: { [key: string]: { component: any } } = {
   "#/": {
@@ -24,6 +25,10 @@ const routes: { [key: string]: { component: any } } = {
 
   "#/profile": {
     component: ProfilePage,
+  },
+
+  "#/user/search": {
+    component: UserSearchPage,
   },
 
   "#/supplier/registration": {

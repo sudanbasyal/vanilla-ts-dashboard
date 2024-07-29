@@ -469,89 +469,6 @@ export class SelectedCompanyActions {
       addServiceButton.classList.toggle("hidden", !editMode);
     }
 
-    // async function saveChanges() {
-    //   const fields: string[] = [
-    //     "name",
-    //     "address",
-    //     "phone",
-    //     "openingTime",
-    //     "closingTime",
-    //     "location",
-    //     "status",
-    //   ];
-
-    //   const updatedData = {
-    //     name: "",
-    //     phoneNumber: "",
-    //     address: "",
-    //     location: "",
-    //     serviceIds: [] as string[],
-    //     price: [] as string[],
-    //     openingTime: "",
-    //     closingTime: "",
-    //     description: [] as string[],
-    //     isActive: "" as string | boolean,
-    //   };
-
-    //   fields.forEach((field) => {
-    //     const inputElement = document.querySelector(
-    //       `.input-${field}`
-    //     ) as HTMLInputElement;
-    //     switch (field) {
-    //       case "name":
-    //         updatedData.name = inputElement.value;
-    //         break;
-    //       case "phone":
-    //         updatedData.phoneNumber = inputElement.value;
-    //         break;
-    //       case "address":
-    //         updatedData.address = inputElement.value;
-    //         break;
-    //       case "openingTime":
-    //         updatedData.openingTime = inputElement.value;
-    //         break;
-    //       case "location":
-    //         updatedData.location = inputElement.value;
-    //         break;
-    //       case "closingTime":
-    //         updatedData.closingTime = inputElement.value;
-    //         break;
-
-    //       case "status":
-    //         updatedData.isActive = inputElement.value;
-    //         updatedData.isActive === "active"
-    //           ? (updatedData.isActive = true)
-    //           : (updatedData.isActive = false);
-    //         break;
-    //     }
-    //   });
-
-    //   const serviceItems = document.querySelectorAll(".service-item");
-    //   serviceItems.forEach((serviceItem) => {
-    //     const serviceId = serviceItem.getAttribute("data-id");
-    //     const priceInput = serviceItem.querySelector(
-    //       ".input-service-price"
-    //     ) as HTMLInputElement;
-    //     const descriptionInput = serviceItem.querySelector(
-    //       ".input-service-description"
-    //     ) as HTMLInputElement;
-
-    //     if (serviceId) {
-    //       updatedData.serviceIds.push(serviceId);
-    //       updatedData.price.push(priceInput.value);
-    //       updatedData.description.push(descriptionInput.value);
-    //     }
-    //   });
-
-    //   try {
-    //     console.log("updatedData", updatedData);
-    //     const updatedProfile = await supplierApi.put(updatedData);
-    //     console.log("updatedProfile", updatedProfile);
-    //   } catch (err) {
-    //     console.log("err", err);
-    //   }
-    // }
-
     async function saveChanges() {
       const fields: string[] = [
         "name",
@@ -638,6 +555,7 @@ export class SelectedCompanyActions {
         const id = Number(localStorage.getItem("companyId"));
 
         const response = await supplierApi.getOne(id);
+        console.log("response", response);
 
         localStorage.setItem("categoryId", response.companies.category.id);
 
@@ -657,6 +575,12 @@ export class SelectedCompanyActions {
     }
 
     async function renderContent(data: any) {
+      const image = document.getElementById(
+        "company-image"
+      ) as HTMLImageElement;
+
+      image.src = data.companies.photo;
+
       const companyName = document.querySelector(".name") as HTMLSpanElement;
       companyName.textContent = data.companies.name;
 

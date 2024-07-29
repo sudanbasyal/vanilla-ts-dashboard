@@ -25,7 +25,7 @@ const renderContent = async (data: CompanyApiResponse) => {
 
   data.companies.forEach((item: Company) => {
     const card = document.createElement("div");
-    card.className = "rounded overflow-hidden shadow-lg";
+    card.className = "rounded-xl overflow-hidden shadow-lg";
     card.innerHTML = `
         <div class="relative">
           <a href=${`#/supplier/companies/selected`}>
@@ -63,7 +63,11 @@ const renderContent = async (data: CompanyApiResponse) => {
             href="#"
             class="font-semibold text-lg inline-block hover:text-indigo-600 transition duration-500 ease-in-out mb-4"
           >${item.name}</a>
-          <p class="text-gray-500 text-sm">${item.location}</p>
+          <p class="text-gray-500 text-sm">${item.description}</p> </br>
+
+            <p class="text-gray-500 text-sm">${item.location}</p> 
+
+      
           
           <h1> ${item.isActive ? "active" : "inactive"}</h1>
           
