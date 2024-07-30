@@ -1,4 +1,3 @@
-// import { deeSelectedcompanyService } from './supplier';
 import { Service } from "./../entity/Service";
 import { AppDataSource } from "../dataSource";
 import { companyData } from "../interface/company";
@@ -12,9 +11,10 @@ import { uploadStream } from "../cloudinary";
 import { ServiceToCompany } from "../entity/Company_Service";
 import loggerWithNameSpace from "../utils/logger";
 import { uploadSingleImage } from "../utils/fileUploader";
-import * as companyToSercice from "./Compnay_Service";
-import { deleteCompanyService } from "./Compnay_Service";
-import { CategoryCompanyQuery } from "../interface/query";
+import { deleteCompanyService } from "./companytoservice";
+import { CategoryCompanyQuery, ServiceCompanyQuery } from "../interface/query";
+// import { findByService } from "./company_service";
+import { findByService } from "./companytoservice";
 
 const logger = loggerWithNameSpace("SupplierService");
 
@@ -294,5 +294,11 @@ export const findCompanyByCategory = async (
   query: CategoryCompanyQuery
 ) => {
   const companies = await findByCategory(categoryId, query);
+  return companies;
+};
+
+export const findCompaniesByService = async (query: ServiceCompanyQuery) => {
+  const companies = await findByService(query);
+  console.log("companies", companies);
   return companies;
 };

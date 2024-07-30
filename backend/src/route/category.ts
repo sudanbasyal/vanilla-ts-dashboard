@@ -15,8 +15,8 @@ categoryRouter.get("/", authenticate, getAllCategories);
 
 categoryRouter.get("/:id", authenticate, getCategory);
 
-categoryRouter.get("/:id/companies", getCompanyByCategory);
+categoryRouter.get("/:id/companies", authenticate, getCompanyByCategory);
 
-categoryRouter.get("/search", getSearchedCategory);
+categoryRouter.get("/search", authenticate, getSearchedCategory);
 
 export default categoryRouter;

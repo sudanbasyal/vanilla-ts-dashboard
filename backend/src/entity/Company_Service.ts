@@ -13,6 +13,7 @@ import {
 } from "typeorm";
 import { Service } from "./Service";
 import { Company } from "./Company";
+import { Booking } from "./Booking";
 
 @Entity("company_services")
 export class ServiceToCompany extends BaseEntity {
@@ -29,6 +30,12 @@ export class ServiceToCompany extends BaseEntity {
     cascade: true,
   })
   service: Service;
+
+  @OneToMany(
+    () => ServiceToCompany,
+    (serviceToCompany) => serviceToCompany.booking
+  )
+  booking: Booking[];
 
   @ManyToOne(() => Company, (company) => company.ServiceToCompany)
   company: Company;

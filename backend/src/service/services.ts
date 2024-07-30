@@ -1,7 +1,11 @@
+import { getCompanies } from "./supplier";
 import { In } from "typeorm";
 import { AppDataSource } from "../dataSource";
 import { Service } from "../entity/Service";
 import loggerWithNameSpace from "../utils/logger";
+import { ServiceCompanyQuery } from "../interface/query";
+import * as supplierService from "./supplier";
+import { BadRequestError } from "../error/BadRequestError";
 
 const logger = loggerWithNameSpace("ServicesService");
 
@@ -34,4 +38,12 @@ export const getServicesByIds = async (Ids: string[]) => {
     logger.error("services not found");
     return null;
   }
+};
+
+export const getCompaniesByService = async (query: ServiceCompanyQuery) => {
+  const companies = await supplierService.findCompaniesByService(query);
+  if (companies.length == 0) throw new BadRequestError("companies dont exist");
+
+  logger.info("companies returned");
+  return companies;
 };

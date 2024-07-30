@@ -14,6 +14,7 @@ import {
 import { User } from "./User";
 import { Category } from "./Category";
 import { ServiceToCompany } from "./Company_Service";
+import { Booking } from "./Booking";
 
 @Entity("companies")
 export class Company extends BaseEntity {
@@ -55,6 +56,9 @@ export class Company extends BaseEntity {
 
   @DeleteDateColumn({ name: "deletedAt", nullable: true })
   deletedAt: Date;
+
+  @OneToMany(() => Booking, (booking) => booking.company)
+  bookings: Booking[];
 
   @ManyToOne(() => User, (user) => user.company)
   user: User;

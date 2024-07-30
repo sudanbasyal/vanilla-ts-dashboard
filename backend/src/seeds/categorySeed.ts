@@ -33,7 +33,7 @@ export const categoryServicesSeed = async () => {
             description: "Comprehensive car wash services",
           },
           {
-            name: "Oil Change",
+            name: "Mechanic",
             description: "Routine oil changes and maintenance",
           },
         ],

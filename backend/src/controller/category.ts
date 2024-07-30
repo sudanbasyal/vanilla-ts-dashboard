@@ -14,7 +14,7 @@ export const getAllCategories = async (
   try {
     const categories = await categoryService.getAllCategories();
     logger.info("categories fetched successfully");
-    res.status(200).json(categories);
+    res.status(200).json({ message: categories });
   } catch (err) {
     next(err);
   }
