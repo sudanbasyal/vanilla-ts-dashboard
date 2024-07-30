@@ -1,10 +1,16 @@
 import { Router } from "express";
 import { authenticate, authorize } from "../middleware/auth";
-import { validateReqBody, validateReqParams } from "../middleware/validator";
+import {
+  validateReqBody,
+  validateReqParams,
+  validateReqQuery,
+} from "../middleware/validator";
 import uploader from "../middleware/fileupload";
 
 import {
   deleteCompanies,
+  deleteSelectedcompanyService,
+  getSpecificCompany,
   getSuppliersCompanies,
   registerCompany,
 } from "../controller/supplier";
@@ -25,7 +31,7 @@ supplierRouter.post(
     { name: "photo", maxCount: 1 },
     { name: "pan-photo", maxCount: 1 },
   ]),
-  validateReqBody(companyBodySchema),
+  // validateReqBody(companyBodySchema),
   registerCompany
 );
 
@@ -41,11 +47,25 @@ supplierRouter.put(
 );
 
 supplierRouter.get(
-  "/",
+  "/companies",
+  authenticate,
+  authorize("company.get"),
+  getSuppliersCompanies
+);
+
+supplierRouter.get(
+  "/companies/:id",
   authenticate,
   authorize("company.get"),
   validateReqParams(companyIdSchema),
-  getSuppliersCompanies
+  getSpecificCompany
+);
+
+supplierRouter.delete(
+  "/company-service",
+  authenticate,
+  authorize("company.delete"),
+  deleteSelectedcompanyService
 );
 
 supplierRouter.delete(

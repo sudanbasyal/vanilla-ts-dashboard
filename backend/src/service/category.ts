@@ -1,17 +1,29 @@
 import { AppDataSource } from "../dataSource";
 import { Category } from "../entity/Category";
+import { BadRequestError } from "../error/BadRequestError";
+import { CategoryCompanyQuery } from "../interface/query";
 import loggerWithNameSpace from "../utils/logger";
+import * as supplierServices from "./supplier";
 
 const logger = loggerWithNameSpace("CategoryService");
 
 const categoryRepository = AppDataSource.getRepository(Category);
+const findOne = async (id: number) => {
+  const category = await categoryRepository.findOne({
+    where: { id },
+    relations: ["services"],
+  });
+  return category;
+};
 
 export const getCategory = async (id: number) => {
-  const category = await categoryRepository.findOne({ where: { id } });
+  if (!id) throw new BadRequestError("category id is required");
+
+  const category = await findOne(id);
 
   if (!category) {
     logger.error("category not found");
-    return null;
+    throw new BadRequestError("category not found");
   }
 
   logger.info("category found");
@@ -20,10 +32,17 @@ export const getCategory = async (id: number) => {
 
 export const getAllCategories = async () => {
   const categories = await categoryRepository.find({ relations: ["services"] });
-  if (!categories) throw newBadRequestError("categories not found");
+  if (!categories) throw new BadRequestError("categories not found");
 
   return categories;
 };
-function newBadRequestError(arg0: string) {
-  throw new Error("Function not implemented.");
-}
+
+export const companyByCategory = async (
+  id: number,
+  query: CategoryCompanyQuery
+) => {
+  const companies = await supplierServices.findCompanyByCategory(id, query);
+  if (!companies || companies.length === 0)
+    throw new BadRequestError("companies not found");
+  return companies;
+};

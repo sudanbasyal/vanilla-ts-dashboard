@@ -1,3 +1,4 @@
+// import { deeSelectedcompanyService } from './supplier';
 import { Service } from "./../entity/Service";
 import { AppDataSource } from "../dataSource";
 import { companyData } from "../interface/company";
@@ -11,6 +12,9 @@ import { uploadStream } from "../cloudinary";
 import { ServiceToCompany } from "../entity/Company_Service";
 import loggerWithNameSpace from "../utils/logger";
 import { uploadSingleImage } from "../utils/fileUploader";
+import * as companyToSercice from "./Compnay_Service";
+import { deleteCompanyService } from "./Compnay_Service";
+import { CategoryCompanyQuery } from "../interface/query";
 
 const logger = loggerWithNameSpace("SupplierService");
 
@@ -44,7 +48,7 @@ export const findByCompanyId = async (id: number, userId: number) => {
       id,
       user: { id: userId },
     },
-    relations: ["ServiceToCompany"],
+    relations: ["ServiceToCompany", "category", "ServiceToCompany.service"],
   });
 };
 
@@ -61,6 +65,7 @@ const update = async (
   data: Partial<companyData>,
   newImage: { imageUrl: string }
 ): Promise<Partial<Company>> => {
+  console.log("dataactive", data.isActive);
   const companyUpdateData: Partial<Company> = {
     ...(data.name && { name: data.name }),
     ...(data.address && { address: data.address }),
@@ -109,6 +114,7 @@ export const createCompany = async (
   newCompany.panPhoto = imageurl.panImageUrl;
   newCompany.openingTime = data.openingTime;
   newCompany.closingTime = data.closingTime;
+  newCompany.description = data.companyDescription;
 
   await companyRepository.save(newCompany);
 
@@ -185,25 +191,45 @@ export const registerCompany = async (
   return newCompany;
 };
 
+const deletecompanyService = async (ids: {
+  userId: number;
+  companyId: number;
+  serviceId: number;
+}) => {
+  const deletedCompany = await deleteCompanyService(ids);
+  if (!deletedCompany) {
+    logger.error("company not deleted");
+    throw new BadRequestError("company not deleted");
+  }
+  return deleteCompany;
+};
+
 export const getCompanies = async (id: number) => {
   const activeCompanies: Company[] = [];
   if (!id) throw new BadRequestError("user not found");
   const companies = await findAll(id);
+  console.log("companies", companies);
   if (companies.length === 0) throw new BadRequestError("companies dont exist");
   companies.forEach((company) => {
-    if (company.isPending === false) {
+    console.log("pending", company.isPending);
+    if (company.isPending == false) {
       activeCompanies.push(company);
     }
-
-    if (activeCompanies.length === 0 || !activeCompanies) {
-      throw new BadRequestError(
-        "the company has not been verified by admin please try again later"
-      );
-    }
-    return activeCompanies;
   });
 
-  return companies;
+  if (activeCompanies.length === 0) {
+    throw new BadRequestError(
+      "the company has not been verified by admin please try again later"
+    );
+  }
+
+  return activeCompanies;
+};
+
+export const getCompany = async (id: number, userId: number) => {
+  const company = await findByCompanyId(id, userId);
+  if (!company) throw new BadRequestError("not found");
+  return company;
 };
 
 export const updateCompany = async (
@@ -240,4 +266,33 @@ export const deleteCompany = async (id: number, userId: number) => {
 
   const deletedCompany = await remove(companyExists);
   return deletedCompany;
+};
+
+export const deleteSelectedcompanyService = async (ids: {
+  userId: number;
+  companyId: number;
+  serviceId: number;
+}) => {
+  if (!ids.userId) throw new BadRequestError("user not found");
+  const deletedService = await deleteCompanyService(ids);
+  return deletedService;
+};
+
+const findByCategory = async (id: number, query: CategoryCompanyQuery) => {
+  return await companyRepository.find({
+    where: {
+      category: {
+        id,
+      },
+      location: query.location,
+    },
+  });
+};
+
+export const findCompanyByCategory = async (
+  categoryId: number,
+  query: CategoryCompanyQuery
+) => {
+  const companies = await findByCategory(categoryId, query);
+  return companies;
 };

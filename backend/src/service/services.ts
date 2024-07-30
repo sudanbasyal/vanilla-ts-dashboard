@@ -7,6 +7,7 @@ const logger = loggerWithNameSpace("ServicesService");
 
 const serviceRepository = AppDataSource.getRepository(Service);
 export const findByIds = async (Ids: string[]) => {
+  console.log(Ids);
   logger.info("finding services");
 
   const services = await serviceRepository.find({
@@ -16,6 +17,11 @@ export const findByIds = async (Ids: string[]) => {
   });
 
   return services;
+};
+
+export const getAllServices = async () => {
+  logger.info("finding all services");
+  return await serviceRepository.find();
 };
 
 export const getServicesByIds = async (Ids: string[]) => {

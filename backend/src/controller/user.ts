@@ -14,7 +14,6 @@ export const createUser = async (
 ) => {
   let { email, password, role, name, address, phoneNumber } = req.body;
 
-
   try {
     const data = await userService.createUser(
       email,
@@ -24,7 +23,7 @@ export const createUser = async (
       address,
       phoneNumber
     );
-    
+
     res.status(httpStatusCodes.CREATED).json({ message: "signup success" });
   } catch (err) {
     next(err);
@@ -74,7 +73,6 @@ export const updateUser = async (
 
     res.status(httpStatusCodes.OK).json({ message: "successfully updated" });
   } catch (error) {
-   
     next(error);
   }
 };
@@ -92,8 +90,13 @@ export const deleteUser = async (
       next(new NotFoundError("User not found"));
       return;
     }
-    res.status(httpStatusCodes.NO_CONTENT).json({ message: "deleted successully" });
+
+    res
+      .status(httpStatusCodes.NO_CONTENT)
+      .json({ message: "deleted successully" });
   } catch (error) {
     next(error);
   }
 };
+
+

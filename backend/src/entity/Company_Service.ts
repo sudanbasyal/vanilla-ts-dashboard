@@ -25,7 +25,9 @@ export class ServiceToCompany extends BaseEntity {
   @Column({ nullable: true })
   description: string;
 
-  @ManyToOne(() => Service, (service) => service.serviceToCompany)
+  @ManyToOne(() => Service, (service) => service.serviceToCompany, {
+    cascade: true,
+  })
   service: Service;
 
   @ManyToOne(() => Company, (company) => company.ServiceToCompany)

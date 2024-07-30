@@ -25,6 +25,7 @@ export const getPendingCompanyById = async (companyId: number) => {
 
 export const verifyCompany = async (companyId: number, isAllowed: boolean) => {
   const company = await supplierService.findSelectedPendingCompany(companyId);
+  console.log("company", company);
 
   if (!company)
     throw new BadRequestError(
@@ -33,7 +34,8 @@ export const verifyCompany = async (companyId: number, isAllowed: boolean) => {
 
   if (!company.isPending) throw new BadRequestError("company already verified");
 
-  const UserId = company!.user.id;
+  const UserId = company.user.id;
+  console.log("UserId", UserId);
 
   if (!isAllowed) {
     logger.info("company is rejected");

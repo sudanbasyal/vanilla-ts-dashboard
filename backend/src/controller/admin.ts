@@ -14,7 +14,7 @@ export const getAllPendingCompanies = async (
   try {
     const categories = await adminService.getAllPendingCompanies();
     logger.info("fetched all pending companies");
-    res.json(httpStatusCodes.OK).json(categories);
+    res.status(httpStatusCodes.OK).json(categories);
   } catch (err) {
     next(err);
   }
@@ -29,7 +29,7 @@ export const getSelectedPendingCompany = async (
     const { id } = req.params;
     logger.info("fetched selected compamy");
     const categories = await adminService.getPendingCompanyById(id);
-    res.json(httpStatusCodes.OK).json(categories);
+    res.status(httpStatusCodes.OK).json(categories);
   } catch (err) {
     next(err);
   }
@@ -43,6 +43,8 @@ export const verifyCompany = async (
   try {
     const { id } = req.params;
     const isAllowed = req.body;
+
+    console.log("id", id);
 
     const status = await adminService.verifyCompany(id, isAllowed.isAllowed);
 

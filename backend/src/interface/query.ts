@@ -1,5 +1,5 @@
-export interface Iquery {
-  q?: string;
+export interface CategoryCompanyQuery {
+  location?: string;
   page?: number;
   size?: number;
 }
