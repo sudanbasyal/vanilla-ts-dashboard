@@ -20,7 +20,6 @@ export class CompaniesActions {
 const renderContent = async (data: CompanyApiResponse) => {
   const contentDiv = document.getElementsByClassName("content")[0];
 
-  // Clear existing content to prevent duplicates
   contentDiv.innerHTML = "";
 
   data.companies.forEach((item: Company) => {
