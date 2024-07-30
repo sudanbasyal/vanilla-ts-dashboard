@@ -5,7 +5,7 @@ import { SignUpPage } from "./loader/signUp";
 import { DashboardPage } from "./loader/user/dashboard";
 import { ProfilePage } from "./loader/user/profile";
 import { CompanyRegistrationPage } from "./loader/supplier/companyRegistration";
-
+import { AdminDashboardPage } from "./loader/admin/dashboard";
 const routes: { [key: string]: { component: any } } = {
   "#/": {
     component: HomePage,
@@ -26,6 +26,10 @@ const routes: { [key: string]: { component: any } } = {
 
   "#/supplier/registration": {
     component: CompanyRegistrationPage,
+  },
+
+  "#/admin/dashboard": {
+    component: AdminDashboardPage,
   },
 
   "#/about-us": { component: AboutusPage },

@@ -5,10 +5,11 @@ export default {
     screens: {
       xs: "100%",
       sm: "540px",
-      md: "720px	",
+      md: "720px",
       lg: "960px",
       xl: "1140px",
       "2xl": "1320px",
+      "custom-lg": "960px",
     },
 
     fontFamily: {
@@ -36,6 +37,8 @@ export default {
         22: "1.375rem",
       },
       colors: {
+        primary: "#FFEEC3",
+        textHover: "#2C5DDA",
         violet: {
           50: "#E3DBFB",
           100: "#D5C9FA",
