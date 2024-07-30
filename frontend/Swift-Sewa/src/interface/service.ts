@@ -5,6 +5,6 @@ export interface Service {
   price: string;
 }
 
-export interface Category {
-  services: Service[];
-}
+// export interface Category {
+//   services: Service[];
+// }

@@ -338,17 +338,24 @@ export class SelectedCompanyActions {
             const kathmanduOption = document.createElement(
               "option"
             ) as HTMLOptionElement;
-            kathmanduOption.value = "kathmandu";
-            kathmanduOption.text = "kathmandu";
+            kathmanduOption.value = "Kathmandu";
+            kathmanduOption.text = "Kathmandu";
 
             const bhaktapurOption = document.createElement(
               "option"
             ) as HTMLOptionElement;
-            bhaktapurOption.value = "bhaktapur";
-            bhaktapurOption.text = "bhaktapur";
+            bhaktapurOption.value = "Bhaktapur";
+            bhaktapurOption.text = "Bhaktapur";
+
+            const lalitpurOption = document.createElement(
+              "option"
+            ) as HTMLOptionElement;
+            lalitpurOption.value = "Lalipur";
+            lalitpurOption.text = "Lalitpur";
 
             inputElement.add(kathmanduOption);
             inputElement.add(bhaktapurOption);
+            inputElement.add(lalitpurOption);
 
             const defaultValue =
               spanElement.textContent ||

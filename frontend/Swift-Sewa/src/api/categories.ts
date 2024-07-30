@@ -19,13 +19,15 @@ export const categoryApi = {
     }
   },
 
-  post: async (data: any) => {
+
+  getSpecific: async (data: [{ name: string; location: string }]) => {
     try {
-      const response = await instance.post(`/categories/`);
+      const response = await instance.get(`/categories/`);
       return response.data;
     } catch (error) {
-      console.error("Error fetching profile:", error);
-      throw error;
+      console.log(error);
     }
   },
+
+
 };

@@ -1,5 +1,4 @@
 import { loginPage } from "./loader/login";
-import { AboutusPage } from "./loader/about-us";
 import { HomePage } from "./loader/homepage";
 import { SignUpPage } from "./loader/signUp";
 import { DashboardPage } from "./loader/user/dashboard";
@@ -8,6 +7,7 @@ import { CompanyRegistrationPage } from "./loader/supplier/companyRegistration";
 import { CompaniesPage } from "./loader/supplier/companies";
 import { SelectedCompanyPage } from "./loader/supplier/selectedCompany";
 import { UserSearchPage } from "./loader/user/search";
+import { CategoriesPage } from "./loader/categories";
 
 const routes: { [key: string]: { component: any } } = {
   "#/": {
@@ -18,6 +18,10 @@ const routes: { [key: string]: { component: any } } = {
   },
   "#/signup": {
     component: SignUpPage,
+  },
+
+  "#/categories": {
+    component: CategoriesPage,
   },
   "#/dashboard": {
     component: DashboardPage,
@@ -42,19 +46,24 @@ const routes: { [key: string]: { component: any } } = {
   "#/supplier/companies/selected": {
     component: SelectedCompanyPage,
   },
-
-  "#/about-us": { component: AboutusPage },
 };
 
 export class Router {
   static async loadContent() {
     const hash = window.location.hash || "#/home";
     const route = routes[hash];
-    if (route) {
-      const content = await route.component.load();
-      document.getElementById("app")!.innerHTML = content;
 
-      route.component.initEventListeners();
+    if (hash.includes("categories/")) {
+      document.getElementById("app")!.innerHTML = "";
+      document.getElementById("app")!.innerHTML = await CategoriesPage.load();
+      CategoriesPage.initEventListeners();
+    } else {
+      if (route) {
+        const content = await route.component.load();
+        document.getElementById("app")!.innerHTML = content;
+
+        route.component.initEventListeners();
+      }
     }
   }
 
