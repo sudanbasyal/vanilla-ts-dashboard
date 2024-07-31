@@ -21,55 +21,6 @@ const logger = loggerWithNameSpace("SupplierService");
 const companyRepository = AppDataSource.getRepository(Company);
 const companyServiceRepository = AppDataSource.getRepository(ServiceToCompany);
 
-export const findByName = async (name: string) => {
-  logger.info(" finding company by name");
-  return await companyRepository.findOne({ where: { name, isPending: false } });
-};
-
-export const findSelectedPendingCompany = async (id: number) => {
-  logger.info(" finding company by Id");
-  return await companyRepository.findOne({
-    where: {
-      id,
-      isPending: true,
-    },
-    relations: ["ServiceToCompany", "user"],
-  });
-};
-
-export const updatePendingStatus = async (id: number, status: boolean) => {
-  return await companyRepository.update(id, { isPending: !status });
-};
-
-export const findByCompanyId = async (id: number, userId: number) => {
-  logger.info(" finding company by Id");
-  return await companyRepository.findOne({
-    where: {
-      id,
-    },
-    relations: ["ServiceToCompany", "category", "ServiceToCompany.service"],
-  });
-};
-
-export const findAll = async (userId: number) => {
-  return await companyRepository.find({ where: { user: { id: userId } } });
-};
-
-const findByCategory = async (id: number, query: CategoryCompanyQuery) => {
-  return await companyRepository.find({
-    where: {
-      category: {
-        id,
-      },
-      location: query.location,
-    },
-  });
-};
-
-export const pendingCompanies = async () => {
-  return await companyRepository.find({ where: { isPending: true } });
-};
-
 const update = async (
   company: Company,
   data: Partial<companyData>,
@@ -140,8 +91,56 @@ export const createCompany = async (
   return await Promise.all(promises);
 };
 
-export const remove = async (company: Company) => {
+const remove = async (company: Company) => {
   return await companyRepository.softRemove(company);
+};
+export const findByName = async (name: string) => {
+  logger.info(" finding company by name");
+  return await companyRepository.findOne({ where: { name, isPending: false } });
+};
+
+export const pendingCompanies = async () => {
+  return await companyRepository.find({ where: { isPending: true } });
+};
+
+export const findSelectedPendingCompany = async (id: number) => {
+  logger.info(" finding company by Id");
+  return await companyRepository.findOne({
+    where: {
+      id,
+      isPending: true,
+    },
+    relations: ["ServiceToCompany", "user"],
+  });
+};
+
+export const updatePendingStatus = async (id: number, status: boolean) => {
+  return await companyRepository.update(id, { isPending: !status });
+};
+
+export const findByCompanyId = async (id: number, userId: number) => {
+  logger.info(" finding company by Id");
+  return await companyRepository.findOne({
+    where: {
+      id,
+    },
+    relations: ["ServiceToCompany", "category", "ServiceToCompany.service"],
+  });
+};
+
+export const findAll = async (userId: number) => {
+  return await companyRepository.find({ where: { user: { id: userId } } });
+};
+
+const findByCategory = async (id: number, query: CategoryCompanyQuery) => {
+  return await companyRepository.find({
+    where: {
+      category: {
+        id,
+      },
+      location: query.location,
+    },
+  });
 };
 
 export const uploadCompanyImages = async (imageFiles: {

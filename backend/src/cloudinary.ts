@@ -7,7 +7,7 @@ import { Readable } from "stream";
   cloudinary.config({
     cloud_name: "dy1ou7jjj",
     api_key: "239978918994972",
-    api_secret: "GC8v1NNbYy6uO4q2UhO9EC6d1wQ", // Click 'View Credentials' below to copy your API secret
+    api_secret: "GC8v1NNbYy6uO4q2UhO9EC6d1wQ", 
   });
 })();
 
