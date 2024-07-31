@@ -24,14 +24,14 @@ export class Booking extends BaseEntity {
   @Column()
   contactAddress: string;
 
-  @Column({ type: "date" })
-  bookedDate: Date;
-
   @Column()
-  bookedTime: string;
+  bookedDate: string;
 
   @Column()
   isApproved: boolean;
+
+  @Column({ type: "text", nullable: true })
+  specialInstructions: string;
 
   @CreateDateColumn({ type: "timestamp" })
   createdAt: Date;
@@ -50,7 +50,4 @@ export class Booking extends BaseEntity {
     (serviceToCompany) => serviceToCompany.booking
   )
   serviceToCompany: ServiceToCompany;
-
-  @Column({ type: "text", nullable: true })
-  specialInstructions: string;
 }

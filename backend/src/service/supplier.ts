@@ -13,7 +13,7 @@ import loggerWithNameSpace from "../utils/logger";
 import { uploadSingleImage } from "../utils/fileUploader";
 import { deleteCompanyService } from "./companytoservice";
 import { CategoryCompanyQuery, ServiceCompanyQuery } from "../interface/query";
-// import { findByService } from "./company_service";
+
 import { findByService } from "./companytoservice";
 
 const logger = loggerWithNameSpace("SupplierService");
@@ -52,8 +52,19 @@ export const findByCompanyId = async (id: number, userId: number) => {
   });
 };
 
-export const findAll = async (id: number) => {
-  return await companyRepository.find({ where: { user: { id } } });
+export const findAll = async (userId: number) => {
+  return await companyRepository.find({ where: { user: { id: userId } } });
+};
+
+const findByCategory = async (id: number, query: CategoryCompanyQuery) => {
+  return await companyRepository.find({
+    where: {
+      category: {
+        id,
+      },
+      location: query.location,
+    },
+  });
 };
 
 export const pendingCompanies = async () => {
@@ -276,17 +287,6 @@ export const deleteSelectedcompanyService = async (ids: {
   if (!ids.userId) throw new BadRequestError("user not found");
   const deletedService = await deleteCompanyService(ids);
   return deletedService;
-};
-
-const findByCategory = async (id: number, query: CategoryCompanyQuery) => {
-  return await companyRepository.find({
-    where: {
-      category: {
-        id,
-      },
-      location: query.location,
-    },
-  });
 };
 
 export const findCompanyByCategory = async (

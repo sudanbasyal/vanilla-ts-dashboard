@@ -1,3 +1,4 @@
+import httpStatusCodes from "http-status-codes";
 import { NextFunction, Response } from "express";
 import { Request } from "../interface/request";
 import * as categoryService from "../service/category";
@@ -14,7 +15,7 @@ export const getAllCategories = async (
   try {
     const categories = await categoryService.getAllCategories();
     logger.info("categories fetched successfully");
-    res.status(200).json({ message: categories });
+    res.status(httpStatusCodes.OK).json({ message: categories });
   } catch (err) {
     next(err);
   }
@@ -58,7 +59,7 @@ export const getCompanyByCategory = async (
   try {
     const id = req.params.id;
     const getCategory = await categoryService.companyByCategory(id, req.query);
-    res.status(200).json({ message: getCategory });
+    res.status(httpStatusCodes.OK).json({ message: getCategory });
   } catch (err) {
     next(err);
   }

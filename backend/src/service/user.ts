@@ -192,3 +192,16 @@ export const deleteUser = async (id: number) => {
   const deletedUser = await remove(userExists);
   return deletedUser;
 };
+
+export const findUserByCompany = async (companyId: number) => {
+  const user = await userRepository.findOne({
+    where: {
+      company: {
+        id: companyId,
+      },
+    },
+    relations: ["company", "company.ServiceToCompany"],
+  });
+
+  return user;
+};

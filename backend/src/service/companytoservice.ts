@@ -35,3 +35,14 @@ export const findByService = async (query: ServiceCompanyQuery) => {
     relations: ["company"],
   });
 };
+
+export const companyServiceExists = async (id: number, companyId: number) => {
+  return await companyToServiceRepository.findOne({
+    where: {
+      id,
+      company: {
+        id: companyId,
+      },
+    },
+  });
+};
