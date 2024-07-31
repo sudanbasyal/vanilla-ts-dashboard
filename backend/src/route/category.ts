@@ -6,8 +6,6 @@ import {
 } from "../controller/category";
 import { getCategory } from "../controller/category";
 import { authenticate } from "../middleware/auth";
-import { validateReqParams } from "../middleware/validator";
-import { userIdSchema } from "../schema/user";
 
 const categoryRouter = Router();
 

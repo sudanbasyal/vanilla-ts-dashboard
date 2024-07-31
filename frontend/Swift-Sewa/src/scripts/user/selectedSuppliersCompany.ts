@@ -4,6 +4,10 @@ import { Company } from "../../interface/company";
 
 export class SelectedSupplierCompanyActions {
   static selectedSupplierCompany = async () => {
+    console.log("hash", window.location.hash);
+
+    const companyId = window.location.hash.split(":")[1];
+
     async function init() {
       const companyName = document.getElementById(
         "company-name"
@@ -18,8 +22,6 @@ export class SelectedSupplierCompanyActions {
         "company-image"
       ) as HTMLImageElement;
       console.log("companyImage", companyImage);
-
-      const companyId = localStorage.getItem("companyId");
 
       try {
         const id = Number(companyId);
@@ -45,6 +47,7 @@ export class SelectedSupplierCompanyActions {
 
       const extractData = response.companies.ServiceToCompany.map(
         (item: ServiceToCompany) => ({
+          id: item.id,
           name: item.service.name,
           price: item.price,
           description: item.description,
@@ -55,10 +58,8 @@ export class SelectedSupplierCompanyActions {
         ".grid"
       ) as HTMLDivElement;
 
-      // Clear any existing content
       servicesContainer.innerHTML = "";
 
-      // Iterate over the extracted data and create service cards
       extractData.forEach((service) => {
         const serviceCard = `
       <div class="h-full p-2 rounded-lg shadow-md flex">
@@ -88,7 +89,7 @@ export class SelectedSupplierCompanyActions {
               <span>Price:Rs:</span><span>${service.price}</span>
             </p>
 
-            <button class="hover:bg-orange-300 translate-x-2">
+            <button  class=" book hover:bg-orange-300 translate-x-2">
               Book Now
             </button>
           </div>
@@ -97,12 +98,20 @@ export class SelectedSupplierCompanyActions {
     `;
         servicesContainer.innerHTML += serviceCard;
       });
+
+      const bookButtons = document.querySelectorAll(".book");
+      bookButtons.forEach((button, index) => {
+        button.addEventListener("click", function (event) {
+          event.preventDefault();
+          console.log("clicked");
+          console.log("index", index);
+          const selectedCompanyServiceId = extractData[index].id;
+          console.log(selectedCompanyServiceId);
+          window.location.href = `#/user/booking/company/:${companyId}/service/:${selectedCompanyServiceId}`;
+        });
+      });
     }
 
-    // Call the init function once to fetch data and render content
     await init();
   };
 }
-
-// Call the function to start the process
-SelectedSupplierCompanyActions.selectedSupplierCompany();

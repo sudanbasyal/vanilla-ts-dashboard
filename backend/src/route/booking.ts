@@ -5,7 +5,7 @@ import { viewBookings } from "../controller/booking";
 
 const bookingRouter = Router();
 
-bookingRouter.post("/", createBooking);
+bookingRouter.post("/", authenticate, createBooking);
 bookingRouter.get("/", authenticate, viewBookings);
 
 export default bookingRouter;

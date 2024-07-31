@@ -8,22 +8,23 @@ import { CompaniesPage } from "./loader/supplier/companies";
 import { SelectedCompanyPage } from "./loader/supplier/selectedCompany";
 import { CategoriesPage } from "./loader/categories";
 import { SelectedSupplierCompanyPage } from "./loader/user/selectedSupplierCompany";
+import { UserBookingPage } from "./loader/user/booking";
 
 const routes: { [key: string]: { component: any } } = {
   "#/": {
     component: HomePage,
   },
-  "#/login": {
+  "#/login/": {
     component: loginPage,
   },
-  "#/signup": {
+  "#/signup/": {
     component: SignUpPage,
   },
 
-  "#/categories": {
+  "#/categories/": {
     component: CategoriesPage,
   },
-  "#/dashboard": {
+  "#/dashboard/": {
     component: DashboardPage,
   },
 
@@ -31,19 +32,23 @@ const routes: { [key: string]: { component: any } } = {
     component: ProfilePage,
   },
 
-  "#/user/companies/selected": {
+  "#/user/companies/selected/": {
     component: SelectedSupplierCompanyPage,
   },
 
-  "#/supplier/registration": {
+  "#/supplier/registration/": {
     component: CompanyRegistrationPage,
   },
 
-  "#/supplier/companies": {
+  "#/user/booking/": {
+    component: UserBookingPage,
+  },
+
+  "#/supplier/companies/": {
     component: CompaniesPage,
   },
 
-  "#/supplier/companies/selected": {
+  "#/supplier/companies/selected/": {
     component: SelectedCompanyPage,
   },
 };
@@ -52,11 +57,20 @@ export class Router {
   static async loadContent() {
     const hash = window.location.hash || "#/home";
     const route = routes[hash];
-
     if (hash.includes("categories/")) {
       document.getElementById("app")!.innerHTML = "";
       document.getElementById("app")!.innerHTML = await CategoriesPage.load();
       CategoriesPage.initEventListeners();
+    } else if (hash.includes("user/companies/selected")) {
+      document.getElementById("app")!.innerHTML = "";
+      document.getElementById("app")!.innerHTML =
+        await SelectedSupplierCompanyPage.load();
+      SelectedSupplierCompanyPage.initEventListeners();
+    } else if (hash.includes("user/booking/")) {
+      console.log("bookings page enabled");
+      document.getElementById("app")!.innerHTML = "";
+      document.getElementById("app")!.innerHTML = await UserBookingPage.load();
+      UserBookingPage.initEventListeners();
     } else {
       if (route) {
         const content = await route.component.load();

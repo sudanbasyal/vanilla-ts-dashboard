@@ -30,7 +30,6 @@ export interface Company {
 }
 
 export interface CompanyApiResponse {
-  companies: {
-    ServiceToCompany: ServiceToCompany[];
-  };
+  companies: Company[];
+  ServiceToCompany?: ServiceToCompany[];
 }

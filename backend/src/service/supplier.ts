@@ -46,7 +46,6 @@ export const findByCompanyId = async (id: number, userId: number) => {
   return await companyRepository.findOne({
     where: {
       id,
-      user: { id: userId },
     },
     relations: ["ServiceToCompany", "category", "ServiceToCompany.service"],
   });

@@ -31,12 +31,11 @@ export class CategoriesActions {
       contentDiv.innerHTML = "";
 
       data.message.forEach((item: Company) => {
-        console.log("item", item, typeof item);
         const card = document.createElement("div");
         card.className = "rounded-xl overflow-hidden shadow-lg";
         card.innerHTML = `
           <div class="relative">
-             <a href="javascript:void(0)" id=" onclick="handleCardClick(${item.id})">
+             <a href="javascript:void(0)" class="company-image" >
               <img
                 class="w-full h-[30vh] object-cover"
                 src="${item.photo}"
@@ -67,8 +66,11 @@ export class CategoriesActions {
 
         contentDiv.appendChild(card);
 
-        card!.onclick = () => {
-          console.log("im clicked ");
+        const render = card.querySelector(
+          ".company-image"
+        ) as HTMLAnchorElement;
+        render.onclick = () => {
+          window.location.href = `#/user/companies/selected/:${item.id}`;
         };
       });
     }

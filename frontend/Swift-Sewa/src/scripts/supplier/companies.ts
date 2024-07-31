@@ -3,6 +3,8 @@ import { Company, CompanyApiResponse } from "../../interface/company";
 
 export class CompaniesActions {
   static companies: () => void = () => {
+    console.log("this is companies");
+
     const init = async () => {
       try {
         const response = await supplierApi.getAll();
@@ -19,6 +21,7 @@ export class CompaniesActions {
 
 const renderContent = async (data: CompanyApiResponse) => {
   const contentDiv = document.getElementsByClassName("content")[0];
+  console.log("data", data.companies);
 
   contentDiv.innerHTML = "";
 
@@ -30,8 +33,8 @@ const renderContent = async (data: CompanyApiResponse) => {
           <a href=${`#/supplier/companies/selected`}>
             <img
               class="w-full h-[30vh] object-cover"
-              src="${item.photo}" 
-              alt=""  
+              src="${item.photo}"
+              alt=""
             />
             <div
               class="hover:bg-transparent transition duration-300 absolute bottom-0 top-0 right-0 left-0 bg-gray-900 opacity-25"
@@ -41,7 +44,7 @@ const renderContent = async (data: CompanyApiResponse) => {
             <div
               class="absolute bottom-0 left-0 bg-indigo-600 px-4 py-2 text-white text-sm hover:bg-white hover:text-indigo-600 transition duration-500 ease-in-out"
             >
-              ${item.location}  
+              ${item.location}
             </div>
           </a>
 
@@ -64,13 +67,11 @@ const renderContent = async (data: CompanyApiResponse) => {
           >${item.name}</a>
           <p class="text-gray-500 text-sm">${item.description}</p> </br>
 
-            <p class="text-gray-500 text-sm">${item.location}</p> 
+            <p class="text-gray-500 text-sm">${item.location}</p>
 
-      
-          
           <h1> ${item.isActive ? "active" : "inactive"}</h1>
-          
-        </div>  
+
+        </div>
       `;
 
     contentDiv.appendChild(card);
