@@ -6,8 +6,8 @@ import { ProfilePage } from "./loader/user/profile";
 import { CompanyRegistrationPage } from "./loader/supplier/companyRegistration";
 import { CompaniesPage } from "./loader/supplier/companies";
 import { SelectedCompanyPage } from "./loader/supplier/selectedCompany";
-import { UserSearchPage } from "./loader/user/search";
 import { CategoriesPage } from "./loader/categories";
+import { SelectedSupplierCompanyPage } from "./loader/user/selectedSupplierCompany";
 
 const routes: { [key: string]: { component: any } } = {
   "#/": {
@@ -31,8 +31,8 @@ const routes: { [key: string]: { component: any } } = {
     component: ProfilePage,
   },
 
-  "#/user/search": {
-    component: UserSearchPage,
+  "#/user/companies/selected": {
+    component: SelectedSupplierCompanyPage,
   },
 
   "#/supplier/registration": {

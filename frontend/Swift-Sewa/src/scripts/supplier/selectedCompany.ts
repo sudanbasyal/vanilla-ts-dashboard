@@ -566,14 +566,15 @@ export class SelectedCompanyActions {
 
         localStorage.setItem("categoryId", response.companies.category.id);
 
-        const services = response.companies.ServiceToCompany;
+        // const services = response.companies.ServiceToCompany;
+        // console.log("services", services);
 
-        const serviceIds = services.map((service: any) => service.service.id);
-        const serviceResponses = await serviceApi.get();
+        // const serviceIds = services.map((service: any) => service.service.id);
+        // const serviceResponses = await serviceApi.get();
 
-        const matchingServices = serviceResponses.services.filter(
-          (response: any) => serviceIds.includes(response.id)
-        );
+        // const matchingServices = serviceResponses.services.filter(
+        //   (response: any) => serviceIds.includes(response.id)
+        // );
 
         await renderContent(response);
       } catch (err) {

@@ -1,3 +1,17 @@
+export interface Service {
+  id: number;
+  name: string;
+  description: string;
+}
+
+export interface ServiceToCompany {
+  id: number;
+  price: string;
+  description: string;
+  deletedAt: null | string;
+  service: Service;
+}
+
 export interface Company {
   id: number;
   name: string;
@@ -12,8 +26,11 @@ export interface Company {
   panPhoto: string;
   isPending: boolean;
   deletedAt: string | null;
+  ServiceToCompany: ServiceToCompany[];
 }
 
 export interface CompanyApiResponse {
-  companies: Company[];
+  companies: {
+    ServiceToCompany: ServiceToCompany[];
+  };
 }

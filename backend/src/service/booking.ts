@@ -2,7 +2,6 @@ import { booking } from "../interface/booking";
 
 import { findUserByCompany } from "./user";
 import loggerWithNameSpace from "../utils/logger";
-import { findCompaniesByService } from "./supplier";
 import { companyServiceExists } from "./companytoservice";
 import { BadRequestError } from "../error/BadRequestError";
 import { Booking } from "../entity/Booking";

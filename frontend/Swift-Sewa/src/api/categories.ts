@@ -19,15 +19,14 @@ export const categoryApi = {
     }
   },
 
-
-  getSpecific: async (data: [{ name: string; location: string }]) => {
+  getCompanyByCategory: async (data: { id: string; location: string }) => {
     try {
-      const response = await instance.get(`/categories/`);
+      const response = await instance.get(
+        `/categories/${data.id}/companies?location=${data.location}`
+      );
       return response.data;
     } catch (error) {
       console.log(error);
     }
   },
-
-
 };

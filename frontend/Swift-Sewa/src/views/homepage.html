@@ -1,201 +1,201 @@
-<body class="h-screen">
-    <nav class="nav-section h-[10vh] bg-white shadow-md py-4 md:px-10">
-      <div
-        class="nav-container mx-auto px-4 flex flex-row justify-between items-center"
-      >
-        <!-- Logo -->
-        <div class="logo flex items-center">
-          <span class="text-orange-500 font-bold text-2xl">Swift</span
-          ><span class="text-blue-600 font-semibold text-2xl">Sewa</span>
-        </div>
-        <!-- Location Selector and Profile Icon -->
-        <div class="flex items-center space-x-4">
-          <div class="relative inline-block text-left">
-            <button
-              class="flex flex-row py-2.5 px-5 mt-2 ml-4 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-            >
-              Kathmandu
-              <svg
-                class="h-5 w-5 text-gray-400 ml-2"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
-            </button>
-          </div>
-          <button
-            type="button"
-            class=" sign-in hidden py-2 px-5 mt-2 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 md:block"
-          >
-          <a href="/src/pages/login.html"> Sign In</a> 
-          </button>
-
-          <div class="relative md:hidden">
-            <button
-              class="navbar-burger cursor-pointer flex items-center text-blue-600 p-3"
-              onclick="toggleDropdown()"
-            >
-              <svg
-                class="block h-4 w-4 fill-current"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <title>Mobile menu</title>
-                <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
-              </svg>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div
-        class="dropdown-menu w-[30%] absolute right-0 mt-4 bg-white rounded-md shadow-lg z-20 hidden"
-      >
-        <a
-          href="/#/login"
-          class="block text-center bg-blue-500 text-white px-4 py-2 m-2 rounded hover:bg-blue-600"
+  <body class="h-screen">
+      <nav class="nav-section h-[10vh] bg-white shadow-md py-4 md:px-10">
+        <div
+          class="nav-container mx-auto px-4 flex flex-row justify-between items-center"
         >
-          Sign In
-        </a>
-      </div>
-    </nav>
-
-    <section class="hero-section">
-      <div class="flex flex-col gap-y-5">
-        <div class="hero  flex flex-col lg:flex-row w-full  items-center ">
-          <div class="flex flex-col w-full lg:w-1/2 p-5 justify-start h-full">
-           <div class="container mb-3 mx-auto">
-                  <h6
-                    class="hidden md:block mb-3 text-sm text-gray-900 uppercase dark:text-gray-50"
-                  >
-                    We have many live services
-                  </h6>
-
-                  <h1
-                    class="mb-3  text-2xl md:text-5xl font-semibold leading-tight text-gray-900 dark:text-gray-50"
-                  >
-                    Find your dream services <br />
-                    with <span class="text-orange-500 font-bold ">Swift </span> <span class="-ml-3 text-blue-500 font-bold">Sewa</span>
-                  </h1>
-                  <p
-                    class="text-lg font-light text-gray-500 whitespace-pre-line dark:text-gray-300"
-                  >
-                    Book Home Service Providers at your fingertips
-                  </p>
-
-                  <form action="#">
-                  <div class="registration-form">
-                    <div class="flex ">
-                      <div class="col-span-12 xl:col-span-4">
-                        <div
-                          class="mt-3 rounded-l filter-search-form filter-border mt-md-0"
-                        >
-                          <i class="uil uil-briefcase-alt"></i>
-                          <input
-                            type="search"
-                            id="job-title"
-                            class="md:w-full filter-input-box placeholder:text-gray-100 placeholder:text-13 dark:text-gray-100"
-                            placeholder="Job, Company name..."
-                          />
-                        </div>
-                      </div>
-                      <!--end col-->
-                      <div class="col-span-12 xl:col-span-4">
-                        <div class="mt-3 filter-search-form mt-md-0">
-                          <i class="uil uil-map-marker"></i>
-                          <select
-                            class="form-select"
-                            data-trigger
-                            name="choices-single-location"
-                            id="choices-single-location"
-                            aria-label="Default select example"
-                          >
-                            <option value="Kathmandu">Kathmandu</option>
-                            <option value="Lalitpur">Lalitpur</option>
-                            <option value="Bhaktapur">Bhaktapur</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                    <!--end row-->
-                  </div>
-                </form>
-
-                  
-                </div>
+          <!-- Logo -->
+          <div class="logo flex items-center">
+            <span class="text-orange-500 font-bold text-2xl">Swift</span
+            ><span class="text-blue-600 font-semibold text-2xl">Sewa</span>
           </div>
+          <!-- Location Selector and Profile Icon -->
+          <div class="flex items-center space-x-4">
+            <div class="relative inline-block text-left">
+              <button
+                class="flex flex-row py-2.5 px-5 mt-2 ml-4 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+              >
+                Kathmandu
+                <svg
+                  class="h-5 w-5 text-gray-400 ml-2"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+            </div>
+            <button
+              type="button"
+              class=" sign-in hidden py-2 px-5 mt-2 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 md:block"
+            >
+            <a href="/src/pages/login.html"> Sign In</a> 
+            </button>
 
-          <figure class="lg:w-1/2">
-            <img src="../../public/images/swift1.webp" alt="">
-          </figure>       
+            <div class="relative md:hidden">
+              <button
+                class="navbar-burger cursor-pointer flex items-center text-blue-600 p-3"
+                onclick="toggleDropdown()"
+              >
+                <svg
+                  class="block h-4 w-4 fill-current"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <title>Mobile menu</title>
+                  <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
         </div>
-      </section>
-          
-        <!-- categorysection -->
-        <section class ="category-section bg-gray-200 w-full">
-          <h1 class="text-center ">Category</h1>
-          <div class="category grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 ">
-           <div class="w-full" id="1" >
-             <div
-                   class="px-6  transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2"
-                  >
-                <div class="flex flex-col items-center">
-                  <figure class="h-[30%] w-[30%]">
-                  <img src="public/images/category/beauty.webp" class="object-cover rounded-full" alt="img">
-                  </figure>
-                  <p class="mt-6" >HomeRepairs</p>
-                </div>
-          </div>
-          </div>
+        <div
+          class="dropdown-menu w-[30%] absolute right-0 mt-4 bg-white rounded-md shadow-lg z-20 hidden"
+        >
+          <a
+            href="/#/login"
+            class="block text-center bg-blue-500 text-white px-4 py-2 m-2 rounded hover:bg-blue-600"
+          >
+            Sign In
+          </a>
+        </div>
+      </nav>
 
-         <div class="w-full" id="2">
-             <div
-                    class="px-6  transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2"
-                  >
-                <div class="flex flex-col items-center">
-                  <figure class="h-[30%] w-[30%]">
-                  <img src="public/images/category/beauty.webp" class="object-cover rounded-full" alt="img">
-                  </figure>
-                  <p class="mt-6">HomeRepairs</p>
-                </div>
+      <section class="hero-section">
+        <div class="flex flex-col gap-y-5">
+          <div class="hero  flex flex-col lg:flex-row w-full  items-center ">
+            <div class="flex flex-col w-full lg:w-1/2 p-5 justify-start h-full">
+            <div class="container mb-3 mx-auto">
+                    <h6
+                      class="hidden md:block mb-3 text-sm text-gray-900 uppercase dark:text-gray-50"
+                    >
+                      We have many live services
+                    </h6>
+
+                    <h1
+                      class="mb-3  text-2xl md:text-5xl font-semibold leading-tight text-gray-900 dark:text-gray-50"
+                    >
+                      Find your dream services <br />
+                      with <span class="text-orange-500 font-bold ">Swift </span> <span class="-ml-3 text-blue-500 font-bold">Sewa</span>
+                    </h1>
+                    <p
+                      class="text-lg font-light text-gray-500 whitespace-pre-line dark:text-gray-300"
+                    >
+                      Book Home Service Providers at your fingertips
+                    </p>
+
+                    <form action="#">
+                    <div class="registration-form">
+                      <div class="flex ">
+                        <div class="col-span-12 xl:col-span-4">
+                          <div
+                            class="mt-3 rounded-l filter-search-form filter-border mt-md-0"
+                          >
+                            <i class="uil uil-briefcase-alt"></i>
+                            <input
+                              type="search"
+                              id="job-title"
+                              class="md:w-full filter-input-box placeholder:text-gray-100 placeholder:text-13 dark:text-gray-100"
+                              placeholder="Job, Company name..."
+                            />
+                          </div>
+                        </div>
+                        <!--end col-->
+                        <div class="col-span-12 xl:col-span-4">
+                          <div class="mt-3 filter-search-form mt-md-0">
+                            <i class="uil uil-map-marker"></i>
+                            <select
+                              class="form-select"
+                              data-trigger
+                              name="choices-single-location"
+                              id="choices-single-location"
+                              aria-label="Default select example"
+                            >
+                              <option value="Kathmandu">Kathmandu</option>
+                              <option value="Lalitpur">Lalitpur</option>
+                              <option value="Bhaktapur">Bhaktapur</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <!--end row-->
+                    </div>
+                  </form>
+
+                    
+                  </div>
+            </div>
+
+            <figure class="lg:w-1/2">
+              <img src="../../public/images/swift1.webp" alt="">
+            </figure>       
           </div>
-          </div>
-           <div class="w-full" id="3">
-             <div
-                    class="px-6  transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2"
-                  >
-                <div class="flex flex-col items-center">
-                  <figure class="h-[30%] w-[30%]">
-                  <img src="public/images/category/beauty.webp" class="object-cover rounded-full" alt="img">
-                  </figure>
-                  <p class="mt-6">HomeRepairs</p>
-                </div>
-          </div>
-          </div>
-           <div class="w-full" id="4">
-             <div
-                    class="px-6  transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2"
-                  >
-                <div class="flex flex-col items-center">
-                  <figure class="h-[30%] w-[30%]">
-                  <img src="public/images/category/beauty.webp" class="object-cover rounded-full" alt="img">
-                  </figure>
-                  <p class="mt-6">HomeRepairs</p>
-                </div>
-          </div>
-          
         </section>
-      </div>
+            
+          <!-- categorysection -->
+          <section class ="category-section bg-gray-200 w-full">
+            <h1 class="text-center ">Category</h1>
+            <div class="category grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 ">
+            <div class="w-full" id="1" >
+              <div
+                    class="px-6  transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2"
+                    >
+                  <div class="flex flex-col items-center">
+                    <figure class="h-[30%] w-[30%]">
+                    <img src="public/images/category/beauty.webp" class="object-cover rounded-full" alt="img">
+                    </figure>
+                    <p class="mt-6" >HomeRepairs</p>
+                  </div>
+            </div>
+            </div>
 
-        <!-- services-section -->
- 
-    </div>
-   
-  </body>
+          <div class="w-full" id="2">
+              <div
+                      class="px-6  transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2"
+                    >
+                  <div class="flex flex-col items-center">
+                    <figure class="h-[30%] w-[30%]">
+                    <img src="public/images/category/beauty.webp" class="object-cover rounded-full" alt="img">
+                    </figure>
+                    <p class="mt-6">HomeRepairs</p>
+                  </div>
+            </div>
+            </div>
+            <div class="w-full" id="3">
+              <div
+                      class="px-6  transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2"
+                    >
+                  <div class="flex flex-col items-center">
+                    <figure class="h-[30%] w-[30%]">
+                    <img src="public/images/category/beauty.webp" class="object-cover rounded-full" alt="img">
+                    </figure>
+                    <p class="mt-6">HomeRepairs</p>
+                  </div>
+            </div>
+            </div>
+            <div class="w-full" id="4">
+              <div
+                      class="px-6  transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2"
+                    >
+                  <div class="flex flex-col items-center">
+                    <figure class="h-[30%] w-[30%]">
+                    <img src="public/images/category/beauty.webp" class="object-cover rounded-full" alt="img">
+                    </figure>
+                    <p class="mt-6">HomeRepairs</p>
+                  </div>
+            </div>
+            
+          </section>
+        </div>
+
+          <!-- services-section -->
+  
+      </div>
+    
+    </body>

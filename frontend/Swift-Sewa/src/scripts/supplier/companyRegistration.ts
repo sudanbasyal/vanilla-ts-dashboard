@@ -22,7 +22,7 @@ export class CompanyRegistrationAction {
 
         categorySelect.innerHTML = '<option value="">Select Category</option>';
 
-        data.forEach(
+        data.message.forEach(
           (item: { id: string; name: string; services: string[] }) => {
             const option = document.createElement(
               "option"

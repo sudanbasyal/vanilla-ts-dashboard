@@ -1,4 +1,6 @@
+import { AxiosError } from "axios";
 import { categoryApi } from "../../api/categories";
+import { serviceApi } from "../../api/services";
 import { Category } from "../../interface/category";
 
 export class UserDashboardActions {
@@ -6,25 +8,28 @@ export class UserDashboardActions {
     const categories: string[] = [];
     const init = async () => {
       try {
-        const response = await categoryApi.get();
-        console.log("response", response);
-        categories.push(...response.map((item: Category) => item.id));
-        console.log("categories", categories);
+        const categoryResponse = await categoryApi.get();
+        console.log("CategoryResponse", categoryResponse);
+
+        const serviceResponse = await serviceApi.get();
+        console.log("serviceResponse", serviceResponse);
+
+        categories.push(
+          ...categoryResponse.message.map((item: Category) => item.id)
+        );
       } catch (err) {
-        console.log("err", err);
+        if (err instanceof AxiosError) {
+          console.log("Axios error:", err.response?.data.message);
+        } else {
+          console.log("err", err);
+        }
       }
     };
 
     await init();
 
-    const dropMenu = document.getElementById("userDropDown");
-
     const currentYear = document.getElementById("year")!;
     currentYear.textContent = new Date().getFullYear().toString();
-
-    const navbarMenu: HTMLButtonElement =
-      document.querySelector(".navbar-burger")!;
-    console.log("navebarMenu", navbarMenu);
 
     const userProfile: HTMLButtonElement = document.getElementById(
       "user-button"
@@ -37,7 +42,6 @@ export class UserDashboardActions {
     const category1 = document.getElementById("category1") as HTMLAnchorElement;
 
     category1.setAttribute("data-categoryId", categories[0]);
-    console.log("categort1", category1);
 
     const category2 = document.getElementById("category2") as HTMLAnchorElement;
 
@@ -45,7 +49,6 @@ export class UserDashboardActions {
 
     const category3 = document.getElementById("category3") as HTMLAnchorElement;
     category3.setAttribute("data-categoryId", categories[2]);
-    console.log("category3", category3);
 
     const category4 = document.getElementById("category4") as HTMLAnchorElement;
     category4.setAttribute("data-categoryId", categories[3]);
@@ -55,17 +58,17 @@ export class UserDashboardActions {
     category3.onclick = handleCategoryClick;
     category4.onclick = handleCategoryClick;
 
+    selectedLocation.value = "Kathmandu";
     selectedLocation.addEventListener("change", function () {
       // Get the selected value
       const selectedValue = selectedLocation.value;
       const location = localStorage.setItem("location", `${selectedValue}`);
+      console.log("selectedValue", selectedValue);
     });
 
     function handleCategoryClick(event: Event) {
       const target = event.currentTarget as HTMLAnchorElement;
       const categoryId = target.getAttribute("data-categoryId");
-      window.location.hash = "";
-      window.location.hash = "#/lol";
       target.href = `#/categories/:${categoryId}`;
       const location = localStorage.getItem("location");
       console.log("location", location);
