@@ -58,7 +58,13 @@ export class UserDashboardActions {
     category3.onclick = handleCategoryClick;
     category4.onclick = handleCategoryClick;
 
-    selectedLocation.value = "Kathmandu";
+    const location = localStorage.getItem("location");
+    if (location) {
+      selectedLocation.value = location;
+    } else {
+      selectedLocation.value = "Kathmandu";
+    }
+
     selectedLocation.addEventListener("change", function () {
       // Get the selected value
       const selectedValue = selectedLocation.value;

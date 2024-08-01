@@ -30,7 +30,7 @@ const renderContent = async (data: CompanyApiResponse) => {
     card.className = "rounded-xl overflow-hidden shadow-lg";
     card.innerHTML = `
         <div class="relative">
-          <a href=${`#/supplier/companies/selected`}>
+          <a href=${`#/supplier/companies/selected/`}>
             <img
               class="w-full h-[30vh] object-cover"
               src="${item.photo}"

@@ -9,6 +9,13 @@ import { SelectedCompanyPage } from "./loader/supplier/selectedCompany";
 import { CategoriesPage } from "./loader/categories";
 import { SelectedSupplierCompanyPage } from "./loader/user/selectedSupplierCompany";
 import { UserBookingPage } from "./loader/user/booking";
+import { SupplierDashboardPage } from "./loader/supplier/dashboard";
+import { SupplierBookingPage } from "./loader/supplier/booking";
+import { AdminDashboardPage } from "./loader/admin/dashboard";
+import { AdminDashboardServicePage } from "./loader/admin/services";
+import { AdminDashboardUsersPage } from "./loader/admin/users";
+import { AdminDashboardVerifyCompaniesPage } from "./loader/admin/verifyCompanies";
+import { AdminDashboardCompanyInfoPage } from "./loader/admin/companyInfo";
 
 const routes: { [key: string]: { component: any } } = {
   "#/": {
@@ -48,8 +55,33 @@ const routes: { [key: string]: { component: any } } = {
     component: CompaniesPage,
   },
 
+  "#/supplier/dashboard/": {
+    component: SupplierDashboardPage,
+  },
+
+  "#/supplier/booking/": {
+    component: SupplierBookingPage,
+  },
+
   "#/supplier/companies/selected/": {
     component: SelectedCompanyPage,
+  },
+
+  "#/admin/dashboard": {
+    component: AdminDashboardPage,
+  },
+
+  "#/admin/dashboard/service": {
+    component: AdminDashboardServicePage,
+  },
+  "#/admin/dashboard/users": {
+    component: AdminDashboardUsersPage,
+  },
+  "#/admin/dashboard/verify-companies": {
+    component: AdminDashboardVerifyCompaniesPage,
+  },
+  "#/admin/dashboard/company-info": {
+    component: AdminDashboardCompanyInfoPage,
   },
 };
 

@@ -1,0 +1,100 @@
+<body>
+  <nav
+    class="nav-section h-[10vh] bg-white shadow-md py-2 md:py-4 md:px-10 z-10"
+  >
+    <div
+      class="nav-container h-full mx-auto sm:px-10 lg:px-1 flex flex-row justify-between items-center"
+    >
+      <!-- Logo -->
+      <div class="logo flex items-center">
+        <span class="text-orange-500 font-bold text-2xl">Swift</span>
+        <span class="text-blue-600 font-semibold text-2xl">Sewa</span>
+      </div>
+
+      <!-- Location Selector and Profile Icon -->
+      <div class="ml-auto flex items-center space-x-4">
+        <button
+          type="button"
+          class="flex items-center md:px-4 py-5 dropdown-toggle"
+          id="user-button"
+          onclick="toggleDropdown()"
+        >
+          <figure class="w-8 h-8">
+            <img
+              class="rounded-full w-full h-full object-contain"
+              src="/images/user/img-02.jpg"
+              alt="Header Avatar"
+            />
+          </figure>
+          <span class="hidden fw-medium xl:block dark:text-gray-50 ml-4"
+            >Bijen</span
+          >
+        </button>
+      </div>
+    </div>
+
+    <div
+      class="dropdown-menu lg:w-[10%] absolute right-0 mt-4 bg-white rounded-md shadow-lg z-20 hidden"
+    >
+      <hr />
+      <a
+        href="/#/profile"
+        class="block text-center text-orange-500 px-4 py-2 m-2 rounded hover:bg-cyan-200"
+      >
+        View Profile
+      </a>
+
+      <a
+        href="/#/"
+        class="block text-center lg: text-orange-500 px-4 py-2 m-2 rounded hover:bg-cyan-200"
+      >
+        logout
+      </a>
+    </div>
+  </nav>
+
+  <!-- main section -->
+  <section class="main-section">
+    <div class="h-[90vh] bg-orange-200 flex">
+      <div class="w-2/3 flex justify-center items-center">
+        <div class="container mb-3 flex flex-col gap-8">
+          <h6
+            class="hidden md:block mb-3 text-sm text-gray-900 uppercase dark:text-gray-50"
+          >
+            We have many live services
+          </h6>
+
+          <h1
+            class="mb-3 text-2xl md:text-5xl font-semibold leading-tight text-yellow-800 dark:text-gray-50"
+          >
+            Find your dream services <br />
+            with <span class="text-orange-500 font-bold">Swift </span>
+            <span class="-ml-3 text-blue-500 font-bold">Sewa</span>
+          </h1>
+          <p
+            class="text-lg font-light text-gray-500 whitespace-pre-line dark:text-gray-300"
+          >
+            Register Your Services With Us
+          </p>
+
+          <button
+            type="button"
+            id="register-button"
+            class="py-2.5 w-1/4 px-5 me-2 mb-2 text-sm font-medium text-yellow-100 focus:outline-none bg-orange-400 rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+          >
+            Get Registered
+          </button>
+        </div>
+      </div>
+      <div class="w-1/2 bg-slate-400">
+        <figure class="h-full w-full">
+          <img
+            src="../../../public/images/supplier/electriciam.jpg"
+            class="object-cover h-[90vh]"
+            alt=""
+          />
+        </figure>
+      </div>
+    </div>
+  </section>
+</body>

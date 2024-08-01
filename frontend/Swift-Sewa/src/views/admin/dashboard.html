@@ -1,0 +1,103 @@
+<body class="bg-gray-100">
+  <div id="app" class="min-h-screen flex">
+    <!-- Sidebar -->
+    <aside
+      class="w-64 bg-white shadow-lg p-4 fixed inset-y-0 left-0 transform -translate-x-full lg:translate-x-0 transition-transform duration-200 ease-in-out z-30"
+      id="sidebar"
+    >
+      <div class="flex justify-between items-center">
+        <div class="text-2xl font-bold cursor-pointer" id="swift-sewa">
+          <img src="/public/images/swift-logo.svg" alt="swift-sewa" />
+        </div>
+        <button class="lg:hidden text-gray-700" id="closeButton">
+          &#10005;
+        </button>
+      </div>
+      <nav class="mt-4">
+        <ul>
+          <!-- <li><p id='services' class="block py-2 cursor-pointer">Services</p></li> -->
+          <li><p id="users" class="block py-2 cursor-pointer">Users</p></li>
+          <!-- <li><p  class="block py-2">Settings</p></li> -->
+          <li>
+            <p id="verifyCompanies" class="block py-2 cursor-pointer">
+              Verify Companies
+            </p>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="flex-1 p-4 transition-all lg:ml-[250px]" id="mainContent">
+      <header
+        class="flex justify-between items-center mb-4 bg-[#FFEEC3] p-4 rounded"
+      >
+        <div class="flex items-center space-x-4">
+          <button id="hamburgerMenu" class="text-2xl lg:hidden">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <h1 class="text-xl">Welcome Shayan</h1>
+        </div>
+        <div class="flex items-center space-x-4">
+          <div class="text-right">
+            <p class="text-sm">Shayan Bista</p>
+            <p class="text-xs text-gray-500">shayan@companyemail.com</p>
+          </div>
+          <div class="w-10 h-10 rounded-full bg-gray-200" id=""></div>
+          <!-- Placeholder for profile image -->
+        </div>
+      </header>
+      <div class="bg-white shadow-lg p-4 rounded">
+        <div class="flex justify-between items-center mb-4">
+          <!-- <button class="bg-yellow-500 text-white px-4 py-2 rounded">Add Product</button> -->
+          <button class="bg-gray-200 px-4 py-2 rounded">Filter</button>
+        </div>
+        <table class="min-w-full bg-white">
+          <thead>
+            <tr>
+              <th class="px-4 py-2">SID</th>
+              <th class="px-4 py-2">User Name</th>
+              <th class="px-4 py-2">Role</th>
+
+              <th class="px-4 py-2">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="border px-4 py-2 text-center">1</td>
+              <td class="border px-4 py-2 text-center">Shayan Bista</td>
+              <td class="border px-4 py-2 text-center">Admin</td>
+
+              <td class="border px-4 py-2 text-center">
+                <button class="text-blue-500 mr-1">View</button>
+                <!-- <button class="text-yellow-500 mr-1">Edit</button> -->
+                <button class="text-red-500">Delete</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="border px-4 py-2 text-center">2</td>
+              <td class="border px-4 py-2 text-center">Sudan Basyal</td>
+              <td class="border px-4 py-2 text-center">Supplier</td>
+
+              <td class="border px-4 py-2 text-center">
+                <button class="text-blue-500 mr-1">View</button>
+                <!-- <button class="text-yellow-500 mr-1">Edit</button> -->
+                <button class="text-red-500">Delete</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="border px-4 py-2 text-center">3</td>
+              <td class="border px-4 py-2 text-center">Shisir Jung Paudel</td>
+              <td class="border px-4 py-2 text-center">User</td>
+
+              <td class="border px-4 py-2 text-center">
+                <button class="text-blue-500 mr-1">View</button>
+                <!-- <button class="text-yellow-500 mr-1">Edit</button> -->
+                <button class="text-red-500">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+</body>
