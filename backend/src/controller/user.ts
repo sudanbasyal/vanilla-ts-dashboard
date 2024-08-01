@@ -30,6 +30,19 @@ export const createUser = async (
   }
 };
 
+export const getAllUsers = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const users = await userService.getAllUsers();
+    res.status(httpStatusCodes.OK).json({ message: users });
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const getUser = async (
   req: Request,
   res: Response,
@@ -98,5 +111,3 @@ export const deleteUser = async (
     next(error);
   }
 };
-
-

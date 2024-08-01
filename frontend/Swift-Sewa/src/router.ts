@@ -16,11 +16,13 @@ import { AdminDashboardServicePage } from "./loader/admin/services";
 import { AdminDashboardUsersPage } from "./loader/admin/users";
 import { AdminDashboardVerifyCompaniesPage } from "./loader/admin/verifyCompanies";
 import { AdminDashboardCompanyInfoPage } from "./loader/admin/companyInfo";
+import { UserSearchPage } from "./loader/user/search";
 
 const routes: { [key: string]: { component: any } } = {
-  "#/": {
+  "": {
     component: HomePage,
   },
+
   "#/login/": {
     component: loginPage,
   },
@@ -37,6 +39,10 @@ const routes: { [key: string]: { component: any } } = {
 
   "#/profile": {
     component: ProfilePage,
+  },
+
+  "#/user/search/": {
+    component: UserSearchPage,
   },
 
   "#/user/companies/selected/": {
@@ -67,7 +73,7 @@ const routes: { [key: string]: { component: any } } = {
     component: SelectedCompanyPage,
   },
 
-  "#/admin/dashboard": {
+  "#/admin/dashboard/": {
     component: AdminDashboardPage,
   },
 
@@ -87,7 +93,7 @@ const routes: { [key: string]: { component: any } } = {
 
 export class Router {
   static async loadContent() {
-    const hash = window.location.hash || "#/home";
+    const hash = window.location.hash || "";
     const route = routes[hash];
     if (hash.includes("categories/")) {
       document.getElementById("app")!.innerHTML = "";
@@ -103,6 +109,11 @@ export class Router {
       document.getElementById("app")!.innerHTML = "";
       document.getElementById("app")!.innerHTML = await UserBookingPage.load();
       UserBookingPage.initEventListeners();
+    } else if (hash.includes("user/search")) {
+      console.log("search page enabled");
+      document.getElementById("app")!.innerHTML = "";
+      document.getElementById("app")!.innerHTML = await UserSearchPage.load();
+      UserSearchPage.initEventListeners();
     } else {
       if (route) {
         const content = await route.component.load();

@@ -28,12 +28,6 @@ export class UserBookingActions {
 
       const date = document.getElementById("dateInput") as HTMLFormElement;
 
-      // Perform any necessary validation or processing here
-      console.log("Contact Name:", contactName.value);
-      console.log("Address:", address.value);
-      console.log("Phone Number:", phoneNumber.value);
-      console.log("Instructions:", instructions.value);
-
       const data = {
         contactName: contactName.value,
         contactAddress: address.value,

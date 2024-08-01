@@ -18,6 +18,7 @@ export class AdminDashboardActions {
     const users = document.getElementById("users") as HTMLButtonElement;
 
     users.onclick = () => {
+      console.log("user is clicked");
       window.location.href = "#/admin/dashboard/users";
     };
     const verifyCompanies = document.getElementById(
@@ -29,5 +30,3 @@ export class AdminDashboardActions {
     };
   };
 }
-
-

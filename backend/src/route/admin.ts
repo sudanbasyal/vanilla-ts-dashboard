@@ -8,6 +8,7 @@ import {
   getSelectedUser,
   verifyCompany,
 } from "../controller/admin";
+``
 import { validateReqParams } from "../middleware/validator";
 import { companyIdSchema } from "../schema/supplier";
 import { userIdSchema } from "../schema/user";

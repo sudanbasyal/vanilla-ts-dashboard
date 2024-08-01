@@ -43,7 +43,7 @@
               ></p>
             </div>
             <div class="mb-5">
-              <label for="passwordInput" class="text-bl">Email</label>
+              <label for="emailInput" class="text-bl">Email</label>
               <input
                 type="email"
                 class="w-full mt-1 py-2.5 rounded border-transparent placeholder:text-sm text-bl"
@@ -57,7 +57,7 @@
               ></p>
             </div>
             <div class="mb-5">
-              <label for="emailInput" class="text-bl">Password</label>
+              <label for="passwordInput" class="text-bl">Password</label>
               <input
                 type="password"
                 class="w-full mt-1 py-2.5 rounded border-transparent placeholder:text-sm text-bl"
@@ -70,7 +70,7 @@
               ></p>
             </div>
             <div class="mb-5">
-              <label for="emailInput" class="text-bl">Address</label>
+              <label for="addressInput" class="text-bl">Address</label>
               <input
                 type="password"
                 class="w-full mt-1 py-2.5 rounded border-transparent placeholder:text-sm text-bl"
@@ -80,7 +80,7 @@
             </div>
 
             <div class="mb-5">
-              <label for="emailInput" class="text-bl">Phonenumber</label>
+              <label for="phoneNumberInput" class="text-bl">Phonenumber</label>
               <input
                 type="password"
                 class="w-full mt-1 py-2.5 rounded border-transparent placeholder:text-sm text-bl"
@@ -88,6 +88,29 @@
                 placeholder="Enter your Phonenumber"
               />
             </div>
+
+            <div class="mt-4">
+              <label class="text-bl">Set User Type:</label>
+              <div class="flex items-center mt-2">
+                <input
+                  type="radio"
+                  id="user"
+                  name="userType"
+                  value="user"
+                  class="mr-2"
+                />
+                <label for="user" class="mr-4 text-bl">User</label>
+                <input
+                  type="radio"
+                  id="supplier"
+                  name="userType"
+                  value="supplier"
+                  class="mr-2"
+                />
+                <label for="supplier" class="text-bl">Supplier</label>
+              </div>
+            </div>
+
             <div id="error-container" class="text-red-600"></div>
             <div class="my-5 text-center">
               <button
@@ -101,7 +124,7 @@
           <div class="text-center">
             <p class="text-bl">
               Already a member ?
-              <a href="sign-in.html" class="text-bl underline fw-medium">
+              <a href="#/login/" class="text-bl underline fw-medium">
                 Sign In
               </a>
             </p>

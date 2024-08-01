@@ -11,16 +11,8 @@ export const userRepository = AppDataSource.getRepository(User);
 export const userProfileRepository = AppDataSource.getRepository(UserProfile);
 
 export const findAll = () => {
-  return userRepository.find();
+  return userRepository.find({ relations: ["profile"] });
 };
-
-// export const findById = async (id: number) => {
-//   console.log("id reached here", id);
-//   return userRepository.findOne({
-//     where: { id },
-//     // relations: ["company"],
-//   });
-// };
 
 export const findById = async (id: number) => {
   console.log("id reached here", id);
@@ -204,4 +196,10 @@ export const findUserByCompany = async (companyId: number) => {
   });
 
   return user;
+};
+
+export const getAllUsers = async () => {
+  const users = await findAll();
+  if (!users || users.length == 0) throw new BadRequestError("users not found");
+  return users;
 };

@@ -1,7 +1,9 @@
+import { role } from "./../../constant";
 import { AxiosError } from "axios";
 import { categoryApi } from "../../api/categories";
 import { serviceApi } from "../../api/services";
 import { Category } from "../../interface/category";
+import { roleAuthApi } from "../../api/me";
 
 export class UserDashboardActions {
   static userDashboard: () => void = async () => {
@@ -9,7 +11,7 @@ export class UserDashboardActions {
     const init = async () => {
       try {
         const categoryResponse = await categoryApi.get();
-        console.log("CategoryResponse", categoryResponse);
+        console.log("categoryResponse", categoryResponse);
 
         const serviceResponse = await serviceApi.get();
         console.log("serviceResponse", serviceResponse);
@@ -27,7 +29,6 @@ export class UserDashboardActions {
     };
 
     await init();
-
     const currentYear = document.getElementById("year")!;
     currentYear.textContent = new Date().getFullYear().toString();
 
@@ -39,12 +40,17 @@ export class UserDashboardActions {
       "location"
     ) as HTMLSelectElement;
 
-    const category1 = document.getElementById("category1") as HTMLAnchorElement;
+    const searchButton = document.getElementById(
+      "search-button"
+    ) as HTMLButtonElement;
+    console.log("searchButton", searchButton);
 
+    const query = document.getElementById("query-input") as HTMLInputElement;
+
+    const category1 = document.getElementById("category1") as HTMLAnchorElement;
     category1.setAttribute("data-categoryId", categories[0]);
 
     const category2 = document.getElementById("category2") as HTMLAnchorElement;
-
     category2.setAttribute("data-categoryId", categories[1]);
 
     const category3 = document.getElementById("category3") as HTMLAnchorElement;
@@ -52,11 +58,34 @@ export class UserDashboardActions {
 
     const category4 = document.getElementById("category4") as HTMLAnchorElement;
     category4.setAttribute("data-categoryId", categories[3]);
-
     category1.onclick = handleCategoryClick;
     category2.onclick = handleCategoryClick;
     category3.onclick = handleCategoryClick;
     category4.onclick = handleCategoryClick;
+
+    const service1 = document.getElementById("first-service") as HTMLDivElement;
+
+    const service2 = document.getElementById(
+      "second-service"
+    ) as HTMLDivElement;
+
+    const service3 = document.getElementById("third-service") as HTMLDivElement;
+
+    const service4 = document.getElementById(
+      "fourth-service"
+    ) as HTMLDivElement;
+
+    service1.onclick = () => {
+      console.log("im clicked");
+    };
+
+    function handleCategoryClick(event: Event) {
+      const target = event.currentTarget as HTMLAnchorElement;
+      const categoryId = target.getAttribute("data-categoryId");
+      target.href = `#/categories/:${categoryId}`;
+      const location = localStorage.getItem("location");
+      console.log("location", location);
+    }
 
     const location = localStorage.getItem("location");
     if (location) {
@@ -66,19 +95,11 @@ export class UserDashboardActions {
     }
 
     selectedLocation.addEventListener("change", function () {
-      // Get the selected value
       const selectedValue = selectedLocation.value;
       const location = localStorage.setItem("location", `${selectedValue}`);
-      console.log("selectedValue", selectedValue);
     });
 
-    function handleCategoryClick(event: Event) {
-      const target = event.currentTarget as HTMLAnchorElement;
-      const categoryId = target.getAttribute("data-categoryId");
-      target.href = `#/categories/:${categoryId}`;
-      const location = localStorage.getItem("location");
-      console.log("location", location);
-    }
+    searchButton.addEventListener("click", handleSearch);
 
     userProfile.onclick = () => {
       let dropdowns = document.querySelector(".dropdown-menu") as any;
@@ -89,5 +110,16 @@ export class UserDashboardActions {
         dropdowns.classList.add("hidden");
       }
     };
+
+    async function handleSearch() {
+      if (query.value.length < 0) {
+        throw new Error("query is empty");
+      }
+
+      const searchedData = await serviceApi.getSearchedQuery(query.value);
+      console.log("searchedData", searchedData);
+
+      window.location.href = `/#/user/search?${query.value}`;
+    }
   };
 }

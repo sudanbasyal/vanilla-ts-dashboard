@@ -103,8 +103,6 @@ export class SelectedSupplierCompanyActions {
       bookButtons.forEach((button, index) => {
         button.addEventListener("click", function (event) {
           event.preventDefault();
-          console.log("clicked");
-          console.log("index", index);
           const selectedCompanyServiceId = extractData[index].id;
           console.log(selectedCompanyServiceId);
           window.location.href = `#/user/booking/company/:${companyId}/service/:${selectedCompanyServiceId}`;

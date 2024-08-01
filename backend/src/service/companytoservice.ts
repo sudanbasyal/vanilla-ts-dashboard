@@ -1,4 +1,4 @@
-import { QueryBuilder } from "typeorm";
+import { Like, QueryBuilder } from "typeorm";
 import { AppDataSource } from "../dataSource";
 import { ServiceToCompany } from "../entity/Company_Service";
 import { ServiceCompanyQuery } from "../interface/query";
@@ -22,14 +22,15 @@ export const deleteCompanyService = async (ids: {
 
 export const findByService = async (query: ServiceCompanyQuery) => {
   console.log("query.location", query.location);
-  console.log("query.service", query.service);
+  const queryLocation = query.location?.trim();
+
   return await companyToServiceRepository.find({
     where: {
       service: {
         name: query.service,
       },
       company: {
-        location: query.location,
+        location: queryLocation,
       },
     },
     relations: ["company"],

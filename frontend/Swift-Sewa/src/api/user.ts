@@ -12,6 +12,16 @@ export const userApi = {
       throw error;
     }
   },
+
+  getAll: async () => {
+    try {
+      const response = await instance.get(`/users/all`);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching profile:", error);
+      throw error;
+    }
+  },
   create: async (data: userForm) => {
     try {
       const response = await instance.post("/users", data);
@@ -30,6 +40,16 @@ export const userApi = {
       throw error;
     }
   },
+
+  // delete: async (id: number) => {
+
+  //   try{
+  //     const response=await instance.delete(`/users/${id}`);
+  //     console.log("response",response)
+
+  //   }
+  // }
+
   login: async (data: Pick<userForm, "email" | "password">) => {
     try {
       const response = await instance.post("/auth/login", data);

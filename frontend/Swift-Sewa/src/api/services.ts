@@ -11,13 +11,16 @@ export const serviceApi = {
     }
   },
 
-  post: async (data: any) => {
+  getSearchedQuery: async (query: string) => {
+    const location = localStorage.getItem("location");
+    console.log("location", location);
     try {
-      const response = await instance.post(`/categories/`);
+      const response = await instance.get(
+        `services/companies?service=${query}&location=${location}`
+      );
       return response.data;
     } catch (error) {
-      console.error("Error fetching profile:", error);
-      throw error;
+      console.log("error", error);
     }
   },
 };

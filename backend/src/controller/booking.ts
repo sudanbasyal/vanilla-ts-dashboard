@@ -30,8 +30,13 @@ export const viewBookings = async (
   res: Response,
   next: NextFunction
 ) => {
-  const supplierId = req.user?.id!;
+  try {
+    const supplierId = req.user?.id!;
 
-  logger.info("booking successful");
-  const bookings = await bookingService.viewBookings(supplierId);
+    logger.info("booking successful");
+    const bookings = await bookingService.viewBookings(supplierId);
+    res.status(httpStatusCodes.OK).json({ bookings });
+  } catch (err) {
+    next(err);
+  }
 };

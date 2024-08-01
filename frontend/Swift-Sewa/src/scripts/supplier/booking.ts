@@ -48,23 +48,25 @@ export class SupplierBookingActions {
                   </li>
                   <li class="list-inline-item">
                     <i class="uil uil-phone"></i> ${item.phoneNumber}
+                  </li> 
+
+                </ul>
+                <ul  class="text-gray-500 dark:text-gray-300">
+                    <li class="list-inline-item">
+                    <i class="uil uil-phone"></i> ${item.specialInstructions}
                   </li>
                 </ul>
               </div>
             </div>
             <div class="col-span-12 md:col-span-4">
               <div class="flex flex-wrap gap-2 mt-2 mt-lg-0">
-                <span class="px-2 py-1 text-sm font-medium text-green-500 rounded bg-green-500/20">Role</span>
-                <span class="px-2 py-1 text-sm font-medium rounded bg-violet-500/20 text-violet-500">Tag</span>
+                <span class="px-2 py-1 text-sm font-medium text-green-500 rounded bg-green-500/20  cursor-pointer">Accept</span>
+                <span class="px-2 py-1 text-sm font-medium rounded bg-violet-500/20 text-violet-500 cursor-pointer">Reject</span>
               </div>
             </div>
           </div>
           <div class="absolute top-4 ltr:right-4 rtl:left-4">
-            <div class="w-8 h-8 text-center text-gray-100 transition-all duration-300 bg-transparent border rounded border-gray-100/50 hover:bg-red-600 hover:text-white dark:border-neutral-600 dark:hover:border-transparent">
-              <a href="javascript:void(0)">
-                <i class="uil uil-heart-alt text-lg leading-[1.8]"></i>
-              </a>
-            </div>
+          
           </div>
         </div>
       `;

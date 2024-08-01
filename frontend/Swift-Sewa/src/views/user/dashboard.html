@@ -77,11 +77,12 @@
           </p>
           <div class="flex items-center mb-4">
             <input
+              id="query-input"
               type="text"
               placeholder="Try 'plumbing'"
               class="flex-1 p-2 border rounded-l-lg focus:outline-none"
             />
-            <button class="p-2 bg-orange-500 text-white rounded-r-lg">
+            <button id="search-button" class="p-2 bg-orange-500 text-white rounded-r-lg">
               Search
             </button>
           </div>
@@ -109,7 +110,7 @@
         <section class ="category-section bg-gray-100 w-full">
           <h1 class=" text-2xl text-center pt-10 md:text-4xl text-blue-500">Popular Services</h1>
           <div class="category grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:pt-10 ">
-           <div class="w-full ">
+           <div class="w-full "  id="first-service">
              <div
                     class="px-6  transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2"
                   >
@@ -122,7 +123,7 @@
           </div>
           </div>
 
-         <div class="w-full ">
+         <div id="second-service" class="w-full ">
              <div
                     class="px-6  transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2"
                   >
@@ -130,12 +131,12 @@
                   <figure class="h-[50%] w-[80%]">
                   <img src="../../../public/images/services/repairing.webp" class="object-cover rounded-2xl" alt="img">
                   </figure>
-                  <p class="mt-6 text-blue-400">Mechanic</p>
+                  <p   class="mt-6 text-blue-400">Mechanic</p>
                 </div>
           </div>
           </div>
 
-          <div class="w-full ">
+          <div id="third-service" class="w-full">
              <div
                     class="px-6  transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2"
                   >
@@ -143,12 +144,12 @@
                   <figure class="h-[50%] w-[80%]">
                   <img src="../../../public/images/services/barber.webp" class="object-cover rounded-2xl" alt="img">
                   </figure>
-                  <p class="mt-6 text-blue-400">Barber</p>
+                  <p id="third-service" class="mt-6 text-blue-400">Barber</p>
                 </div>
           </div>
           </div>
 
-           <div class="w-full">
+           <div id="fourth-service" class="w-full">
              <div
                     class="px-6  transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2"
                   >
@@ -156,7 +157,7 @@
                   <figure class="h-[50%] w-[80%]">
                   <img src="../../../public/images/services/gym trainer.jpg" class="object-cover rounded-2xl" alt="img">
                   </figure>
-                  <p class="mt-6 text-blue-400 ">Trainer</p>
+                  <p  class="mt-6 text-blue-400 ">Trainer</p>
                 </div>
             </div>
 
@@ -273,7 +274,6 @@
         </section>
       <!-- categories -->
         <section>
-
           <footer class="container mx-auto rounded-lg shadow">
             <div class="w-full  p-4 md:py-8 ">
                 <div class="sm:flex sm:items-center sm:justify-between">
