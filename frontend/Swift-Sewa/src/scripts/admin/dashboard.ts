@@ -26,7 +26,7 @@ export class AdminDashboardActions {
     ) as HTMLButtonElement;
 
     verifyCompanies.onclick = () => {
-      window.location.href = "#/admin/dashboard/verify-companies";
+      window.location.href = "#/admin/companies/pending/";
     };
   };
 }

@@ -1,8 +1,6 @@
-export interface Service {
-  id: number;
-  name: string;
-  description: string;
-}
+import { Category } from "./category";
+import { Service } from "./service";
+
 
 export interface ServiceToCompany {
   id: number;
@@ -21,6 +19,7 @@ export interface Company {
   description: string;
   isActive: boolean;
   photo: string;
+  category: Category;
   openingTime: string;
   closingTime: string;
   panPhoto: string;

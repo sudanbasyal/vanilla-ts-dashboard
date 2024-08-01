@@ -1,9 +1,28 @@
 import { adminApi } from "../../api/admin";
 import { userApi } from "../../api/user";
+import { showToast } from "../../constants/toastify";
 import { User } from "../../interface/user";
 
 export class AdminDashboardUsers {
   static adminDashboardUsers: () => void = async () => {
+    const users = document.getElementById("users") as HTMLButtonElement;
+
+    users.onclick = () => {
+      window.location.href = "#/admin/dashboard/users";
+    };
+    const swiftSewa = document.getElementById(
+      "swift-sewa"
+    ) as HTMLButtonElement;
+    swiftSewa.onclick = () => {
+      window.location.href = "#/admin/dashboard";
+    };
+    const verifyCompanies = document.getElementById(
+      "verifyCompanies"
+    ) as HTMLButtonElement;
+    verifyCompanies.onclick = () => {
+      window.location.href = "#/admin/dashboard/verify-companies";
+    };
+
     try {
       async function init() {
         const users = await userApi.getAll();
@@ -29,7 +48,7 @@ export class AdminDashboardUsers {
 
             <td class="border px-4 py-2 text-center">
                <button class="text-blue-500 mr-1">View</button>
-               <button id="delete-button"   data-user-id="${user.id}"  class="text-red-500">Delete</button>
+               <button id="delete-button" data-user-id="${user.id}"  class="text-red-500">Delete</button>
              </td>
          
            `;
@@ -41,8 +60,10 @@ export class AdminDashboardUsers {
           const deleteButton = target.closest("#delete-button");
           const userId = target.getAttribute("data-user-id");
 
-          const deletedUser = await adminApi.deleteUser(Number(userId));
-          console.log("deletedUser", deletedUser);
+          const deletedStatus = await adminApi.deleteUser(Number(userId));
+          deletedStatus === 204
+            ? showToast("User deleted successfully", 3000, "Green")
+            : showToast("User deletion failed", 3000, "red");
         });
       }
     } catch (err) {

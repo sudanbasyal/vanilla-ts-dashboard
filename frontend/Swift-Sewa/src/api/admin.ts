@@ -4,10 +4,41 @@ export const adminApi = {
   deleteUser: async (id: number) => {
     try {
       const response = await instance.delete(`/users/${id}`);
+      return response.status;
+    } catch (error) {
+      console.error("Error fetching profile:", error);
+      throw error;
+    }
+  },
+
+  getPendingCompanies: async () => {
+    try {
+      const response = await instance.get(`admin/companies/pending`);
       return response.data;
     } catch (error) {
       console.error("Error fetching profile:", error);
       throw error;
+    }
+  },
+
+  getSelectedPendingCompnay: async (id: number) => {
+    try {
+      const response = await instance.get(`admin/companies/pending/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching profile:", error);
+      throw error;
+    }
+  },
+
+  verifyCompany: async (id: number, isAllowed: boolean) => {
+    try {
+      const response = await instance.put(`admin/verify-company/${id}`, {
+        isAllowed,
+      });
+      return response.data;
+    } catch (err) {
+      console.log("err", err);
     }
   },
 };

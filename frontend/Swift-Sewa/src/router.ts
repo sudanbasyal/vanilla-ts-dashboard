@@ -14,9 +14,9 @@ import { SupplierBookingPage } from "./loader/supplier/booking";
 import { AdminDashboardPage } from "./loader/admin/dashboard";
 import { AdminDashboardServicePage } from "./loader/admin/services";
 import { AdminDashboardUsersPage } from "./loader/admin/users";
-import { AdminDashboardVerifyCompaniesPage } from "./loader/admin/verifyCompanies";
-import { AdminDashboardCompanyInfoPage } from "./loader/admin/companyInfo";
+import { PendingCompaniesPage } from "./loader/admin/pendingCompanies";
 import { UserSearchPage } from "./loader/user/search";
+import { CompanyVerificationPage } from "./loader/admin/companyVerification";
 
 const routes: { [key: string]: { component: any } } = {
   "": {
@@ -80,14 +80,15 @@ const routes: { [key: string]: { component: any } } = {
   "#/admin/dashboard/service": {
     component: AdminDashboardServicePage,
   },
-  "#/admin/dashboard/users": {
+  "#/admin/users": {
     component: AdminDashboardUsersPage,
   },
-  "#/admin/dashboard/verify-companies": {
-    component: AdminDashboardVerifyCompaniesPage,
+  "#/admin/companies/pending/": {
+    component: PendingCompaniesPage,
   },
-  "#/admin/dashboard/company-info": {
-    component: AdminDashboardCompanyInfoPage,
+
+  "#/admin/companies/verification/": {
+    component: CompanyVerificationPage,
   },
 };
 
@@ -114,6 +115,12 @@ export class Router {
       document.getElementById("app")!.innerHTML = "";
       document.getElementById("app")!.innerHTML = await UserSearchPage.load();
       UserSearchPage.initEventListeners();
+    } else if (hash.includes("admin/companies/verification")) {
+      console.log("admin verificaiton page  enabled");
+      document.getElementById("app")!.innerHTML = "";
+      document.getElementById("app")!.innerHTML =
+        await CompanyVerificationPage.load();
+      CompanyVerificationPage.initEventListeners();
     } else {
       if (route) {
         const content = await route.component.load();

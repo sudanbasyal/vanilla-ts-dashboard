@@ -4,6 +4,7 @@ import { userApi } from "../api/user";
 import { UserDecode } from "../utils/auth";
 import Cookies from "js-cookie";
 import { roleAuthApi } from "../api/me";
+import { showToast } from "../constants/toastify";
 
 export class LoginActions {
   static login: () => void = () => {
@@ -82,6 +83,7 @@ export class LoginActions {
             window.location.href = "/#/user-dashboard/";
             break;
           case "admin":
+            showToast("logged-in successfully", 3000, "red");
             window.location.href = "#/admin/dashboard/";
             break;
           case "supplier":
@@ -91,8 +93,6 @@ export class LoginActions {
             window.location.href = "/#/login/";
             break;
         }
-
-        // window.location.href = "/#/dashboard/";
       } catch (err) {
         {
           if (axios.isAxiosError(err)) {
