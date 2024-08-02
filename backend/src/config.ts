@@ -1,28 +1,33 @@
 import dotenv from "dotenv";
 import { IConfig } from "./interface/configuration";
 import { SnakeNamingStrategy } from "typeorm-naming-strategies";
+import { requireEnv } from "./utils/envDataHandler";
 
 dotenv.config({ path: __dirname + "/../.env" });
 
-const port = process.env.PORT;
+// export function requireEnv(name: string): string {
+//   const value = process.env[name];
+//   if (!value) {
+//     throw new Error(`Environment variable ${name} is required`);
+//   }
+//   return value;
+// }
 
 const config: IConfig = {
-  port: process.env.PORT,
-
+  port: requireEnv("PORT"),
   jwt: {
-    secret: process.env.JWT_SECRET,
+    secret: requireEnv("JWT_SECRET"),
     accessExpiration: 5000,
     refreshTokenExpiration: 8000,
   },
-
   database: {
-    name: "default",
+    name: requireEnv("DB_NAME"),
     type: "postgres",
-    host: "localhost",
-    port: 5432,
-    username: "postgres",
-    password: "12345",
-    database: "Swift-Sewa",
+    host: requireEnv("DB_HOST"),
+    port: parseInt(requireEnv("DB_PORT")),
+    username: requireEnv("DB_USERNAME"),
+    password: requireEnv("DB_PASSWORD"),
+    database: requireEnv("DB_DATABASE"),
     synchronize: false,
     logging: false,
     entities: ["src/entity/**/*.ts"],

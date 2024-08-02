@@ -2,12 +2,17 @@ import { v2 as cloudinary } from "cloudinary";
 
 import { Readable } from "stream";
 
+import dotenv from "dotenv";
+import { requireEnv } from "./utils/envDataHandler";
+
+dotenv.config();
+
 (async function () {
   // Configuration
   cloudinary.config({
-    cloud_name: "dy1ou7jjj",
-    api_key: "239978918994972",
-    api_secret: "GC8v1NNbYy6uO4q2UhO9EC6d1wQ", 
+    cloud_name: requireEnv("CLOUD_NAME"),
+    api_key: requireEnv("API_KEY"),
+    api_secret: requireEnv("API_SECRET"),
   });
 })();
 
