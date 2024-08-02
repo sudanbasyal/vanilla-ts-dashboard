@@ -5,14 +5,6 @@ import { requireEnv } from "./utils/envDataHandler";
 
 dotenv.config({ path: __dirname + "/../.env" });
 
-// export function requireEnv(name: string): string {
-//   const value = process.env[name];
-//   if (!value) {
-//     throw new Error(`Environment variable ${name} is required`);
-//   }
-//   return value;
-// }
-
 const config: IConfig = {
   port: requireEnv("PORT"),
   jwt: {
