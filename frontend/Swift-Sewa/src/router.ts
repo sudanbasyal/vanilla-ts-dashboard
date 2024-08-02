@@ -34,7 +34,7 @@ const routes: { [key: string]: { component: RouteComponent } } = {
   "#/categories/": {
     component: CategoriesPage,
   },
-  "#/dashboard/": {
+  "#/user/dashboard/": {
     component: DashboardPage,
   },
 
@@ -66,7 +66,7 @@ const routes: { [key: string]: { component: RouteComponent } } = {
     component: SupplierDashboardPage,
   },
 
-  "#/supplier/booking/": {
+  "#/supplier/bookings/": {
     component: SupplierBookingPage,
   },
 
@@ -122,6 +122,8 @@ export class Router {
       document.getElementById("app")!.innerHTML =
         await CompanyVerificationPage.load();
       CompanyVerificationPage.initEventListeners();
+    } else if (hash.includes("supplier/bookings/selected")) {
+      console.log("booking page enabled");
     } else {
       if (route) {
         const content = await route.component.load();

@@ -9,27 +9,27 @@ export class SelectedSupplierCompanyActions {
     const companyId = window.location.hash.split(":")[1];
 
     async function init() {
-      const companyName = document.getElementById(
-        "company-name"
-      ) as HTMLHeadElement;
+      // const companyName = document.getElementById(
+      //   "company-name"
+      // ) as HTMLHeadElement;
 
-      const companyAddress = document.getElementById(
-        "company-address"
-      ) as HTMLParagraphElement;
-      console.log("companyAddress", companyAddress);
+      // const companyAddress = document.getElementById(
+      //   "company-address"
+      // ) as HTMLParagraphElement;
+      // console.log("companyAddress", companyAddress);
 
-      const companyImage = document.getElementById(
-        "company-image"
-      ) as HTMLImageElement;
-      console.log("companyImage", companyImage);
+      // const companyImage = document.getElementById(
+      //   "company-image"
+      // ) as HTMLImageElement;
+      // console.log("companyImage", companyImage);
 
       try {
         const id = Number(companyId);
         const response = await supplierApi.getOne(id);
         console.log("response", response);
-        companyName.textContent = response.companies.name;
-        companyAddress.textContent = response.companies.address;
-        companyImage.src = response.companies.photo;
+        // companyName.textContent = response.companies.name;
+        // companyAddress.textContent = response.companies.address;
+        // companyImage.src = response.companies.photo;
 
         renderContent(response);
       } catch (err) {
@@ -62,26 +62,23 @@ export class SelectedSupplierCompanyActions {
 
       extractData.forEach((service) => {
         const serviceCard = `
-      <div class="h-full p-2 rounded-lg shadow-md flex">
+      <div class="flex justify-center  h-60 -mt-32">
+      <div class=" p-2 w-2/3  rounded-lg shadow-md flex   ">
         <a
           href="#"
-          class="flex flex-col pl-4 bg-white border border-gray-200 rounded-lg shadow md:flex-row w-full hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+          class="flex flex-col pl-6 bg-white border border-gray-200 rounded-lg shadow md:flex-row w-full hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
         >
-          <img
-            class="object-contain w-full h-96 md:h-auto md:w-48 rounded-2xl"
-            src="../../../public/images/services/barber.webp"
-            alt=""
-          />
+          
           <div
             class="flex flex-col gap-y-3 items-start justify-center px-2 leading-normal"
           >
             <h5
-              class="mb-2 text-1xl font-bold tracking-tight text-gray-900 dark:text-white"
+              class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
             >
               ${service.name}
             </h5>
 
-            <p>
+            <p class="text-1xl mb-3 font-normal text-gray-400 dark:text-gray-400">
               ${service.description}
             </p>
 
@@ -94,6 +91,7 @@ export class SelectedSupplierCompanyActions {
             </button>
           </div>
         </a>
+      </div>
       </div>
     `;
         servicesContainer.innerHTML += serviceCard;

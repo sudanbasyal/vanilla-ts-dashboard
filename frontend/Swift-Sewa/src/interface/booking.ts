@@ -1,3 +1,5 @@
+import { Company, ServiceToCompany } from "./company";
+
 export interface BookingForm {
   contactName: string;
   phoneNumber: string;
@@ -18,4 +20,6 @@ export interface Booking {
   isApproved: boolean;
   specialInstructions: string;
   createdAt: string;
+  company: Company;
+  serviceToCompany: ServiceToCompany;
 }

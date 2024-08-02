@@ -1,4 +1,5 @@
 import { supplierApi } from "../../api/supplier";
+import { showToast } from "../../constants/toastify";
 import { Company, CompanyApiResponse } from "../../interface/company";
 
 export class CompaniesActions {
@@ -6,6 +7,8 @@ export class CompaniesActions {
     const init = async () => {
       try {
         const response = await supplierApi.getAll();
+        console.log("response", response);
+        showToast("hello", 2000, "green");
         await renderContent(response);
       } catch (err) {
         console.log("err", err);

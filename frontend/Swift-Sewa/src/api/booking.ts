@@ -14,7 +14,15 @@ export const bookApi = {
   post: async (data: BookingForm) => {
     try {
       const response = await instance.post(`/bookings/`, data);
-      return response.data;
+      return response.status;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  updateStatus: async (id: number, data: { isApproved: boolean }) => {
+    try {
+      const response = await instance.put(`/bookings/${id}`, data);
+      return response;
     } catch (error) {
       console.log(error);
     }

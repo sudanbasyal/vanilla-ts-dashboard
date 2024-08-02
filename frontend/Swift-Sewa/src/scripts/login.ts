@@ -1,8 +1,6 @@
 import axios from "axios";
 import { displayResponseErrors } from "../utils/errorHandler";
 import { userApi } from "../api/user";
-import { UserDecode } from "../utils/auth";
-import Cookies from "js-cookie";
 import { roleAuthApi } from "../api/me";
 import { showToast } from "../constants/toastify";
 
@@ -80,7 +78,7 @@ export class LoginActions {
 
         switch (role) {
           case "user":
-            window.location.href = "/#/user-dashboard/";
+            window.location.href = "#/user/dashboard/";
             break;
           case "admin":
             showToast("logged-in successfully", 3000, "red");
