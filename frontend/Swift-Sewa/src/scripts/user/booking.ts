@@ -2,7 +2,6 @@ import { bookApi } from "../../api/booking";
 
 export class UserBookingActions {
   static userBooking: () => void = async () => {
-    console.log("this is user bookings");
     const hash = window.location.hash.substring(1);
     const companyId = hash.split(":")[1].split("/")[0];
     const companyServiceId = hash.split(":")[2].split("/")[0];
@@ -40,7 +39,6 @@ export class UserBookingActions {
 
       try {
         const userBooking = await bookApi.post(data);
-        console.log("booking", userBooking);
       } catch (err) {
         console.log(err);
       }

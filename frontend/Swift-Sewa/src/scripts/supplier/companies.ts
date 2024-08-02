@@ -3,13 +3,10 @@ import { Company, CompanyApiResponse } from "../../interface/company";
 
 export class CompaniesActions {
   static companies: () => void = () => {
-    console.log("this is companies");
-
     const init = async () => {
       try {
         const response = await supplierApi.getAll();
         await renderContent(response);
-        console.log("response", response);
       } catch (err) {
         console.log("err", err);
       }
@@ -21,7 +18,6 @@ export class CompaniesActions {
 
 const renderContent = async (data: CompanyApiResponse) => {
   const contentDiv = document.getElementsByClassName("content")[0];
-  console.log("data", data.companies);
 
   contentDiv.innerHTML = "";
 

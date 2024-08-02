@@ -11,10 +11,8 @@ export class UserDashboardActions {
     const init = async () => {
       try {
         const categoryResponse = await categoryApi.get();
-        console.log("categoryResponse", categoryResponse);
 
         const serviceResponse = await serviceApi.get();
-        console.log("serviceResponse", serviceResponse);
 
         categories.push(
           ...categoryResponse.message.map((item: Category) => item.id)
@@ -43,7 +41,6 @@ export class UserDashboardActions {
     const searchButton = document.getElementById(
       "search-button"
     ) as HTMLButtonElement;
-    console.log("searchButton", searchButton);
 
     const query = document.getElementById("query-input") as HTMLInputElement;
 
@@ -84,7 +81,6 @@ export class UserDashboardActions {
       const categoryId = target.getAttribute("data-categoryId");
       target.href = `#/categories/:${categoryId}`;
       const location = localStorage.getItem("location");
-      console.log("location", location);
     }
 
     const location = localStorage.getItem("location");
@@ -117,7 +113,6 @@ export class UserDashboardActions {
       }
 
       const searchedData = await serviceApi.getSearchedQuery(query.value);
-      console.log("searchedData", searchedData);
 
       window.location.href = `/#/user/search?${query.value}`;
     }

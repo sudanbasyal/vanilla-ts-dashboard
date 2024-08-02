@@ -16,7 +16,7 @@ import { AdminDashboardServicePage } from "./loader/admin/services";
 import { AdminDashboardUsersPage } from "./loader/admin/users";
 import { PendingCompaniesPage } from "./loader/admin/pendingCompanies";
 import { UserSearchPage } from "./loader/user/search";
-import { RouteComponent } from "./interface/RouteComponent";
+import { RouteComponent } from "./interface/routeComponent";
 import { CompanyVerificationPage } from "./loader/admin/companyVerification";
 
 const routes: { [key: string]: { component: RouteComponent } } = {

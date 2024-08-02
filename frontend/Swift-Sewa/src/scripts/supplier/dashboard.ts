@@ -7,7 +7,6 @@ export class SupplierDashboardActions {
     console.log("registration button", registrationButton);
 
     registrationButton.onclick = () => {
-      console.log("im clicked");
       window.location.href = "#/supplier/registration/";
     };
   };

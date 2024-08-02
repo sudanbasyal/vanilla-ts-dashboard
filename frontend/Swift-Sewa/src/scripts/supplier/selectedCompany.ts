@@ -492,9 +492,7 @@ export class SelectedCompanyActions {
       });
 
       try {
-        console.log("updatedData", updatedData);
         const updatedProfile = await supplierApi.put(updatedData);
-        console.log("updatedProfile", updatedProfile);
       } catch (err) {
         console.log("err", err);
       }
@@ -505,7 +503,6 @@ export class SelectedCompanyActions {
         const id = Number(localStorage.getItem("companyId"));
 
         const response = await supplierApi.getOne(id);
-        console.log("response", response);
 
         localStorage.setItem("categoryId", response.companies.category.id);
 

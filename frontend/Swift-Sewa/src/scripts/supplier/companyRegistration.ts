@@ -260,7 +260,6 @@ export class CompanyRegistrationAction {
 
       try {
         const data = await supplierApi.post(registrationData);
-        console.log("data", data);
       } catch (err) {
         if (axios.isAxiosError(err)) {
           const errorMessage = err.response?.data?.message || err.message;

@@ -41,15 +41,6 @@ export const userApi = {
     }
   },
 
-  // delete: async (id: number) => {
-
-  //   try{
-  //     const response=await instance.delete(`/users/${id}`);
-  //     console.log("response",response)
-
-  //   }
-  // }
-
   login: async (data: Pick<userForm, "email" | "password">) => {
     try {
       const response = await instance.post("/auth/login", data);

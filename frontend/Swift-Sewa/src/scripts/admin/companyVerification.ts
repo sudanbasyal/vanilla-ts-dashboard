@@ -6,7 +6,7 @@ export class CompanyVerification {
   static companyVerification: () => void = async () => {
     try {
       const id = window.location.hash.split(":")[1];
-      console.log("id", id);
+
       const saveButton = document.getElementById(
         "verify-button"
       ) as HTMLButtonElement;

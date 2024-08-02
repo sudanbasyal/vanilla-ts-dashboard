@@ -6,7 +6,7 @@ export class AdminPendingCompanies {
     try {
       async function init() {
         const pendingCompanies = await adminApi.getPendingCompanies();
-        console.log("pendingCompanies", pendingCompanies);
+
         await renderPendingCompanies(pendingCompanies);
       }
 
