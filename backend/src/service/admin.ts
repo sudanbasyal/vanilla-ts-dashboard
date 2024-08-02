@@ -9,7 +9,7 @@ export const getAllPendingCompanies = async () => {
   logger.info("fetching all pending companies");
 
   const companies = await supplierService.pendingCompanies();
-  console.log("companies  fetched here", companies);
+
   if (!companies || companies.length === 0)
     throw new BadRequestError("no pending companies exists at the moment");
   return companies;
@@ -34,9 +34,7 @@ export const verifyCompany = async (companyId: number, isAllowed: boolean) => {
 
   if (!company.isPending) throw new BadRequestError("company already verified");
 
-
   const UserId = company.user.id;
-
 
   if (!isAllowed) {
     logger.info("company is rejected");

@@ -72,7 +72,6 @@ export const updateCompany = async (
   const { id } = req.params;
   const data = req.body;
 
-  console.log("body", req.body);
   const imageFiles = req.files as { [key: string]: Express.Multer.File[] };
 
   try {
@@ -115,7 +114,7 @@ export const deleteSelectedcompanyService = async (
   next: NextFunction
 ) => {
   const ids = req.body;
-  console.log("ids", ids);
+
   const userId = req.user?.id;
   ids.userId = userId;
   try {
@@ -127,5 +126,3 @@ export const deleteSelectedcompanyService = async (
     next(err);
   }
 };
-
-;

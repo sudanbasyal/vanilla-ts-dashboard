@@ -16,11 +16,9 @@ export const createBooking = async (
     const data = req.body;
 
     data.userId = userId;
-    console.log("data", data);
     const booking = await bookingService.createBooking(data);
     res.status(httpStatusCodes.CREATED).json("successful");
   } catch (err) {
-    console.log("error catched", err);
     next(err);
   }
 };

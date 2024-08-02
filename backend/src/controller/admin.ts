@@ -13,7 +13,7 @@ export const getAllPendingCompanies = async (
 ) => {
   try {
     const companies = await adminService.getAllPendingCompanies();
-    console.log("companies", companies);
+
     logger.info("fetched all pending companies");
     res.status(httpStatusCodes.OK).json(companies);
   } catch (err) {
