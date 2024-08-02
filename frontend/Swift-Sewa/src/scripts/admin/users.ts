@@ -47,7 +47,7 @@ export class AdminDashboardUsers {
              <td class="border px-4 py-2 text-center">${user.email}</td>
 
             <td class="border px-4 py-2 text-center">
-               <button class="text-blue-500 mr-1">View</button>
+           
                <button id="delete-button" data-user-id="${user.id}"  class="text-red-500">Delete</button>
              </td>
          

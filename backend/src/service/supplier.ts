@@ -103,6 +103,16 @@ export const pendingCompanies = async () => {
   return await companyRepository.find({ where: { isPending: true } });
 };
 
+export const findRejectedCompany = async (id: number) => {
+  logger.info(" finding company by Id");
+  return await companyRepository.findOne({
+    where: {
+      id,
+    },
+    relations: ["ServiceToCompany"],
+  });
+};
+
 export const findSelectedPendingCompany = async (id: number) => {
   logger.info(" finding company by Id");
   return await companyRepository.findOne({
@@ -110,7 +120,12 @@ export const findSelectedPendingCompany = async (id: number) => {
       id,
       isPending: true,
     },
-    relations: ["ServiceToCompany", "user"],
+    relations: [
+      "user",
+      "ServiceToCompany",
+      "category",
+      "ServiceToCompany.service",
+    ],
   });
 };
 
@@ -217,10 +232,10 @@ export const getCompanies = async (id: number) => {
   const activeCompanies: Company[] = [];
   if (!id) throw new BadRequestError("user not found");
   const companies = await findAll(id);
-  console.log("companies", companies);
+
   if (companies.length === 0) throw new BadRequestError("companies dont exist");
+
   companies.forEach((company) => {
-    console.log("pending", company.isPending);
     if (company.isPending == false) {
       activeCompanies.push(company);
     }
@@ -243,7 +258,7 @@ export const getCompany = async (id: number, userId: number) => {
 
 export const updateCompany = async (
   id: number,
-  data: Partial<companyData>, // Using Partial to make fields optional
+  data: Partial<companyData>,
   imageFiles: { [key: string]: Express.Multer.File[] },
   userId: string
 ) => {
@@ -299,4 +314,15 @@ export const findCompaniesByService = async (query: ServiceCompanyQuery) => {
   const companies = await findByService(query);
   console.log("companies", companies);
   return companies;
+};
+
+export const deleteRejectedCompany = async (id: number, userId: number) => {
+  if (!userId) throw new BadRequestError("user not found");
+
+  const companyExists = await findRejectedCompany(id);
+
+  if (!companyExists) throw new BadRequestError("company doesnt exist");
+
+  const deletedCompany = await remove(companyExists);
+  return deletedCompany;
 };

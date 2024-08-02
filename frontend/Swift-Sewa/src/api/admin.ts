@@ -33,10 +33,11 @@ export const adminApi = {
 
   verifyCompany: async (id: number, isAllowed: boolean) => {
     try {
+      console.log("route id", id);
       const response = await instance.put(`admin/verify-company/${id}`, {
         isAllowed,
       });
-      return response.data;
+      return response.status;
     } catch (err) {
       console.log("err", err);
     }

@@ -12,9 +12,10 @@ export const getAllPendingCompanies = async (
   next: NextFunction
 ) => {
   try {
-    const categories = await adminService.getAllPendingCompanies();
+    const companies = await adminService.getAllPendingCompanies();
+    console.log("companies", companies);
     logger.info("fetched all pending companies");
-    res.status(httpStatusCodes.OK).json(categories);
+    res.status(httpStatusCodes.OK).json(companies);
   } catch (err) {
     next(err);
   }
@@ -43,8 +44,6 @@ export const verifyCompany = async (
   try {
     const { id } = req.params;
     const isAllowed = req.body;
-
-    console.log("id", id);
 
     const status = await adminService.verifyCompany(id, isAllowed.isAllowed);
 
@@ -85,7 +84,6 @@ export const getSelectedUser = async (
   }
 };
 
-// TODO 204 status is retuning the body as null check later
 export const deleteSelectedUser = async (
   req: Request,
   res: Response,
@@ -96,9 +94,7 @@ export const deleteSelectedUser = async (
     const user = await adminService.deleteUser(id);
     logger.info("deleted selected user");
 
-    res
-      .status(httpStatusCodes.NO_CONTENT)
-      .json({ message: "deleted successfully" });
+    res.status(httpStatusCodes.NO_CONTENT);
   } catch (err) {
     next(err);
   }

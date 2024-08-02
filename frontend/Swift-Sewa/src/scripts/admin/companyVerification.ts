@@ -1,5 +1,6 @@
 import { Company, ServiceToCompany } from "./../../interface/company";
 import { adminApi } from "../../api/admin";
+import { showToast } from "../../constants/toastify";
 
 export class CompanyVerification {
   static companyVerification: () => void = async () => {
@@ -14,17 +15,20 @@ export class CompanyVerification {
         "reject-button"
       ) as HTMLButtonElement;
 
-      console.log("saveButton", saveButton);
-      console.log("reject", rejectButton);
-
       saveButton.onclick = async () => {
         const response = await adminApi.verifyCompany(Number(id), true);
-        console.log("response", response);
+        if (response === 200) {
+          showToast(" Successful", 3000, "green");
+          window.location.href = "#/admin/dashboard/";
+        } else {
+          showToast("Company verification failed", 3000, "red");
+        }
       };
 
       rejectButton.onclick = async () => {
         const response = await adminApi.verifyCompany(Number(id), false);
-        console.log("response", response);
+        showToast("Company rejected ", 3000, "green");
+        window.location.href = "#/admin/companies/pending/";
       };
 
       const data = await adminApi.getSelectedPendingCompnay(Number(id));
@@ -92,8 +96,6 @@ export class CompanyVerification {
       }
 
       async function renderContent(data: Company) {
-        console.log("data inside content", data);
-
         const image = document.getElementById(
           "company-image"
         ) as HTMLImageElement;
@@ -153,8 +155,6 @@ export class CompanyVerification {
 
         displayServices(data.ServiceToCompany);
       }
-
-      console.log("data", data);
     } catch (err) {
       console.log("err", err);
     }

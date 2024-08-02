@@ -16,9 +16,10 @@ import { AdminDashboardServicePage } from "./loader/admin/services";
 import { AdminDashboardUsersPage } from "./loader/admin/users";
 import { PendingCompaniesPage } from "./loader/admin/pendingCompanies";
 import { UserSearchPage } from "./loader/user/search";
+import { RouteComponent } from "./interface/RouteComponent";
 import { CompanyVerificationPage } from "./loader/admin/companyVerification";
 
-const routes: { [key: string]: { component: any } } = {
+const routes: { [key: string]: { component: RouteComponent } } = {
   "": {
     component: HomePage,
   },
@@ -80,7 +81,7 @@ const routes: { [key: string]: { component: any } } = {
   "#/admin/dashboard/service": {
     component: AdminDashboardServicePage,
   },
-  "#/admin/users": {
+  "#/admin/users/": {
     component: AdminDashboardUsersPage,
   },
   "#/admin/companies/pending/": {

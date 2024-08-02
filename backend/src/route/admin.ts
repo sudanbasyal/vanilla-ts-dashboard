@@ -5,21 +5,29 @@ import {
   deleteSelectedUser,
   getAllPendingCompanies,
   getAllUsers,
+  getSelectedPendingCompany,
   getSelectedUser,
   verifyCompany,
 } from "../controller/admin";
-``
+
 import { validateReqParams } from "../middleware/validator";
 import { companyIdSchema } from "../schema/supplier";
 import { userIdSchema } from "../schema/user";
 
 const adminRouter = Router();
 
-adminRouter.post(
-  "/pending-companies",
+adminRouter.get(
+  "/companies/pending/:id",
   authenticate,
   authorize("company.verify"),
+  validateReqParams(companyIdSchema),
+  getSelectedPendingCompany
+);
 
+adminRouter.get(
+  "/companies/pending",
+  authenticate,
+  authorize("company.verify"),
   getAllPendingCompanies
 );
 
