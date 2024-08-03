@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="./output.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body class="bg-gray-100 flex">
+    <!-- Sidebar -->
+    <div id="sidebar" class="w-[230px] flex-col bg-white shadow-md h-screen hidden md:block">
+        <div class="relative">
+            <img src="/assets/logo.svg" alt="Swift Sewa" class="h-16 mx-auto py-4" />
+            <button id="closeButton" class="absolute top-2 right-2 text-2xl md:hidden" onclick="toggleSidebar()">
+                <i class="fa-solid fa-times"></i>
+            </button>
+        </div>
+        <ul class="list-none mt-4 space-y-4">
+            <li>
+                <a href="#" class="flex items-center justify-center text-gray-700 hover:text-textHover hover:bg-primary p-2" onclick="loadPage('services.html')">
+                    <i class="fa-solid fa-user-pen mr-2"></i>
+                    <span>Services</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="flex items-center justify-center text-gray-700 hover:text-textHover hover:bg-primary p-2" onclick="loadPage('users.html')">
+                    <i class="fa-solid fa-user-pen mr-2"></i>
+                    <span>Users</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="flex items-center justify-center text-gray-700 hover:text-textHover hover:bg-primary p-2" onclick="loadPage('settings.html')">
+                    <i class="fa-solid fa-gear mr-2"></i>
+                    <span>Settings</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="flex-1">
+        <nav class="bg-primary shadow-md p-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <button id="hamburgerMenu" class="text-2xl md:hidden" onclick="toggleSidebar()">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <h1 class="text-xl">Welcome Shayan</h1>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button class="text-2xl">
+                    <i class="fa-solid fa-bell"></i>
+                </button>
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-user text-2xl"></i>
+                    <div class="flex flex-col">
+                        <p class="text-sm font-semibold">Shayan Bista</p>
+                        <p class="text-xs">bistashayan@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div id="mainContent" class="p-4">
+            <!-- Dynamic content will be loaded here -->
+        </div>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            var sidebar = document.getElementById("sidebar");
+            var hamburgerMenu = document.getElementById("hamburgerMenu");
+
+            // Toggle sidebar visibility
+            sidebar.classList.toggle("hidden");
+
+            // Toggle hamburger menu visibility
+            if (sidebar.classList.contains("hidden")) {
+                hamburgerMenu.classList.remove("hidden");
+            } else {
+                hamburgerMenu.classList.add("hidden");
+            }
+        }
+
+        function loadPage(page) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', page, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    document.getElementById('mainContent').innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send();
+        }
+
+        // Load default page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadPage('services.html');
+        });
+    </script>
+</body>
+</html>

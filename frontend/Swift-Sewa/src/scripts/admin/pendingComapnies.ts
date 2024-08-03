@@ -3,6 +3,17 @@ import { Company } from "../../interface/company";
 
 export class AdminPendingCompanies {
   static pendingCompanies: () => void = async () => {
+    const users = document.getElementById("users") as HTMLButtonElement;
+
+    users.onclick = () => {
+      window.location.href = "#/admin/dashboard/users";
+    };
+    const swiftSewa = document.getElementById(
+      "swift-sewa"
+    ) as HTMLButtonElement;
+    swiftSewa.onclick = () => {
+      window.location.href = "#/admin/dashboard";
+    };
     try {
       async function init() {
         const pendingCompanies = await adminApi.getPendingCompanies();
