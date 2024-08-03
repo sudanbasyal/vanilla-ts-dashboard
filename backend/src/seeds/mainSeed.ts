@@ -17,8 +17,6 @@ async function main() {
       return;
     }
 
-    console.log("no seeding");
-
     await AppDataSource.query(seedLogInsertQuery, [seedName]);
 
     await rolesPermissionseed();

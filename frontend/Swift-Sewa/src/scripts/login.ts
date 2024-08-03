@@ -1,8 +1,8 @@
 import axios from "axios";
 import { displayResponseErrors } from "../utils/errorHandler";
 import { userApi } from "../api/user";
-import { UserDecode } from "../utils/auth";
-import Cookies from "js-cookie";
+import { roleAuthApi } from "../api/me";
+import { showToast } from "../constants/toastify";
 
 export class LoginActions {
   static login: () => void = () => {
@@ -66,19 +66,31 @@ export class LoginActions {
         const loginData = { email, password };
         const checkLogin = await userApi.login(loginData);
 
-        // get the response data
         const {
           message: { accessToken, refreshToken },
         } = checkLogin;
 
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken);
-        const UserInformation = UserDecode(accessToken)!;
-        const role = UserInformation?.role;
-        const userId = UserInformation.id;
-        Cookies.set("role", role[0]);
-        Cookies.set("userId", userId.toString());
-        window.location.href = "/#/dashboard";
+
+        const userRole = await roleAuthApi.getMe();
+        const role = userRole.role[0];
+
+        switch (role) {
+          case "user":
+            window.location.href = "#/user/dashboard/";
+            break;
+          case "admin":
+            showToast("logged-in successfully", 3000, "red");
+            window.location.href = "#/admin/dashboard/";
+            break;
+          case "supplier":
+            window.location.href = "#/supplier/dashboard/";
+            break;
+          default:
+            window.location.href = "/#/login/";
+            break;
+        }
       } catch (err) {
         {
           if (axios.isAxiosError(err)) {

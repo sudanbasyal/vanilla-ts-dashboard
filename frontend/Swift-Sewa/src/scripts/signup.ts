@@ -8,10 +8,12 @@ import {
 export class SignupActions {
   static signUp: () => void = () => {
     let isFormValid: boolean = false;
+    let role: string;
 
     const emailInput = document.getElementById(
       "emailInput"
     ) as HTMLInputElement;
+
     const passwordInput = document.getElementById(
       "passwordInput"
     ) as HTMLInputElement;
@@ -71,6 +73,16 @@ export class SignupActions {
       }
     };
 
+    const radioButtons = document.querySelectorAll('input[name="userType"]');
+    let selectedUserType = "";
+
+    radioButtons.forEach((radio) => {
+      radio.addEventListener("change", (event) => {
+        selectedUserType = (event.target as HTMLInputElement).value;
+        role = `${selectedUserType}`;
+      });
+    });
+
     const login: () => void = () => {
       console.log("this login part is called");
       window.location.href = "/#/login";
@@ -80,7 +92,7 @@ export class SignupActions {
       const email = emailInput.value.trim();
       const password = passwordInput.value.trim();
       const address = addressInput.value.trim();
-      console.log(phoneNumberInput);
+
       const phoneNumber = phoneNumberInput.value.trim();
       const username = usernameInput.value.trim();
 
@@ -93,7 +105,7 @@ export class SignupActions {
         password,
         phoneNumber,
         address,
-        role: "user",
+        role,
       };
 
       const errors = formValidator(formData);

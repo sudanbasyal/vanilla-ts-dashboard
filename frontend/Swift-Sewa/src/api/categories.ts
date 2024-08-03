@@ -10,14 +10,23 @@ export const categoryApi = {
       throw error;
     }
   },
-
-  post: async (data: any) => {
+  getOne: async (id: number) => {
     try {
-      const response = await instance.post(`/categories/`);
+      const response = await instance.get(`/categories/${id}`);
       return response.data;
     } catch (error) {
-      console.error("Error fetching profile:", error);
-      throw error;
+      console.log(error);
+    }
+  },
+
+  getCompanyByCategory: async (data: { id: string; location: string }) => {
+    try {
+      const response = await instance.get(
+        `/categories/${data.id}/companies?location=${data.location}`
+      );
+      return response.data;
+    } catch (error) {
+      console.log(error);
     }
   },
 };

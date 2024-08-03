@@ -13,7 +13,6 @@ export const createUser = async (
   next: NextFunction
 ) => {
   let { email, password, role, name, address, phoneNumber } = req.body;
-  console.log("body", req.body);
 
   try {
     const data = await userService.createUser(
@@ -24,8 +23,21 @@ export const createUser = async (
       address,
       phoneNumber
     );
-    console.log("data", data);
+
     res.status(httpStatusCodes.CREATED).json({ message: "signup success" });
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const getAllUsers = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const users = await userService.getAllUsers();
+    res.status(httpStatusCodes.OK).json({ message: users });
   } catch (err) {
     next(err);
   }
@@ -74,7 +86,6 @@ export const updateUser = async (
 
     res.status(httpStatusCodes.OK).json({ message: "successfully updated" });
   } catch (error) {
-    console.log(error);
     next(error);
   }
 };
@@ -92,9 +103,11 @@ export const deleteUser = async (
       next(new NotFoundError("User not found"));
       return;
     }
-    res.status(httpStatusCodes.OK).json({ message: "deleted successully" });
+
+    res
+      .status(httpStatusCodes.NO_CONTENT)
+      .json({ message: "deleted successully" });
   } catch (error) {
-    console.log(error);
     next(error);
   }
 };

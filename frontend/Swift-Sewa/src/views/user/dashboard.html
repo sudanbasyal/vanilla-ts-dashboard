@@ -13,11 +13,10 @@
         <!-- Location Selector and Profile Icon -->
         <div class="flex items-center space-x-4 ">
           <div class="relative inline-block text-left">
-            <select id="countries" class="bg-gray-50  sm: ml-3 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-            <option selected>Choose a location</option>
+            <select id="location" class="bg-gray-50  sm: ml-3 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             <option value="Kathmandu" selected>Kathmandu</option>
-            <option value="Bhaktapur" selected>Bhaktapur</option>
-            <option value="Lalitpur" selected>Lalitpur</option>
+            <option value="Bhaktapur">Bhaktapur</option>
+            <option value="Lalitpur">Lalitpur</option>
             </select>
   
           </div>
@@ -78,11 +77,12 @@
           </p>
           <div class="flex items-center mb-4">
             <input
+              id="query-input"
               type="text"
               placeholder="Try 'plumbing'"
               class="flex-1 p-2 border rounded-l-lg focus:outline-none"
             />
-            <button class="p-2 bg-orange-500 text-white rounded-r-lg">
+            <button id="search-button" class="p-2 bg-orange-500 text-white rounded-r-lg">
               Search
             </button>
           </div>
@@ -106,11 +106,11 @@
       </div>
     </div>
       </section>
-  <!-- category-section -->
+  <!-- services-section -->
         <section class ="category-section bg-gray-100 w-full">
           <h1 class=" text-2xl text-center pt-10 md:text-4xl text-blue-500">Popular Services</h1>
           <div class="category grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:pt-10 ">
-           <div class="w-full ">
+           <div class="w-full "  id="first-service">
              <div
                     class="px-6  transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2"
                   >
@@ -118,12 +118,12 @@
                   <figure class="h-[50%] w-[80%]">
                   <img src="../../../public/images/services/plumbing.webp" class="object-cover rounded-2xl" alt="img">
                   </figure>
-                  <p class="mt-6">Plumber</p>
+                  <p class="mt-6 text-blue-400">Plumbing</p>
                 </div>
           </div>
           </div>
 
-         <div class="w-full ">
+         <div id="second-service" class="w-full ">
              <div
                     class="px-6  transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2"
                   >
@@ -131,12 +131,12 @@
                   <figure class="h-[50%] w-[80%]">
                   <img src="../../../public/images/services/repairing.webp" class="object-cover rounded-2xl" alt="img">
                   </figure>
-                  <p class="mt-6">mechanic</p>
+                  <p   class="mt-6 text-blue-400">Mechanic</p>
                 </div>
           </div>
           </div>
 
-          <div class="w-full ">
+          <div id="third-service" class="w-full">
              <div
                     class="px-6  transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2"
                   >
@@ -144,12 +144,12 @@
                   <figure class="h-[50%] w-[80%]">
                   <img src="../../../public/images/services/barber.webp" class="object-cover rounded-2xl" alt="img">
                   </figure>
-                  <p class="mt-6">Barber</p>
+                  <p id="third-service" class="mt-6 text-blue-400">Barber</p>
                 </div>
           </div>
           </div>
 
-           <div class="w-full">
+           <div id="fourth-service" class="w-full">
              <div
                     class="px-6  transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2"
                   >
@@ -157,14 +157,14 @@
                   <figure class="h-[50%] w-[80%]">
                   <img src="../../../public/images/services/gym trainer.jpg" class="object-cover rounded-2xl" alt="img">
                   </figure>
-                  <p class="mt-6">Trainer</p>
+                  <p  class="mt-6 text-blue-400 ">Trainer</p>
                 </div>
             </div>
 
           
         </section>
     <!-- categories-section -->
-        <section class ="service -section bg-orange-100 w-full">
+        <section class ="service -section  bg-orange-100 w-full" >
           <h1 class=" text-2xl text-center pt-10 md:text-4xl text-amber-700">Popular Categories</h1>
           <div class="category grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:pt-10 ">
            <div class="w-full flex flex-col items-center">      
@@ -177,11 +177,11 @@
                       </figure> 
                     </a>
                   <div class="p-5">
-                      <a href="#">
+                      <a href="#/categories">
                           <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Your Home, Our Expertise</h5>
                       </a>
                       <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Transform your living space with top-notch home repair services. From quick fixes to major renovations, we’re here.</p>
-                      <a href="#" class=" inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-orange-500 rounded-lg hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                      <a href="/categories"  id="category1"  data-categoryId=" " onclick="getCategory()" data-name="Home Services" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-orange-500 rounded-lg hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                           Get more of us
                           <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
@@ -207,7 +207,7 @@
                           <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Drive With Confidence</h5>
                       </a>
                       <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
-                       <a href="#" class=" inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-orange-500 rounded-lg hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                       <a href="#"    id="category2"   data-categoryId=" "  class=" inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-orange-500 rounded-lg hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                           Get more of us
                           <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
@@ -223,17 +223,17 @@
                <div class="px-6  transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2">
 
               <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                  <a href="#">
+                  <a href="">
                       <figure>
                       <img class="rounded-t-lg" src="../../../public/images/categories/health.webp" alt="" />
                       </figure> 
                     </a>
                   <div class="p-5">
-                      <a href="#">
+                      <a href="">
                           <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Your Health,Our Priority</h5>
                       </a>
                       <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Access top-tier healthcare services right at your doorstep. Compassionate care from trusted professionals.</p>
-                       <a href="#" class=" inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-orange-500 rounded-lg hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                       <a href=""  id="category3"   data-categoryId=" "  class=" inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-orange-500 rounded-lg hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                           Get more of us
                           <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
@@ -249,18 +249,18 @@
                 <div class="px-6  transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2">
 
               <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                  <a href="#">
+                  <a href="">
                       <figure>
                       <img class="rounded-t-lg" src="../../../public/images/categories/beauty.webp" alt="" />
                       </figure> 
                     </a>
                   <div class="p-5">
-                      <a href="#">
+                      <a href="">
                           <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Look Good, Feel Great
-</h5>
+                  </h5>
                       </a>
                       <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Indulge in premium beauty and wellness treatments. Because you deserve the best.</p>
-                      <a href="#" class=" inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-orange-500 rounded-lg hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                      <a href=""  id="category4"    data-categoryId=" " class=" inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-orange-500 rounded-lg hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                           Get more of us
                           <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
@@ -272,8 +272,8 @@
           </div>
           </div>
         </section>
+      <!-- categories -->
         <section>
-
           <footer class="container mx-auto rounded-lg shadow">
             <div class="w-full  p-4 md:py-8 ">
                 <div class="sm:flex sm:items-center sm:justify-between">

@@ -1,12 +1,10 @@
-
 export class HomePageActions {
   static homepage: () => void = () => {
     const navbarMenu: HTMLButtonElement =
       document.querySelector(".navbar-burger")!;
-    console.log("navebarMenu", navbarMenu);
 
     navbarMenu.onclick = () => {
-      let dropdowns = document.querySelector(".dropdown-menu") as any;
+      let dropdowns = document.querySelector(".dropdown-menu") as HTMLElement;
 
       if (dropdowns.classList.contains("hidden")) {
         dropdowns.classList.remove("hidden");

@@ -25,6 +25,7 @@ export const companyBodySchema = Joi.object({
   location: Joi.string().required().messages({
     "any.required": "Location is required",
   }),
+
   userId: Joi.string().required().messages({
     "any.required": "User ID is required",
   }),
@@ -130,6 +131,10 @@ export const companyupdateSchema = Joi.object({
   }),
   photo: Joi.any().optional().messages({
     "any.optional": "Photo is optional",
+  }),
+
+  isActive: Joi.boolean().optional().messages({
+    "any.optional": "status is required",
   }),
   description: Joi.array().items(Joi.string().optional()).optional().messages({
     "array.items": "Description is optional",

@@ -1,4 +1,4 @@
-import {AdminDashboardActions} from "../../scripts/admin/dashboard";
+import { AdminDashboardActions } from "../../scripts/admin/dashboard";
 
 export class AdminDashboardPage {
   static load: () => Promise<string> = async () => {

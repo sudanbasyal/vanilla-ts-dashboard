@@ -19,6 +19,12 @@ export async function rolesPermissionseed() {
   const userPutPermission = new Permission();
   userPutPermission.name = "users.put";
 
+  const userBookPermission = new Permission();
+  userBookPermission.name = "users.book";
+
+  const viewBookPermission = new Permission();
+  viewBookPermission.name = "users.viewBook";
+
   const companyPostPermission = new Permission();
   companyPostPermission.name = "company.post";
 
@@ -39,6 +45,8 @@ export async function rolesPermissionseed() {
     userDeletePermission,
     userGetPermission,
     userPutPermission,
+    userBookPermission,
+    viewBookPermission,
     companyPostPermission,
     companyDeletePermission,
     companyGetPermission,
@@ -54,6 +62,9 @@ export async function rolesPermissionseed() {
     userGetPermission,
     userPutPermission,
     userDeletePermission,
+    userBookPermission,
+    viewBookPermission,
+    companyGetPermission,
   ];
 
   const supplierRole = new Role();
@@ -66,19 +77,18 @@ export async function rolesPermissionseed() {
     companyPostPermission,
     companyPutPermission,
     companyDeletePermission,
+    viewBookPermission,
   ];
 
   const adminRole = new Role();
   adminRole.name = "admin";
   adminRole.permissions = [
-    userPostPermission,
     userDeletePermission,
     userGetPermission,
     userPutPermission,
-    companyPostPermission,
+    userPostPermission,
     companyDeletePermission,
     companyGetPermission,
-    companyPutPermission,
     companyVerifyPermission,
   ];
 

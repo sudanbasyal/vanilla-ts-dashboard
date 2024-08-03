@@ -11,52 +11,22 @@ import { uploadStream } from "../cloudinary";
 import { ServiceToCompany } from "../entity/Company_Service";
 import loggerWithNameSpace from "../utils/logger";
 import { uploadSingleImage } from "../utils/fileUploader";
+import { deleteCompanyService } from "./companytoservice";
+import { CategoryCompanyQuery, ServiceCompanyQuery } from "../interface/query";
+
+import { findByService } from "./companytoservice";
 
 const logger = loggerWithNameSpace("SupplierService");
 
 const companyRepository = AppDataSource.getRepository(Company);
 const companyServiceRepository = AppDataSource.getRepository(ServiceToCompany);
 
-export const findByName = async (name: string) => {
-  logger.info(" finding company by name");
-  return await companyRepository.findOne({ where: { name, isPending: false } });
-};
-
-export const findSelectedPendingCompany = async (id: number) => {
-  logger.info(" finding company by Id");
-  return await companyRepository.findOne({
-    where: {
-      id,
-      isPending: true,
-    },
-    relations: ["ServiceToCompany"],
-  });
-};
-
-export const findByCompanyId = async (id: number, userId: number) => {
-  logger.info(" finding company by Id");
-  return await companyRepository.findOne({
-    where: {
-      id,
-      user: { id: userId },
-    },
-    relations: ["ServiceToCompany"],
-  });
-};
-
-export const findAll = async (id: number) => {
-  return await companyRepository.find({ where: { user: { id } } });
-};
-
-export const pendingCompanies = async () => {
-  return await companyRepository.find({ where: { isPending: true } });
-};
-
 const update = async (
   company: Company,
   data: Partial<companyData>,
   newImage: { imageUrl: string }
 ): Promise<Partial<Company>> => {
+  console.log("dataactive", data.isActive);
   const companyUpdateData: Partial<Company> = {
     ...(data.name && { name: data.name }),
     ...(data.address && { address: data.address }),
@@ -105,6 +75,7 @@ export const createCompany = async (
   newCompany.panPhoto = imageurl.panImageUrl;
   newCompany.openingTime = data.openingTime;
   newCompany.closingTime = data.closingTime;
+  newCompany.description = data.companyDescription;
 
   await companyRepository.save(newCompany);
 
@@ -120,8 +91,71 @@ export const createCompany = async (
   return await Promise.all(promises);
 };
 
-export const remove = async (company: Company) => {
+const remove = async (company: Company) => {
   return await companyRepository.softRemove(company);
+};
+export const findByName = async (name: string) => {
+  logger.info(" finding company by name");
+  return await companyRepository.findOne({ where: { name, isPending: false } });
+};
+
+export const pendingCompanies = async () => {
+  return await companyRepository.find({ where: { isPending: true } });
+};
+
+export const findRejectedCompany = async (id: number) => {
+  logger.info(" finding company by Id");
+  return await companyRepository.findOne({
+    where: {
+      id,
+    },
+    relations: ["ServiceToCompany"],
+  });
+};
+
+export const findSelectedPendingCompany = async (id: number) => {
+  logger.info(" finding company by Id");
+  return await companyRepository.findOne({
+    where: {
+      id,
+      isPending: true,
+    },
+    relations: [
+      "user",
+      "ServiceToCompany",
+      "category",
+      "ServiceToCompany.service",
+    ],
+  });
+};
+
+export const updatePendingStatus = async (id: number, status: boolean) => {
+  return await companyRepository.update(id, { isPending: !status });
+};
+
+export const findByCompanyId = async (id: number, userId: number) => {
+  logger.info(" finding company by Id");
+  return await companyRepository.findOne({
+    where: {
+      id,
+    },
+    relations: ["ServiceToCompany", "category", "ServiceToCompany.service"],
+  });
+};
+
+export const findAll = async (userId: number) => {
+  return await companyRepository.find({ where: { user: { id: userId } } });
+};
+
+const findByCategory = async (id: number, query: CategoryCompanyQuery) => {
+  return await companyRepository.find({
+    where: {
+      category: {
+        id,
+      },
+      location: query.location,
+    },
+  });
 };
 
 export const uploadCompanyImages = async (imageFiles: {
@@ -181,60 +215,111 @@ export const registerCompany = async (
   return newCompany;
 };
 
+const deletecompanyService = async (ids: {
+  userId: number;
+  companyId: number;
+  serviceId: number;
+}) => {
+  const deletedCompany = await deleteCompanyService(ids);
+  if (!deletedCompany) {
+    logger.error("company not deleted");
+    throw new BadRequestError("company not deleted");
+  }
+  return deleteCompany;
+};
+
 export const getCompanies = async (id: number) => {
   const activeCompanies: Company[] = [];
   if (!id) throw new BadRequestError("user not found");
   const companies = await findAll(id);
+
   if (companies.length === 0) throw new BadRequestError("companies dont exist");
+
   companies.forEach((company) => {
-    if (company.isPending === false) {
+    if (company.isPending == false) {
       activeCompanies.push(company);
     }
-
-    if (activeCompanies.length === 0 || !activeCompanies) {
-      throw new BadRequestError(
-        "the company has not been verified by admin please try again later"
-      );
-    }
-    return activeCompanies;
   });
 
-  return companies;
+  if (activeCompanies.length === 0) {
+    throw new BadRequestError(
+      "the company has not been verified by admin please try again later"
+    );
+  }
+
+  return activeCompanies;
+};
+
+export const getCompany = async (id: number, userId: number) => {
+  const company = await findByCompanyId(id, userId);
+  if (!company) throw new BadRequestError("not found");
+  return company;
 };
 
 export const updateCompany = async (
   id: number,
-  data: Partial<companyData>, // Using Partial to make fields optional
+  data: Partial<companyData>,
   imageFiles: { [key: string]: Express.Multer.File[] },
   userId: string
 ) => {
-  try {
-    const company = await findByCompanyId(id, Number(userId));
-    if (!company) throw new BadRequestError("company to update not found");
+  const company = await findByCompanyId(id, Number(userId));
+  if (!company) throw new BadRequestError("company to update not found");
 
-    const newImage =
-      imageFiles !== undefined
-        ? await uploadSingleImage(imageFiles)
-        : { imageUrl: company.photo };
+  const newImage =
+    imageFiles !== undefined
+      ? await uploadSingleImage(imageFiles)
+      : { imageUrl: company.photo };
 
-    const companyServices = await services.getServicesByIds(data.serviceIds!);
-    if (!companyServices) throw new BadRequestError("services not found");
+  const companyServices = await services.getServicesByIds(data.serviceIds!);
+  if (!companyServices) throw new BadRequestError("services not found");
 
-    if (data.name && data.name !== company.name) {
-      const existingCompany = await findByName(data.name);
-      if (existingCompany) throw new BadRequestError("Company already exists");
-    }
-
-    const updatedCompany = await update(company, data, newImage);
-  } catch (err) {
-    console.log("err", err);
+  if (data.name && data.name !== company.name) {
+    const existingCompany = await findByName(data.name);
+    if (existingCompany) throw new BadRequestError("Company already exists");
   }
+
+  const updatedCompany = await update(company, data, newImage);
 };
 
 export const deleteCompany = async (id: number, userId: number) => {
   if (!userId) throw new BadRequestError("user not found");
 
   const companyExists = await findByCompanyId(id, userId);
+
+  if (!companyExists) throw new BadRequestError("company doesnt exist");
+
+  const deletedCompany = await remove(companyExists);
+  return deletedCompany;
+};
+
+export const deleteSelectedcompanyService = async (ids: {
+  userId: number;
+  companyId: number;
+  serviceId: number;
+}) => {
+  if (!ids.userId) throw new BadRequestError("user not found");
+  const deletedService = await deleteCompanyService(ids);
+  return deletedService;
+};
+
+export const findCompanyByCategory = async (
+  categoryId: number,
+  query: CategoryCompanyQuery
+) => {
+  const companies = await findByCategory(categoryId, query);
+  return companies;
+};
+
+export const findCompaniesByService = async (query: ServiceCompanyQuery) => {
+  const companies = await findByService(query);
+  console.log("companies", companies);
+  return companies;
+};
+
+export const deleteRejectedCompany = async (id: number, userId: number) => {
+  if (!userId) throw new BadRequestError("user not found");
+
+  const companyExists = await findRejectedCompany(id);
 
   if (!companyExists) throw new BadRequestError("company doesnt exist");
 

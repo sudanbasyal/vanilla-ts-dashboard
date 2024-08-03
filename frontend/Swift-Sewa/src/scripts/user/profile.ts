@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import { displayResponseErrors } from "../../utils/errorHandler";
 import { userProfile } from "../../interface/userProfile";
+import { roleAuthApi } from "../../api/me";
 
 export class UserProfileActions {
   static userProfile: () => void = async () => {
@@ -27,7 +28,8 @@ export class UserProfileActions {
 
     async function fetchUser() {
       try {
-        const role = Cookies.get("role")!;
+        const currentRole = await roleAuthApi.getMe();
+        const role = currentRole.role[0];
         const data = await userApi.get();
         const { email } = data.data;
         const { name, address, phoneNumber } = data.data.profile;

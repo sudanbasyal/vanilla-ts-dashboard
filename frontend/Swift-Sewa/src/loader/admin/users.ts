@@ -1,6 +1,4 @@
-
 import { AdminDashboardUsers } from "../../scripts/admin/users";
-
 
 export class AdminDashboardUsersPage {
   static load: () => Promise<string> = async () => {

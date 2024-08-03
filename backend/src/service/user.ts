@@ -1,5 +1,5 @@
 import { User } from "../entity/User";
-import { comparePassword, hashPassword } from "../utils/encrypter";
+import { hashPassword } from "../utils/encrypter";
 import * as roleService from "./role";
 import { AppDataSource } from "../dataSource";
 import { UserProfile } from "../entity/UserProfile";
@@ -11,11 +11,17 @@ export const userRepository = AppDataSource.getRepository(User);
 export const userProfileRepository = AppDataSource.getRepository(UserProfile);
 
 export const findAll = () => {
-  return userRepository.find();
+  return userRepository.find({ relations: ["profile"] });
 };
 
 export const findById = async (id: number) => {
-  return userRepository.findOneBy({ id });
+  console.log("id reached here", id);
+  const user = await userRepository.findOne({
+    where: { id },
+    relations: ["company", "company.ServiceToCompany"],
+  });
+  console.log("user found:", user);
+  return user;
 };
 
 export const create = async (
@@ -65,8 +71,8 @@ export const update = async (
   return true;
 };
 
-export const deleteById = async (id: number) => {
-  await userRepository.softDelete(id);
+export const remove = async (user: User) => {
+  await userRepository.softRemove(user);
   return true;
 };
 
@@ -74,7 +80,7 @@ export const findByEmail = async (email: string) => {
   return userRepository.findOneBy({ email });
 };
 
-export const findOne = async (id: number) => {
+export const findOneRolesPermisions = async (id: number) => {
   return userRepository.findOne({
     where: { id },
     relations: ["roles", "roles.permissions"],
@@ -95,7 +101,7 @@ export const getByEmail = async (email: string) => {
 };
 
 export const getUser = async (id: number) => {
-  const user = await findOne(id);
+  const user = await findOneRolesPermisions(id);
   return user;
 };
 
@@ -114,7 +120,6 @@ export const createUser = async (
 ) => {
   const existingUser = await findByEmail(email);
   if (existingUser) {
-    console.log("email reached");
     throw new BadRequestError("Email already in use");
   }
   const newPassword = await hashPassword(password);
@@ -173,10 +178,28 @@ export const updateUserProfile = async (
 
 export const deleteUser = async (id: number) => {
   const userExists = await findById(id);
+
   if (!userExists) return null;
-  const deletedUser = await deleteById(id);
+
+  const deletedUser = await remove(userExists);
   return deletedUser;
 };
 
+export const findUserByCompany = async (companyId: number) => {
+  const user = await userRepository.findOne({
+    where: {
+      company: {
+        id: companyId,
+      },
+    },
+    relations: ["company", "company.ServiceToCompany"],
+  });
 
+  return user;
+};
 
+export const getAllUsers = async () => {
+  const users = await findAll();
+  if (!users || users.length == 0) throw new BadRequestError("users not found");
+  return users;
+};

@@ -10,6 +10,7 @@ export interface companyData {
   price: string[];
   aviliableDays: string;
   openingTime: string;
+  companyDescription: string;
   closingTime: string;
   description: string;
   serviceIds: string[];

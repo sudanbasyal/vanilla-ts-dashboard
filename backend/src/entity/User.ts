@@ -15,6 +15,7 @@ import {
 import { UserProfile } from "./UserProfile";
 import { Role } from "./Role";
 import { Company } from "./Company";
+import { Booking } from "./Booking";
 // import COn
 // import { Company } from "./Company";
 
@@ -42,7 +43,10 @@ export class User {
   @JoinColumn()
   profile: UserProfile;
 
-  @OneToMany(() => Company, (company) => company.user)
+  @OneToMany(() => Booking, (booking) => booking.user, { cascade: true })
+  bookings: Booking[];
+
+  @OneToMany(() => Company, (company) => company.user, { cascade: true })
   company: Company[];
 
   @ManyToMany(() => Role, (role) => role.users, { cascade: true })

@@ -1,9 +1,10 @@
+import { User } from "./../interface/user";
 import httpStatusCodes from "http-status-codes";
 import { NextFunction } from "express";
 import * as authService from "../service/auth";
-import { Request, Response } from "express";
-import { BadRequestError } from "../error/BadRequestError";
+import { Response } from "express";
 import { NotFoundError } from "../error/NotFoundError";
+import { Request } from "../interface/request";
 
 export const login = async (
   req: Request,
@@ -21,5 +22,14 @@ export const login = async (
     res.status(httpStatusCodes.OK).json({ message: data });
   } catch (err) {
     next(err);
+  }
+};
+
+export const getUser = (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const user = req.user?.role;
+    res.status(httpStatusCodes.OK).json({ role: user });
+  } catch (err) {
+    console.log("err", err);
   }
 };

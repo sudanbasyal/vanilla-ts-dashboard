@@ -24,7 +24,6 @@ export async function userRolesSeed() {
 
   const userProfile = new UserProfile();
   userProfile.name = "SuperAdmin";
-  // userProfile.address = "jhamsikhel";
   userProfile.address = "jhamel";
   userProfile.phoneNumber = "9839218313";
   userProfile.user = user;

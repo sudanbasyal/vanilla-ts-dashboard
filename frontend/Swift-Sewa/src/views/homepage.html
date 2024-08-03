@@ -1,156 +1,113 @@
 <body class="h-screen">
-    <nav class="nav-section h-[10vh] bg-white shadow-md py-4 md:px-10">
+ 
+    <nav class="nav-section h-[10vh] bg-white shadow-md py-2 md:py-4 md:px-10 z-10">
       <div
-        class="nav-container mx-auto px-4 flex flex-row justify-between items-center"
+        class="nav-container h-full mx-auto sm:px-10 lg:px-1  flex flex-row justify-between items-center"
       >
         <!-- Logo -->
         <div class="logo flex items-center">
           <span class="text-orange-500 font-bold text-2xl">Swift</span
           ><span class="text-blue-600 font-semibold text-2xl">Sewa</span>
         </div>
-        <!-- Location Selector and Profile Icon -->
-        <div class="flex items-center space-x-4">
-          <div class="relative inline-block text-left">
-            <button
-              class="flex flex-row py-2.5 px-5 mt-2 ml-4 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+
+         <button
+              type="button"
+              class=" sign-in hidden py-2 px-5 mt-2 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 md:block"
             >
-              Kathmandu
-              <svg
-                class="h-5 w-5 text-gray-400 ml-2"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+            <a href="#/signup/"> Sign Up</a> 
+            </button>
+
+            <div class="relative md:hidden">
+              <button
+                class="navbar-burger cursor-pointer flex items-center text-blue-600 p-3"
+                onclick="toggleDropdown()"
               >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
+                <svg
+                  class="block h-4 w-4 fill-current"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <title>Mobile menu</title>
+                  <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+    
+
+      <div
+        class="dropdown-menu lg:w-[10%] absolute right-0 mt-4 bg-white rounded-md shadow-lg z-20 hidden"
+      ><hr>
+          <a
+          href="/#/signup/"
+          class="block text-center  text-orange-500 px-4 py-2 m-2 rounded hover:bg-cyan-200"
+        >
+          SignUp
+        </a>
+
+      </div>
+    </nav>
+
+    <!-- search-section -->
+      <section class="search-section h-[90vh]">
+      <div class="flex h-full pl-10 pr-10 bg-orange-100 justify-between">
+      <div>
+        <div class="flex flex-col justify-center h-full gap-5">
+          <h1 class="text-4xl md:text-6xl mb-7 text-primary text-amber-700">
+            Book Home Service
+            <br />
+            Providers
+            <br />
+            at your fingertips.
+          </h1>
+          <p class="text-lg md:text-xl mb-4 text-blue-500">
+            Search, compare and match with Service Providers of your choice in
+            60 Seconds
+          </p>
+          <div class="flex items-center mb-4">
+            <input
+              type="text"
+              placeholder="Try 'plumbing'"
+              class="flex-1 p-2 border rounded-l-lg focus:outline-none"
+            />
+            <button class="p-2 bg-orange-500 text-white rounded-r-lg">
+              Search
             </button>
           </div>
-          <button
-            type="button"
-            class=" sign-in hidden py-2 px-5 mt-2 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 md:block"
-          >
-          <a href="/src/pages/login.html"> Sign In</a> 
-          </button>
-
-          <div class="relative md:hidden">
-            <button
-              class="navbar-burger cursor-pointer flex items-center text-blue-600 p-3"
-              onclick="toggleDropdown()"
-            >
-              <svg
-                class="block h-4 w-4 fill-current"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <title>Mobile menu</title>
-                <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
-              </svg>
-            </button>
+          <div class="flex space-x-2">
+            <button class="p-2 bg-orange-500 rounded-lg  text-white">Electrician</button>
+            <button class="p-2 bg-orange-500 rounded-lg  text-white">Plumber</button>
+            <button class="p-2 bg-orange-500 rounded-lg  text-white">AC Installation</button>
           </div>
         </div>
       </div>
       <div
-        class="dropdown-menu w-[30%] absolute right-0 mt-4 bg-white rounded-md shadow-lg z-20 hidden"
+        class="hidden lg:flex flex-col lg:pl-32 justify-center h-full gap-5 pr-36"
       >
-        <a
-          href="/#/login"
-          class="block text-center bg-blue-500 text-white px-4 py-2 m-2 rounded hover:bg-blue-600"
-        >
-          Sign In
-        </a>
+        <figure>
+          <img
+            src="../../../public/images/swift2_re.webp"
+            class="rounded-2xl"
+            alt="no image"
+          />
+        </figure>
       </div>
-    </nav>
-
-    <section class="hero-section">
-      <div class="flex flex-col gap-y-5">
-        <div class="hero  flex flex-col lg:flex-row w-full  items-center ">
-          <div class="flex flex-col w-full lg:w-1/2 p-5 justify-start h-full">
-           <div class="container mb-3 mx-auto">
-                  <h6
-                    class="hidden md:block mb-3 text-sm text-gray-900 uppercase dark:text-gray-50"
-                  >
-                    We have many live services
-                  </h6>
-
-                  <h1
-                    class="mb-3  text-2xl md:text-5xl font-semibold leading-tight text-gray-900 dark:text-gray-50"
-                  >
-                    Find your dream services <br />
-                    with <span class="text-orange-500 font-bold ">Swift </span> <span class="-ml-3 text-blue-500 font-bold">Sewa</span>
-                  </h1>
-                  <p
-                    class="text-lg font-light text-gray-500 whitespace-pre-line dark:text-gray-300"
-                  >
-                    Book Home Service Providers at your fingertips
-                  </p>
-
-                  <form action="#">
-                  <div class="registration-form">
-                    <div class="flex ">
-                      <div class="col-span-12 xl:col-span-4">
-                        <div
-                          class="mt-3 rounded-l filter-search-form filter-border mt-md-0"
-                        >
-                          <i class="uil uil-briefcase-alt"></i>
-                          <input
-                            type="search"
-                            id="job-title"
-                            class="md:w-full filter-input-box placeholder:text-gray-100 placeholder:text-13 dark:text-gray-100"
-                            placeholder="Job, Company name..."
-                          />
-                        </div>
-                      </div>
-                      <!--end col-->
-                      <div class="col-span-12 xl:col-span-4">
-                        <div class="mt-3 filter-search-form mt-md-0">
-                          <i class="uil uil-map-marker"></i>
-                          <select
-                            class="form-select"
-                            data-trigger
-                            name="choices-single-location"
-                            id="choices-single-location"
-                            aria-label="Default select example"
-                          >
-                            <option value="AF">Kathmandu</option>
-                            <option value="AX">Lalitpur</option>
-                            <option value="AL">Bhaktapur</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                    <!--end row-->
-                  </div>
-                </form>
-
-                  
-                </div>
-          </div>
-
-          <figure class="lg:w-1/2">
-            <img src="../../public/images/swift1.webp" alt="">
-          </figure>       
-        </div>
+    </div>
       </section>
-          
-        <!-- categorysection -->
-        <section class ="category-section bg-gray-200 w-full">
-          <h1 class="text-center ">Category</h1>
-          <div class="category grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 ">
+  <!-- services-section -->
+        <section class ="category-section bg-orange-50 w-full">
+          <h1 class=" text-2xl text-center pt-10 md:text-4xl text-blue-500">Popular Services</h1>
+          <div class="category grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:pt-10 ">
            <div class="w-full ">
              <div
                     class="px-6  transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2"
                   >
                 <div class="flex flex-col items-center">
-                  <figure class="h-[30%] w-[30%]">
-                  <img src="public/images/category/beauty.webp" class="object-cover rounded-full" alt="img">
+                  <figure class="h-[50%] w-[80%]">
+                  <img src="../../../public/images/services/plumbing.webp" class="object-cover rounded-2xl" alt="img">
                   </figure>
-                  <p class="mt-6">HomeRepairs</p>
+                  <p class="mt-6 text-blue-400">Plumbing</p>
                 </div>
           </div>
           </div>
@@ -159,43 +116,166 @@
              <div
                     class="px-6  transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2"
                   >
-                <div class="flex flex-col items-center">
-                  <figure class="h-[30%] w-[30%]">
-                  <img src="public/images/category/beauty.webp" class="object-cover rounded-full" alt="img">
+                 <div class="flex flex-col items-center">
+                  <figure class="h-[50%] w-[80%]">
+                  <img src="../../../public/images/services/repairing.webp" class="object-cover rounded-2xl" alt="img">
                   </figure>
-                  <p class="mt-6">HomeRepairs</p>
+                  <p class="mt-6 text-blue-400">Mechanic</p>
                 </div>
           </div>
           </div>
-           <div class="w-full ">
+
+          <div class="w-full ">
              <div
                     class="px-6  transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2"
                   >
-                <div class="flex flex-col items-center">
-                  <figure class="h-[30%] w-[30%]">
-                  <img src="public/images/category/beauty.webp" class="object-cover rounded-full" alt="img">
+                 <div class="flex flex-col items-center">
+                  <figure class="h-[50%] w-[80%]">
+                  <img src="../../../public/images/services/barber.webp" class="object-cover rounded-2xl" alt="img">
                   </figure>
-                  <p class="mt-6">HomeRepairs</p>
+                  <p class="mt-6 text-blue-400">Barber</p>
                 </div>
           </div>
           </div>
+
            <div class="w-full">
              <div
                     class="px-6  transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2"
                   >
-                <div class="flex flex-col items-center">
-                  <figure class="h-[30%] w-[30%]">
-                  <img src="public/images/category/beauty.webp" class="object-cover rounded-full" alt="img">
+                 <div class="flex flex-col items-center">
+                  <figure class="h-[50%] w-[80%]">
+                  <img src="../../../public/images/services/gym trainer.jpg" class="object-cover rounded-2xl" alt="img">
                   </figure>
-                  <p class="mt-6">HomeRepairs</p>
+                  <p class="mt-6 text-blue-400 ">Trainer</p>
                 </div>
-          </div>
+            </div>
+
           
         </section>
-      </div>
+    <!-- categories-section -->
+        <section class ="service -section  bg-orange-100 w-full" >
+          <h1 class=" text-2xl text-center pt-10 md:text-4xl text-amber-700">Popular Categories</h1>
+          <div class="category grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:pt-10 ">
+           <div class="w-full flex flex-col items-center">      
+            <div class="px-6  transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2">
 
-        <!-- services-section -->
- 
-    </div>
-   
-  </body>
+              <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                  <a href="#/signup/">
+                      <figure>
+                      <img class="rounded-t-lg" src="../../../public/images/categories/homeservice.webp" alt="" />
+                      </figure> 
+                    </a>
+                  <div class="p-5">
+                      <a href="#/signup/">
+                          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Your Home, Our Expertise</h5>
+                      </a>
+                      <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Transform your living space with top-notch home repair services. From quick fixes to major renovations, we’re here.</p>
+                      <a href="#/signup/"  id="category1"  data-categoryId=" " onclick="getCategory()" data-name="Home Services" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-orange-500 rounded-lg hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                          Get more of us
+                          <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                          </svg>
+                      </a>
+                  </div>
+              </div>
+      
+          </div>
+          </div>
+
+         <div class="w-full flex flex-col items-center ">
+              <div class="px-6  transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2">
+
+              <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                  <a href="#/signup/">
+                      <figure>
+                      <img class="rounded-t-lg" src="../../../public/images/categories/automobile.webp" alt="" />
+                      </figure> 
+                    </a>
+                  <div class="p-5">
+                      <a href="#/signup/">
+                          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Drive With Confidence</h5>
+                      </a>
+                      <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+                       <a href="#/signup/"    id="category2"   data-categoryId=" "  class=" inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-orange-500 rounded-lg hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                          Get more of us
+                          <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                          </svg>
+                      </a>
+                  </div>
+              </div>
+      
+          </div>
+          </div>
+
+          <div class="w-full  flex flex-col items-center">
+               <div class="px-6  transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2">
+
+              <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                  <a href="#/signup/">
+                      <figure>
+                      <img class="rounded-t-lg" src="../../../public/images/categories/health.webp" alt="" />
+                      </figure> 
+                    </a>
+                  <div class="p-5">
+                      <a href="#/signup/">
+                          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Your Health,Our Priority</h5>
+                      </a>
+                      <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Access top-tier healthcare services right at your doorstep. Compassionate care from trusted professionals.</p>
+                       <a href="#/signup/"  id="category3"   data-categoryId=" "  class=" inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-orange-500 rounded-lg hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                          Get more of us
+                          <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                          </svg>
+                      </a>
+                  </div>
+              </div>
+      
+          </div>
+          </div>
+
+           <div class="w-full flex flex-col items-center">
+                <div class="px-6  transition-all duration-500 ease-in-out cursor-pointer lg:py-10 hover:-translate-y-2">
+
+              <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                  <a href="#/signup/">
+                      <figure>
+                      <img class="rounded-t-lg" src="../../../public/images/categories/beauty.webp" alt="" />
+                      </figure> 
+                    </a>
+                  <div class="p-5">
+                      <a href="#/signup/">
+                          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Look Good, Feel Great
+                  </h5>
+                      </a>
+                      <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Indulge in premium beauty and wellness treatments. Because you deserve the best.</p>
+                      <a href="#/signup/"  id="category4"    data-categoryId=" " class=" inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-orange-500 rounded-lg hover:bg-orange-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                          Get more of us
+                          <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                          </svg>
+                      </a>
+                  </div>
+              </div>
+      
+          </div>
+          </div>
+        </section>
+      <!-- categories -->
+        <section>
+
+          <footer class="container mx-auto rounded-lg shadow">
+            <div class="w-full  p-4 md:py-8 ">
+                <div class="sm:flex sm:items-center sm:justify-between">
+                    <span class="flex items-center mb-4 sm:mb-0 space-x-3">
+
+                        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"><Span class="text-orange-500">Swift</Span><span class="text-blue-500">Sewa</span></span>
+                    </span>
+                <p  class="text-gray-500" >Connecting you with reliable service providers for all your needs</p>
+                </div>
+                <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+                <span class="block text-sm text-gray-500 sm:text-center">© <span id="year"></span> <a href="#/signup/" class="hover:underline">SwiftSewa</a>. All Rights Reserved.</span>
+            </div>
+          </footer>
+        </section>
+</body>

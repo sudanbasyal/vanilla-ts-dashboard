@@ -3,6 +3,7 @@ import { categoryApi } from "./../../api/categories";
 import { supplierApi } from "../../api/supplier";
 import { displayResponseErrors } from "../../utils/errorHandler";
 import axios from "axios";
+import { showToast } from "../../constants/toastify";
 
 export class CompanyRegistrationAction {
   static registration: () => void = async () => {
@@ -15,16 +16,18 @@ export class CompanyRegistrationAction {
       try {
         categoriesArray = [];
         const data = await categoryApi.get();
-        console.log("data", data);
+
         const categorySelect = document.getElementById(
           "categoryId"
         ) as HTMLSelectElement;
 
         categorySelect.innerHTML = '<option value="">Select Category</option>';
 
-        data.forEach(
+        data.message.forEach(
           (item: { id: string; name: string; services: string[] }) => {
-            const option = document.createElement("option");
+            const option = document.createElement(
+              "option"
+            ) as HTMLOptionElement;
             option.value = item.id;
             option.textContent = item.name;
             categorySelect.appendChild(option);
@@ -36,7 +39,6 @@ export class CompanyRegistrationAction {
           }
         );
       } catch (error) {
-        console.error("Error fetching profile:", error);
         throw error;
       }
     }
@@ -77,8 +79,6 @@ export class CompanyRegistrationAction {
       ) as HTMLDivElement;
       serviceOptionsContainer.innerHTML = "";
 
-      // TODO change this any type
-
       if (selectedCategory) {
         selectedCategory.services.forEach((service: any) => {
           services.push({
@@ -86,10 +86,10 @@ export class CompanyRegistrationAction {
             name: service.name,
           });
 
-          const label = document.createElement("label");
+          const label = document.createElement("label") as HTMLLabelElement;
           label.classList.add("inline-flex", "items-center", "block", "mt-2");
 
-          const input = document.createElement("input");
+          const input = document.createElement("input") as HTMLInputElement;
           input.type = "checkbox";
           input.name = "serviceId[]";
           input.value = service.id;
@@ -142,15 +142,12 @@ export class CompanyRegistrationAction {
 
     submitButton.onclick = async (e) => {
       e.preventDefault();
-      console.log("i am clicked ");
 
-      // Gather form data
       const formData: { [key: string]: any } = {};
 
       formData.serviceIds = [];
       formData.servicePrices = [];
 
-      // Basic information
       formData.photo = document.getElementById("photo") as HTMLInputElement;
       formData.photo = formData.photo.files[0];
 
@@ -163,17 +160,23 @@ export class CompanyRegistrationAction {
       formData.name = (
         document.getElementById("name") as HTMLInputElement
       ).value;
-      console.log("formdata name", formData.name);
 
       formData.phoneNumber = (
         document.getElementById("phoneNumber") as HTMLInputElement
       ).value;
+
       formData.address = (
         document.getElementById("address") as HTMLInputElement
       ).value;
+
       formData.location = (
         document.getElementById("location") as HTMLSelectElement
       ).value;
+
+      formData.description = (
+        document.getElementById("company-description") as HTMLInputElement
+      ).value;
+
       let openingTime = document.getElementById(
         "openingTime"
       ) as HTMLInputElement;
@@ -219,32 +222,50 @@ export class CompanyRegistrationAction {
       registrationData.append("openingTime", formData.openingTime);
       registrationData.append("closingTime", formData.closingTime);
       registrationData.append("aviliableDays", formData.availableDays);
+      registrationData.append(
+        "companyDescription",
+        formData.companyDescription
+      );
+
+      console.log("formdata", formData.serviceIds);
 
       // Append category
       registrationData.append("categoryId", formData.categoryId);
+      registrationData.append(
+        `serviceIds`,
+        JSON.stringify(formData.serviceIds)
+      );
+      registrationData.append(`price`, JSON.stringify(formData.servicePrices));
 
       // Append services
-      formData.serviceIds.forEach((serviceId: string) => {
-        registrationData.append(`serviceIds`, serviceId);
-      });
+      // formData.serviceIds.forEach((serviceId: string) => {
+      //   registrationData.append(`serviceIds`, serviceId);
+      // });
 
-      // Append servicePrices
-      formData.servicePrices.forEach((price: string) => {
-        registrationData.append(`price`, price);
-      });
+      // // Append servicePrices
+      // formData.servicePrices.forEach((price: string) => {
+      //   registrationData.append(`price`, price);
+      // });
 
+      // getting id of user from cookie
       const userId = Cookies.get("userId")!;
-
       registrationData.append("userId", userId);
+
+      showToast("Please wait while we process your request", 3000, "blue");
 
       try {
         const data = await supplierApi.post(registrationData);
-        console.log("data", data);
+        showToast(
+          "Successful Please wait until admin verifies it",
+          3000,
+          "green"
+        );
       } catch (err) {
         if (axios.isAxiosError(err)) {
           const errorMessage = err.response?.data?.message || err.message;
           displayResponseErrors(errorMessage);
         } else if (err instanceof Error) {
+          showToast(err.message, 3000, "red");
           displayResponseErrors(err.message);
         } else {
           displayResponseErrors("An unknown error occurred.");

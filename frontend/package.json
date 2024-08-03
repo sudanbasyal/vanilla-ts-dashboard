@@ -2,6 +2,7 @@
   "dependencies": {
     "joi": "^17.13.3",
     "swiper": "^11.1.5",
+    "toastify": "^2.0.1",
     "universal-router": "^9.2.0"
   },
   "devDependencies": {

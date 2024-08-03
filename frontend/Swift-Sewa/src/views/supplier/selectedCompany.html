@@ -1,0 +1,151 @@
+<section
+  class="user-profile w-screen h-screen bg-orange-50 flex justify-center"
+>
+  <div
+    class="profile-container bg-white opacity-80 h-[100vh] w-[80vw] flex rounded-lg overflow-hidden shadow-lg"
+  >
+    <div class="w-full h-full flex flex-col items-center">
+      <figure class="w-full h-2/5">
+        <img
+          id="company-image"
+          src="#"
+          class="w-full h-full object-cover"
+          alt="Companyimg"
+          class="w-full h-full object-cover"
+        />
+      </figure>
+      <section class="w-full profile-section p-4">
+        <ul>
+          <li class="list flex justify-between text-black text-lg p-2">
+            <span class="label">Name:</span>
+            <span class="name">The madads</span>
+          </li>
+          <h2 class="text-black text-2xl p-2 border-b border-gray-600"></h2>
+          <li class="list flex justify-between text-black text-lg p-2">
+            <span class="label">Address:</span>
+            <span class="address">The madads</span>
+          </li>
+          <h2 class="text-black text-2xl p-2 border-b border-gray-600"></h2>
+          <li class="list flex justify-between text-black text-lg p-2">
+            <span class="label">Phone:</span>
+            <span class="phone">The madads</span>
+          </li>
+          <h2 class="text-black text-2xl p-2 border-b border-gray-600"></h2>
+
+          <li class="list flex justify-between text-black text-lg p-2">
+            <span class="label">Opening Time:</span>
+            <span class="openingTime">10:00 AM</span>
+          </li>
+
+          <h2 class="text-black text-2xl p-2 border-b border-gray-600"></h2>
+
+          <li class="list flex justify-between text-black text-lg p-2">
+            <span class="label">Closing Time:</span>
+            <span class="closingTime">10:00 PM</span>
+          </li>
+
+          <h2 class="text-black text-2xl p-2 border-b border-gray-600"></h2>
+
+          <li class="list flex justify-between text-black text-lg p-2">
+            <span class="label">Status:</span>
+            <span class="status">Active</span>
+          </li>
+
+          <h2 class="text-black text-2xl p-2 border-b border-gray-600"></h2>
+
+          <li class="list flex justify-between text-black text-lg p-2">
+            <span class="label">location:</span>
+            <span class="location">Kathmandu</span>
+          </li>
+        </ul>
+      </section>
+    </div>
+    <div class="w-full h-full bg-orange-100 p-4 flex flex-col">
+      <div class="category-section mb-8">
+        <h2 class="text-orange-800 text-2xl p-2 border-b border-gray-600">
+          Category
+        </h2>
+        <ul class="mt-4">
+          <li class="list flex justify-between text-black text-lg px-6 py-3">
+            <span class="label">Name:</span>
+            <span class="category-name">The madads</span>
+          </li>
+          <li class="list flex justify-between text-black text-lg px-6">
+            <span class="label">Description:</span>
+            <span class="category-description">The madads</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="services-section">
+        <h2 class="text-black text-2xl p-2 border-b border-gray-600">
+          Services
+        </h2>
+        <ul class="mt-4">
+          <li class="services-list"></li>
+        </ul>
+      </div>
+
+      <!-- Add Service Button -->
+      <button
+        id="add-service-button"
+        type="button"
+        class="text-black max-w-32 bg-yellow-500 hover:bg-yellow-700 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-yellow-600 dark:hover:bg-yellow-700 focus:outline-none dark:focus:ring-yellow-800"
+      >
+        Add Service
+      </button>
+
+      <!-- Modal for Selecting Service -->
+      <div
+        id="service-selection-modal"
+        class="hidden fixed inset-0 bg-gray-600 bg-opacity-75 flex justify-center items-center"
+      >
+        <div class="bg-blactext-black rounded-lg shadow-lg p-6 w-1/3">
+          <h2 class="text-xl mb-4">Select Service to Add</h2>
+          <select
+            id="service-selection-dropdown"
+            class="w-full mb-4 p-2 border border-gray-300 rounded-lg"
+          ></select>
+          <button
+            id="add-service-modal-button"
+            type="button"
+            class="text-black bg-green-500 hover:bg-green-700 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5"
+          >
+            Add Selected Service
+          </button>
+          <button
+            id="close-service-modal-button"
+            type="button"
+            class="text-black bg-red-500 hover:bg-red-700 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mt-2"
+            onclick="document.getElementById('service-selection-modal').classList.add('hidden')"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+
+      <button
+        id="update-button"
+        type="button"
+        class="text-black max-w-32 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+      >
+        Update
+      </button>
+
+      <button
+        id="delete-button"
+        type="button"
+        class="text-black max-w-32 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+      >
+        delete service
+      </button>
+      <button
+        id="save-button"
+        type="button"
+        class="text-black max-w-32 bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800 hidden"
+      >
+        Save
+      </button>
+    </div>
+  </div>
+</section>
