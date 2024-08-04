@@ -13,13 +13,19 @@ export const registerCompany = async (
 ) => {
   const id = req.user?.id!;
 
+  const serviceIds = JSON.parse(req.body.serviceIds);
+  const servicePrices = JSON.parse(req.body.price);
+  req.body.price = servicePrices;
+  req.body.serviceIds = serviceIds;
+  req.body.userId = id;
+
   try {
     const imageFiles = req.files as { [key: string]: Express.Multer.File[] };
 
     const newCompany = await supplierService.registerCompany(
       req.body,
       imageFiles,
-      String(id)
+      id
     );
 
     logger.info("created succesfully");
@@ -72,6 +78,8 @@ export const updateCompany = async (
   const { id } = req.params;
   const data = req.body;
 
+  console.log("data", data);
+
   const imageFiles = req.files as { [key: string]: Express.Multer.File[] };
 
   try {
@@ -117,10 +125,13 @@ export const deleteSelectedcompanyService = async (
 
   const userId = req.user?.id;
   ids.userId = userId;
+  console.log("this id is called");
+
   try {
     const deltedService = await supplierService.deleteSelectedcompanyService(
       ids
     );
+
     res.status(httpStatusCodes.NO_CONTENT).json({ message: "deleted" });
   } catch (err) {
     next(err);
